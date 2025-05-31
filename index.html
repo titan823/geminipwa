@@ -2480,94 +2480,8 @@
         .custom-dialog .dialog-cancel-btn:hover:not(:disabled) {
             background-color: var(--bg-button-action-hover);
         }
-        .thought-summary-details {
-            margin-bottom: 10px;
-            font-size: 13px;
-            border: 1px solid var(--border-tertiary);
-            border-radius: 5px;
-            background-color: var(--bg-tertiary);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        .thought-summary-details summary {
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-secondary);
-            list-style: none;
-            padding: 6px 10px;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            user-select: none;
-        }
-        .thought-summary-details summary::-webkit-details-marker { display: none; }
-        .thought-summary-details summary::marker { display: none; }
-        .thought-summary-details summary::before {
-            content: '💭';
-            font-size: 14px;
-            display: inline-block;
-        }
-        .thought-summary-details[open] summary {
-            border-bottom: 1px solid var(--border-tertiary);
-        }
-        .thought-summary-content {
-            padding: 8px 10px;
-            font-size: 13px;
-            line-height: 1.5;
-            color: var(--text-primary);
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        .thought-summary-content > *:first-child { margin-top: 0; }
-        .thought-summary-content > *:last-child { margin-bottom: 0; }
-        .thought-summary-content ul,
-        .thought-summary-content ol { margin-left: 1em;}
-        body.dark-mode .thought-summary-details {
-            border-color: var(--border-primary);
-            background-color: var(--bg-secondary);
-        }
-        body.dark-mode .thought-summary-details summary {
-            color: var(--text-secondary);
-        }
-        body.dark-mode .thought-summary-details[open] summary {
-            border-bottom-color: var(--border-primary);
-        }
-        body.dark-mode .thought-summary-content {
-            color: var(--text-primary);
-        }
-        .thought-summary-content pre {
-            background-color: var(--bg-secondary);
-            padding: 8px;
-            border-radius: 4px;
-            overflow-x: auto;
-            margin: 0.8em 0;
-            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-            font-size: 12px;
-            border: 1px solid var(--border-tertiary);
-            color: var(--text-secondary);
-        }
-        body.dark-mode .thought-summary-content pre {
-            background-color: var(--bg-tertiary);
-            border-color: var(--border-primary);
-            color: var(--text-secondary);
-        }
-        .thought-summary-content code:not(pre > code) {
-            background-color: var(--bg-secondary);
-            padding: 0.1em 0.3em;
-            border-radius: 3px;
-            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-            font-size: 0.85em;
-            border: 1px solid var(--border-tertiary);
-            color: var(--text-secondary);
-        }
-        body.dark-mode .thought-summary-content code:not(pre > code) {
-            background-color: var(--bg-tertiary);
-            border-color: var(--border-primary);
-            color: var(--text-secondary);
-        }
         .citation-details {
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 12px;
             border-top: 1px dashed var(--border-secondary);
             padding-top: 8px;
@@ -2957,18 +2871,7 @@
             </header>
             <main class="main-content">
                 <details open class="settings-group">
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">APIプロバイダー設定</summary>
-                    <div style="margin-top:15px;">
-                        <label for="api-provider-select">使用するAPIプロバイダー:</label>
-                        <select id="api-provider-select" aria-label="APIプロバイダー選択">
-                            <option value="gemini">Google Gemini</option>
-                            <option value="deepseek">DeepSeek</option>
-                        </select>
-                    </div>
-                </details>
-
-                <details id="gemini-settings-group" class="settings-group">
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">Gemini API 設定</summary>
+                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">基本設定</summary>
                     <div style="margin-top:15px;">
                         <label for="api-key">Gemini APIキー:</label>
                         <input type="password" id="api-key" placeholder="APIキーを入力" aria-label="Gemini APIキー">
@@ -2990,66 +2893,19 @@
                                 <option value="gemini-2.5-pro-exp-03-25">gemini-2.5-pro-exp-03-25</option>
                             </optgroup>
                         </select>
-                        <label for="additional-models" style="margin-top:10px;">追加モデル (カンマ区切り):</label>
-                        <textarea id="additional-models" placeholder="例: gemini-2.0-pro,gemini-2.0-flash-lite" aria-label="追加モデル"></textarea>
-                    </div>
-                </details>
 
-                <details id="deepseek-settings-group" class="settings-group hidden">
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">DeepSeek API 設定</summary>
-                    <div style="margin-top:15px;">
-                        <label for="deepseek-api-key">DeepSeek APIキー:</label>
-                        <input type="password" id="deepseek-api-key" placeholder="DeepSeek APIキーを入力" aria-label="DeepSeek APIキー">
-
-                        <label for="deepseek-model-name">DeepSeek モデル名:</label>
-                        <select id="deepseek-model-name" aria-label="DeepSeek モデル名">
-                            <optgroup label="基本モデル (DeepSeek)">
-                                <option value="deepseek-chat">deepseek-chat</option>
-                                <option value="deepseek-coder">deepseek-coder</option>
-                                <option value="deepseek-reasoner">deepseek-reasoner</option>
-                            </optgroup>
-                        </select>
-                        <label for="deepseek-additional-models" style="margin-top:10px;">DeepSeek 追加モデル (カンマ区切り):</label>
-                        <textarea id="deepseek-additional-models" placeholder="例: custom-model-1,custom-model-2" aria-label="DeepSeek 追加モデル"></textarea>
-
-                        <label for="deepseek-api-endpoint" style="margin-top:10px;">DeepSeek APIエンドポイント (オプション):</label>
-                        <input type="text" id="deepseek-api-endpoint" placeholder="例: https://api.deepseek.com" aria-label="DeepSeek APIエンドポイント">
-                         <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
-                           ※ 空欄の場合はデフォルト (https://api.deepseek.com) を使用し、パスは `/chat/completions` です。
-                         </p>
-                         <div id="deepseek-thoughts-param" class="settings-group" style="margin-top:20px; padding:0; border:0; background:transparent;">
-                            <h3 style="margin-top:15px; margin-bottom:10px; font-size:14px; border:0; padding:0;">思考プロセス (DeepSeek)</h3>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="include-deepseek-thoughts-toggle">
-                                Include Thoughts (DeepSeek)
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="expand-deepseek-thoughts-by-default-toggle">
-                                💭思考プロセスを開いた状態にする (DeepSeek)
-                            </label>
-                            <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
-                                ※ deepseek-reasoner モデル等で利用可能。<br>
-                                ※ 非ストリーミング時のみ取得されます。
-                            </p>
-                        </div>
-                    </div>
-                </details>
-
-                <details open class="settings-group">
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">基本設定 (共通)</summary>
-                    <div style="margin-top:15px;">
                         <label class="checkbox-label">
                             <input type="checkbox" id="streaming-output">
                             ストリーミング出力を使用する
                         </label>
+
                         <label for="streaming-speed">文字送り速度 (ミリ秒/文字):</label>
                         <input type="number" id="streaming-speed" min="0" step="1" placeholder="例: 30 (0で無効)" aria-label="文字送り速度">
                     </div>
                 </details>
 
-
                 <details open class="settings-group">
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">パラメータ (共通)</summary>
+                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">パラメータ</summary>
                     <div style="margin-top:15px;">
                         <label for="system-prompt-default">システムプロンプト (デフォルト):</label>
                         <textarea id="system-prompt-default" placeholder="例: あなたは親切なアシスタントです。新規チャット作成時に適用されます。" aria-label="システムプロンプト (デフォルト)"></textarea>
@@ -3067,8 +2923,8 @@
                                 <label for="temperature">Temperature:</label>
                                 <input type="number" id="temperature" step="0.1" min="0" max="2" placeholder="例:0.9(0.0-2.0)" aria-label="Temperature">
                             </div>
-                            <div id="gemini-topk-param">
-                                <label for="top-k">Top K (Gemini):</label>
+                            <div>
+                                <label for="top-k">Top K:</label>
                                 <input type="number" id="top-k" step="1" min="1" placeholder="例:40(1-40)" aria-label="Top K">
                             </div>
                             <div>
@@ -3078,7 +2934,7 @@
                         </div>
 
                         <details style="margin-top: 15px;">
-                            <summary style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); margin-bottom: 10px; list-style: revert;">その他パラメータ (共通/Gemini)</summary>
+                            <summary style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); margin-bottom: 10px; list-style: revert;">その他パラメータ</summary>
                             <div class="param-grid">
                                  <div>
                                     <label for="presence-penalty">Presence Penalty:</label>
@@ -3093,9 +2949,9 @@
                                 ※ Presence/Frequency Penaltyは一部モデルでは非対応、APIエラーとなる場合あり
                             </p>
                             <p style="height:16px;"></p>
-                            <div id="gemini-thinking-budget-param" class="param-grid">
+                            <div class="param-grid">
                                 <div>
-                                    <label for="thinking-budget">Thinking Budget (Gemini):</label>
+                                    <label for="thinking-budget">Thinking Budget:</label>
                                     <input type="number" id="thinking-budget" step="1" min="0" placeholder="例: 5000 (0～24576整数)" aria-label="Thinking Budget">
                                     <div style="display: flex; gap: 8px; margin-top: 5px; margin-bottom: 10px;">
                                         <button type="button" class="set-thinking-budget-btn" data-value="null" style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">無</button>
@@ -3104,30 +2960,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <p id="gemini-thinking-budget-notice" style="font-size: 11px; color: var(--text-secondary); margin-top: 8px;">
+                            <p style="font-size: 11px; color: var(--text-secondary); margin-top: 8px;">
                                 ※ Thinking Budgetは新しいGeminiモデルのみ対応。0明示でthinkingをOFF。<br>
                                 ※ 1～1024指定時は固定で1024になる
                             </p>
-                            <div id="gemini-thoughts-param">
-                                <label class="checkbox-label" style="margin-top: 15px;">
-                                    <input type="checkbox" id="include-thoughts-toggle">
-                                    Include Thoughts (Gemini)
-                                </label>
-                                <label class="checkbox-label" style="margin-top: -5px;">
-                                    <input type="checkbox" id="expand-thoughts-by-default-toggle">
-                                    💭思考プロセスを開いた状態にする (Gemini)
-                                </label>
-                                <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
-                                    ※ チェック時、モデルの思考プロセスの要約が返る。<br>
-                                    ※ thinkingConfigが有効なGeminiモデルでのみ機能。
-                                </p>
-                            </div>
                         </details>
                     </div>
                 </details>
 
                 <details open class="settings-group">
-                   <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">アドバンスド (共通)</summary>
+                   <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">アドバンスド</summary>
                    <div style="margin-top:15px;">
                        <label for="dummy-user">ダミー User プロンプト (送信時のみ追加):</label>
                        <textarea id="dummy-user" placeholder="API送信直前に user ロールとして履歴末尾に追加されます" aria-label="ダミー User プロンプト"></textarea>
@@ -3150,27 +2992,25 @@
                            ※チェック時、モデル応答の先頭に上記ダミーModelの内容を付与。
                        </p>
 
-                       <div id="gemini-pseudo-streaming-param">
-                           <label class="checkbox-label">
-                               <input type="checkbox" id="pseudo-streaming">
-                               疑似ストリーミングを使用 (Gemini/ストリーミングON時のみ有効)
-                           </label>
-                           <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
-                               ※実際には一括生成を呼び、応答はストリーミング再生を行う。<br>
-                               普通のストリーミングより生成待ち時間は長くなる。
-                           </p>
-                       </div>
+                       <label class="checkbox-label">
+                           <input type="checkbox" id="pseudo-streaming">
+                           疑似ストリーミングを使用<br> (ストリーミングON時のみ有効)
+                       </label>
+                       <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
+                           ※実際には一括生成を呼び、応答はストリーミング再生を行う。<br>
+                           普通のストリーミングより生成待ち時間は長くなる。
+                       </p>
                     </div>
                 </details>
-                <div id="gemini-grounding-param" class="settings-group">
-                    <h3>検索 (Gemini)</h3>
+                <div class="settings-group">
+                    <h3>検索</h3>
                     <label class="checkbox-label">
                         <input type="checkbox" id="enable-grounding-toggle">
                         ネットから情報を取得させる (Google Search)
                     </label>
                     <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
                         ※ チェック時、モデルは回答生成のためにWeb検索を行う。<br>
-                        ※ Gemini 2.0以降でのみ対応(1.5以前は互換なし。エラーになる)<br>
+                        ※ 2.0以降でのみ対応(1.5以前は互換なし。エラーになる)<br>
                         ※ 推論モデルは推論内で検索する場合があり、引用データが帰らない場合がある。
                     </p>
                 </div>
@@ -3336,10 +3176,6 @@
                                <input type="checkbox" id="auto-scroll-on-new-message">
                                メッセージ送受信時に自動スクロールする
                            </label>
-                           <label class="checkbox-label">
-                               <input type="checkbox" id="auto-scroll-on-thought">
-                               思考プロセス受信時に自動スクロールする
-                           </label>
                            <p style="height:10px"></p>
                            <label class="checkbox-label">
                                <input type="checkbox" id="swipe-navigation-toggle">
@@ -3500,6 +3336,11 @@
                            <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
                                ※ 空欄でデフォルト値。
                            </p>
+                           <label for="additional-models" style="margin-top:10px;">追加モデル (カンマ区切り):</label>
+                           <textarea id="additional-models" placeholder="例: gemini-2.0-pro,gemini-2.0-flash-lite" aria-label="追加モデル"></textarea>
+                           <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
+                               ※ 追加後は設定を保存の上、ページをリロード。
+                           </p>
                            <details style="margin-top: 15px; margin-bottom: 15px;">
                                 <summary style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); list-style: revert;">各種透明度設定</summary>
                                 <div style="padding-left: 15px; margin-top: 10px;">
@@ -3595,7 +3436,6 @@
         const CHAT_UPDATEDAT_INDEX = 'updatedAtIndex';
         const CHAT_CREATEDAT_INDEX = 'createdAtIndex';
         const DEFAULT_MODEL = 'gemini-2.0-flash';
-        const DEFAULT_DEEPSEEK_MODEL = 'deepseek-chat';
         const DEFAULT_STREAMING_SPEED = 12;
         const DEFAULT_TEMPERATURE = 0.5;
         const DEFAULT_MAX_TOKENS = 4000;
@@ -3619,7 +3459,6 @@
         const CHAT_TITLE_LENGTH = 15;
         const TEXTAREA_MAX_HEIGHT = 120;
         const GEMINI_API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
-        const DEEPSEEK_API_DEFAULT_BASE_URL = 'https://api.deepseek.com';
         const DUPLICATE_SUFFIX = ' (コピー)';
         const IMPORT_PREFIX = '(取込) ';
 
@@ -3675,7 +3514,7 @@
         const LIGHT_MODE_PRIMARY_COLOR = '#ffffff';
 
 
-        const APP_VERSION = "0.26ti";
+        const APP_VERSION = "0.25ti";
         const SWIPE_THRESHOLD = 50;
         const ZOOM_THRESHOLD = 1.01;
         const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -3733,26 +3572,9 @@
             systemPromptEditor: document.getElementById('system-prompt-editor'),
             saveSystemPromptBtn: document.getElementById('save-system-prompt-btn'),
             cancelSystemPromptBtn: document.getElementById('cancel-system-prompt-btn'),
-            apiProviderSelect: document.getElementById('api-provider-select'),
-            geminiSettingsGroup: document.getElementById('gemini-settings-group'),
             apiKeyInput: document.getElementById('api-key'),
             modelNameSelect: document.getElementById('model-name'),
             userDefinedModelsGroup: document.getElementById('user-defined-models-group'),
-            additionalModelsTextarea: document.getElementById('additional-models'),
-            deepSeekSettingsGroup: document.getElementById('deepseek-settings-group'),
-            deepSeekApiKeyInput: document.getElementById('deepseek-api-key'),
-            deepSeekModelNameSelect: document.getElementById('deepseek-model-name'),
-            deepSeekAdditionalModelsTextarea: document.getElementById('deepseek-additional-models'),
-            deepSeekApiEndpointInput: document.getElementById('deepseek-api-endpoint'),
-            deepSeekThoughtsParam: document.getElementById('deepseek-thoughts-param'),
-            includeDeepSeekThoughtsToggle: document.getElementById('include-deepseek-thoughts-toggle'),
-            expandDeepSeekThoughtsByDefaultToggle: document.getElementById('expand-deepseek-thoughts-by-default-toggle'),
-            geminiTopKParam: document.getElementById('gemini-topk-param'),
-            geminiThinkingBudgetParam: document.getElementById('gemini-thinking-budget-param'),
-            geminiThinkingBudgetNotice: document.getElementById('gemini-thinking-budget-notice'),
-            geminiThoughtsParam: document.getElementById('gemini-thoughts-param'),
-            geminiPseudoStreamingParam: document.getElementById('gemini-pseudo-streaming-param'),
-            geminiGroundingParam: document.getElementById('gemini-grounding-param'),
             streamingOutputCheckbox: document.getElementById('streaming-output'),
             streamingSpeedInput: document.getElementById('streaming-speed'),
             systemPromptDefaultTextarea: document.getElementById('system-prompt-default'),
@@ -3764,18 +3586,16 @@
             presencePenaltyInput: document.getElementById('presence-penalty'),
             frequencyPenaltyInput: document.getElementById('frequency-penalty'),
             thinkingBudgetInput: document.getElementById('thinking-budget'),
-            includeThoughtsToggle: document.getElementById('include-thoughts-toggle'),
-            expandThoughtsByDefaultToggle: document.getElementById('expand-thoughts-by-default-toggle'),
             setThinkingBudgetBtns: document.querySelectorAll('.set-thinking-budget-btn'),
             dummyUserInput: document.getElementById('dummy-user'),
             enableDummyUserCheckbox: document.getElementById('enable-dummy-user'),
             dummyModelInput: document.getElementById('dummy-model'),
             enableDummyModelCheckbox: document.getElementById('enable-dummy-model'),
             concatDummyModelCheckbox: document.getElementById('concat-dummy-model'),
+            additionalModelsTextarea: document.getElementById('additional-models'),
             pseudoStreamingCheckbox: document.getElementById('pseudo-streaming'),
             enterToSendCheckbox: document.getElementById('enter-to-send'),
             autoScrollOnNewMessageCheckbox: document.getElementById('auto-scroll-on-new-message'),
-            autoScrollOnThoughtCheckbox: document.getElementById('auto-scroll-on-thought'),
             historySortOrderSelect: document.getElementById('history-sort-order'),
             themeSelect: document.getElementById('theme-select'),
             fontFamilyInput: document.getElementById('font-family-input'),
@@ -3926,8 +3746,6 @@
                 presencePenalty: null,
                 frequencyPenalty: null,
                 thinkingBudget: null,
-                includeThoughts: true,
-                expandThoughtsByDefault: false,
                 dummyUser: '',
                 enableDummyUser: true,
                 dummyModel: '',
@@ -3937,7 +3755,6 @@
                 pseudoStreaming: false,
                 enterToSend: true,
                 autoScrollOnNewMessage: DEFAULT_AUTO_SCROLL_ON_NEW_MESSAGE,
-                autoScrollOnThought: false,
                 historySortOrder: 'updatedAt',
                 theme: 'light',
                 backgroundImageBlob: null,
@@ -4005,13 +3822,6 @@
                 toggleButtonBottomFontSize: DEFAULT_TOGGLE_BUTTON_BOTTOM_FONT_SIZE,
                 toggleButtonBottomTextCollapse: DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_COLLAPSE,
                 toggleButtonBottomTextExpand: DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_EXPAND,
-                apiProvider: 'gemini',
-                deepSeekApiKey: '',
-                deepSeekModelName: DEFAULT_DEEPSEEK_MODEL,
-                deepSeekAdditionalModels: '',
-                deepSeekApiEndpoint: '',
-                includeDeepSeekThoughts: true,
-                expandDeepSeekThoughtsByDefault: false,
             },
             backgroundImageUrl: null,
             userIconUrl: null,
@@ -4019,7 +3829,6 @@
             isSending: false,
             abortController: null,
             partialStreamContent: '',
-            partialThoughtStreamContent: '',
             editingMessageIndex: null,
             isEditingSystemPrompt: false,
             touchStartX: 0,
@@ -4074,6 +3883,7 @@
                 reader.readAsDataURL(file);
             });
         }
+
         function registerServiceWorker() {
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
@@ -4087,6 +3897,7 @@
                             });
                         })
                         .catch(err => {
+                            console.error('ServiceWorker registration failed: ', err);
                         });
                 });
             }
@@ -4103,7 +3914,7 @@
                     request.onerror = (event) => reject(`IndexedDBエラー: ${event.target.error}`);
                     request.onsuccess = (event) => {
                         state.db = event.target.result;
-                        state.db.onerror = (event) => { };
+                        state.db.onerror = (event) => { console.error(`データベースエラー: ${event.target.error}`); };
                         resolve(state.db);
                     };
                     request.onupgradeneeded = (event) => {
@@ -4117,7 +3928,7 @@
                             chatStore = db.createObjectStore(CHATS_STORE, { keyPath: 'id', autoIncrement: true });
                         } else {
                              if (transaction) {
-                                try { chatStore = transaction.objectStore(CHATS_STORE); } catch (e) { return; }
+                                try { chatStore = transaction.objectStore(CHATS_STORE); } catch (e) { console.error("チャットストア取得エラー(upgradeneeded):", e); return; }
                             }
                         }
                         if (chatStore && !chatStore.indexNames.contains(CHAT_UPDATEDAT_INDEX)) {
@@ -4186,12 +3997,6 @@
                                     } else {
                                         state.settings[key] = defaultValue;
                                     }
-                                } else if (key === 'apiProvider') {
-                                    if (['gemini', 'deepseek'].includes(loadedValue)) {
-                                        state.settings.apiProvider = loadedValue;
-                                    } else {
-                                        state.settings.apiProvider = defaultValue;
-                                    }
                                 } else if (key === 'hideSystemPromptInChat' || key === 'enableGrounding' || key === 'enableSwipeNavigation' ||
                                            key === 'preventZoom' || key === 'showChatTitle' ||
                                            key === 'showNewChatButton' || key === 'showDeleteSessionButton' || key === 'showCopySessionButton' ||
@@ -4207,12 +4012,10 @@
                                            key === 'showTopCollapseButton' || key === 'showBottomCollapseButton' ||
                                            key === 'persistMessageCollapseState' ||
                                            key === 'streamingOutput' || key === 'pseudoStreaming' || key === 'enterToSend' ||
-                                           key === 'concatDummyModel' || key === 'autoScrollOnNewMessage' || key === 'autoScrollOnThought' ||
+                                           key === 'concatDummyModel' || key === 'autoScrollOnNewMessage' ||
                                            key === 'showUserNameBubble' || key === 'showAiNameBubble' ||
                                            key === 'userNameBubbleUseThemeColor' || key === 'aiNameBubbleUseThemeColor' ||
-                                           key === 'enableSessionLinking' || key === 'includeThoughts' || key === 'expandThoughtsByDefault' ||
-                                           key === 'includeDeepSeekThoughts' || key === 'expandDeepSeekThoughtsByDefault'
-                                           ) {
+                                           key === 'enableSessionLinking') {
                                      state.settings[key] = loadedValue === true;
                                 } else if (key === 'toggleButtonTopFontSize' || key === 'toggleButtonBottomFontSize' || key === 'toggleButtonTopWidth' || key === 'toggleButtonTopHeight') {
                                     let num = parseInt(loadedValue, 10);
@@ -4301,9 +4104,6 @@
                     const now = Date.now();
                     const messagesToSave = state.currentMessages.map(msg => ({
                         role: msg.role, content: msg.content, timestamp: msg.timestamp,
-                        thoughtSummary: msg.thoughtSummary || null,
-                        deepSeekThoughtSummary: msg.deepSeekThoughtSummary || null,
-                        generatedByApiProvider: msg.generatedByApiProvider || null,
                         ...(msg.finishReason && { finishReason: msg.finishReason }),
                         ...(msg.safetyRatings && { safetyRatings: msg.safetyRatings }),
                         ...(msg.error && { error: msg.error }),
@@ -4364,6 +4164,7 @@
                             }
                         };
                         getRequest.onerror = (event) => {
+                            console.error("チャット取得エラー(保存時):", event.target.error);
                             state.currentChatId = null;
                             determineTitleAndSave(null);
                         };
@@ -4570,62 +4371,6 @@
                     }
                 }
 
-                const messageData = state.currentMessages[index];
-                const messageApiProvider = messageData?.generatedByApiProvider || state.settings.apiProvider;
-
-                if (role === 'model' && messageApiProvider === 'gemini' && (messageData?.thoughtSummary || (isStreamingPlaceholder && state.settings.apiProvider === 'gemini' && state.settings.includeThoughts))) {
-                    const thoughtDetails = document.createElement('details');
-                    thoughtDetails.classList.add('thought-summary-details');
-                    if (state.settings.expandThoughtsByDefault) {
-                        thoughtDetails.open = true;
-                    }
-
-                    const thoughtSummaryElem = document.createElement('summary');
-                    thoughtSummaryElem.textContent = '思考プロセス';
-                    thoughtDetails.appendChild(thoughtSummaryElem);
-
-                    const thoughtContentDiv = document.createElement('div');
-                    thoughtContentDiv.classList.add('thought-summary-content');
-                    if (isStreamingPlaceholder) {
-                        thoughtContentDiv.id = `streaming-thought-summary-${index}`;
-                        thoughtContentDiv.innerHTML = '';
-                    } else if (messageData?.thoughtSummary) {
-                        try {
-                            thoughtContentDiv.innerHTML = marked.parse(messageData.thoughtSummary || '');
-                        } catch (e) {
-                            thoughtContentDiv.textContent = messageData.thoughtSummary || '';
-                        }
-                    }
-                    thoughtDetails.appendChild(thoughtContentDiv);
-                    messageDiv.appendChild(thoughtDetails);
-                } else if (role === 'model' && messageApiProvider === 'deepseek' && (messageData?.deepSeekThoughtSummary || (isStreamingPlaceholder && state.settings.apiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts))) {
-                    const thoughtDetails = document.createElement('details');
-                    thoughtDetails.classList.add('thought-summary-details');
-                    if (state.settings.expandDeepSeekThoughtsByDefault) {
-                        thoughtDetails.open = true;
-                    }
-
-                    const thoughtSummaryElem = document.createElement('summary');
-                    thoughtSummaryElem.textContent = '思考プロセス';
-                    thoughtDetails.appendChild(thoughtSummaryElem);
-
-                    const thoughtContentDiv = document.createElement('div');
-                    thoughtContentDiv.classList.add('thought-summary-content');
-
-                    if (isStreamingPlaceholder && state.settings.apiProvider === 'deepseek') {
-                        thoughtContentDiv.id = `streaming-deepseek-thought-summary-${index}`;
-                        thoughtContentDiv.innerHTML = '';
-                    } else if (messageData?.deepSeekThoughtSummary) {
-                        const pre = document.createElement('pre');
-                        let formattedThought = messageData.deepSeekThoughtSummary;
-                        pre.textContent = formattedThought || '';
-                        thoughtContentDiv.appendChild(pre);
-                    }
-                    thoughtDetails.appendChild(thoughtContentDiv);
-                    messageDiv.appendChild(thoughtDetails);
-                }
-
-
                 if (state.areAllMessagesHidden && (role === 'user' || role === 'model') && !isStreamingPlaceholder) {
                     messageDiv.classList.add('message-hidden-by-toggle');
                 }
@@ -4683,9 +4428,7 @@
                 } else {
                     try {
                         if (role === 'model' && !isStreamingPlaceholder && typeof marked !== 'undefined') {
-                            const rawHtml = marked.parse(content || '');
-                            contentDiv.innerHTML = rawHtml;
-                            this.processInteractivePlaceholders(contentDiv);
+                            contentDiv.innerHTML = marked.parse(content || '');
                             this.processInteractiveTitles(contentDiv);
                             this.addCopyButtonsToCodeBlocks(contentDiv);
                         } else if (role === 'user') {
@@ -4698,12 +4441,14 @@
                             const pre = document.createElement('pre'); pre.textContent = content; contentDiv.innerHTML = ''; contentDiv.appendChild(pre);
                         }
                     } catch (e) {
+                         console.error("Markdown parse error:", e);
                          const pre = document.createElement('pre'); pre.textContent = content; contentDiv.innerHTML = ''; contentDiv.appendChild(pre);
                     }
                 }
                 messageDiv.appendChild(contentDiv);
 
-                if (role === 'model' && state.settings.apiProvider === 'gemini' && messageData && messageData.groundingMetadata &&
+                const messageData = state.currentMessages[index];
+                if (role === 'model' && messageData && messageData.groundingMetadata &&
                     ( (messageData.groundingMetadata.groundingChunks && messageData.groundingMetadata.groundingChunks.length > 0) ||
                       (messageData.groundingMetadata.webSearchQueries && messageData.groundingMetadata.webSearchQueries.length > 0) )
                    )
@@ -4818,6 +4563,7 @@
                             contentDiv.appendChild(details);
                         }
                     } catch (e) {
+                        console.error("Error rendering grounding metadata:", e);
                     }
                 }
 
@@ -4922,7 +4668,7 @@
                         tokenSpan.classList.add('token-count-display');
 
                         let finalTotalTokenCount = usage.totalTokenCount;
-                        if (typeof messageData.usageMetadata.thoughtsTokenCount === 'number' && state.settings.apiProvider === 'gemini') {
+                        if (typeof messageData.usageMetadata.thoughtsTokenCount === 'number') {
                             finalTotalTokenCount -= messageData.usageMetadata.thoughtsTokenCount;
                         }
 
@@ -4962,7 +4708,8 @@
                                     copyButton.textContent = originalText;
                                     copyButton.disabled = false;
                                 }, 1500);
-                        }).catch(err => {
+                            }).catch(err => {
+                                console.error('Code block copy error:', err);
                                 const originalText = copyButton.textContent;
                                 copyButton.textContent = '失敗';
                                 copyButton.disabled = true;
@@ -4976,134 +4723,36 @@
                     }
                 });
             },
-            async updateStreamingMessage(index, newCharOrChunk, isThoughtSummary = false) {
+            updateStreamingMessage(index, newChar) {
                 const messageDiv = document.getElementById(`streaming-message-${index}`);
-                if (!messageDiv || typeof marked === 'undefined') return;
-
-                let targetContentDiv;
-                let accumulatedContentForDisplay;
-                let textToAnimateForDeepSeek = "";
-
-                const selectedApiProvider = state.settings.apiProvider;
-                const streamSpeed = state.settings.streamingSpeed;
-
-                if (isThoughtSummary) {
-                    if (selectedApiProvider === 'gemini' && state.settings.includeThoughts) {
-                        targetContentDiv = messageDiv.querySelector(`#streaming-thought-summary-${index}`);
-                        accumulatedContentForDisplay = state.partialThoughtStreamContent;
-                    } else if (selectedApiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts) {
-                        targetContentDiv = messageDiv.querySelector(`#streaming-deepseek-thought-summary-${index}`);
-                        textToAnimateForDeepSeek = newCharOrChunk || "";
-                        accumulatedContentForDisplay = state.partialThoughtStreamContent;
-                    } else {
-                        return;
-                    }
-                } else {
-                    targetContentDiv = messageDiv.querySelector('.message-content');
-                    if (selectedApiProvider === 'gemini') {
-                        accumulatedContentForDisplay = state.partialStreamContent;
-                    } else {
-                        textToAnimateForDeepSeek = newCharOrChunk || "";
-                        accumulatedContentForDisplay = state.partialStreamContent;
-                    }
-                }
-
-                if (targetContentDiv) {
-                    const renderCurrentState = (contentToRender) => {
+                if (messageDiv && typeof marked !== 'undefined') {
+                    const contentDiv = messageDiv.querySelector('.message-content');
+                    if (contentDiv) {
                         try {
-                            if (selectedApiProvider === 'deepseek' && isThoughtSummary && targetContentDiv.id === `streaming-deepseek-thought-summary-${index}`) {
-                                let currentPre = targetContentDiv.querySelector('pre');
-                                if (!currentPre) {
-                                    currentPre = document.createElement('pre');
-                                    targetContentDiv.innerHTML = '';
-                                    targetContentDiv.appendChild(currentPre);
-                                }
-                                currentPre.textContent = contentToRender || '';
-                            } else {
-                                const rawHtml = marked.parse(contentToRender || '');
-                                targetContentDiv.innerHTML = rawHtml;
-                            }
-                            if (!isThoughtSummary) {
-                                this.processInteractivePlaceholders(targetContentDiv);
-                                this.processInteractiveTitles(targetContentDiv);
-                                this.addCopyButtonsToCodeBlocks(targetContentDiv);
-                            }
+                            contentDiv.innerHTML = marked.parse(state.partialStreamContent || '');
+                            this.addCopyButtonsToCodeBlocks(contentDiv);
                         } catch (e) {
-                            targetContentDiv.textContent = contentToRender;
+                            console.error("Streaming markdown parse error:", e);
+                            contentDiv.textContent = state.partialStreamContent;
                         }
-                    };
-                    if (selectedApiProvider === 'gemini' || streamSpeed <= 0 || !textToAnimateForDeepSeek) {
-                        renderCurrentState(accumulatedContentForDisplay);
-                    } else if (selectedApiProvider === 'deepseek' && textToAnimateForDeepSeek) {
-                        const baseContent = accumulatedContentForDisplay.slice(0, accumulatedContentForDisplay.length - textToAnimateForDeepSeek.length);
-                        let animatedContentSegment = "";
-
-                        for (let i = 0; i < textToAnimateForDeepSeek.length; i++) {
-                            if (state.abortController?.signal.aborted) break;
-                            animatedContentSegment += textToAnimateForDeepSeek[i];
-                            renderCurrentState(baseContent + animatedContentSegment);
-
-                            if (!isThoughtSummary && state.settings.autoScrollOnNewMessage) {
-                                this.scrollToBottom();
-                            }
-                            await sleep(streamSpeed);
-                        }
-                        renderCurrentState(accumulatedContentForDisplay);
                     }
                 }
-
-                const autoScrollEnabledForThisContentType = isThoughtSummary
-                    ? state.settings.autoScrollOnThought
-                    : state.settings.autoScrollOnNewMessage;
-
-                if (autoScrollEnabledForThisContentType) {
+                if (state.settings.autoScrollOnNewMessage) {
                     this.scrollToBottom();
                 }
             },
             finalizeStreamingMessage(index) {
                 const messageDiv = document.getElementById(`streaming-message-${index}`);
                 if (messageDiv) {
-                    const finalMessageData = state.currentMessages[index];
-                    if (!finalMessageData) return;
-                    const messageApiProvider = finalMessageData.generatedByApiProvider || state.settings.apiProvider;
-
-                    if (finalMessageData.thoughtSummary && messageApiProvider === 'gemini' && state.settings.includeThoughts) {
-                        const thoughtContentDiv = messageDiv.querySelector(`#streaming-thought-summary-${index}`);
-                        if (thoughtContentDiv && typeof marked !== 'undefined') {
-                            try {
-                                thoughtContentDiv.innerHTML = marked.parse(finalMessageData.thoughtSummary || '');
-                            } catch (e) {
-                                thoughtContentDiv.textContent = finalMessageData.thoughtSummary || '';
-                            }
-                            thoughtContentDiv.removeAttribute('id');
-                        } else if (thoughtContentDiv) {
-                            thoughtContentDiv.textContent = finalMessageData.thoughtSummary || '';
-                            thoughtContentDiv.removeAttribute('id');
-                        }
-                    } else if (finalMessageData.deepSeekThoughtSummary && messageApiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts) {
-                        const thoughtContentDiv = messageDiv.querySelector(`#streaming-deepseek-thought-summary-${index}`) || messageDiv.querySelector('.thought-summary-details .thought-summary-content');
-                        if (thoughtContentDiv) {
-                            const pre = document.createElement('pre');
-                            pre.textContent = finalMessageData.deepSeekThoughtSummary || '';
-                            thoughtContentDiv.innerHTML = '';
-                            thoughtContentDiv.appendChild(pre);
-                            if (thoughtContentDiv.id === `streaming-deepseek-thought-summary-${index}`) {
-                                thoughtContentDiv.removeAttribute('id');
-                            }
-                        }
-                    }
-
-
                     const contentDiv = messageDiv.querySelector('.message-content');
-                    const finalRawContent = finalMessageData.content || '';
+                    const finalRawContent = state.currentMessages[index]?.content || '';
                     if (contentDiv && typeof marked !== 'undefined') {
                          try {
-                             const rawHtml = marked.parse(finalRawContent);
-                             contentDiv.innerHTML = rawHtml;
-                             this.processInteractivePlaceholders(contentDiv);
+                             contentDiv.innerHTML = marked.parse(finalRawContent);
                              this.processInteractiveTitles(contentDiv);
                              this.addCopyButtonsToCodeBlocks(contentDiv);
                          } catch (e) {
+                             console.error("Final markdown parse error:", e);
                              contentDiv.textContent = finalRawContent;
                          }
                     } else if (contentDiv) {
@@ -5180,6 +4829,7 @@
                 try {
                     return new Intl.DateTimeFormat('ja-JP', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(timestamp));
                 } catch (e) {
+                    console.warn("Intl.DateTimeFormat error, falling back:", e);
                     const d = new Date(timestamp);
                     return `${String(d.getFullYear()).slice(-2)}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
                 }
@@ -5245,6 +4895,7 @@
                         elements.historyTitle.textContent = '履歴一覧';
                     }
                 } catch (error) {
+                    console.error("Error rendering history list:", error);
                     elements.noHistoryMessage.textContent = "履歴の読み込み中にエラーが発生しました。";
                     elements.noHistoryMessage.classList.remove('hidden');
                     elements.historyTitle.textContent = '履歴一覧';
@@ -5252,17 +4903,17 @@
             },
             revokeExistingObjectUrl() {
                 if (state.backgroundImageUrl) {
-                    try { URL.revokeObjectURL(state.backgroundImageUrl); } catch (e) { }
+                    try { URL.revokeObjectURL(state.backgroundImageUrl); } catch (e) { console.warn("Error revoking object URL:", e); }
                     state.backgroundImageUrl = null;
                 }
             },
             revokeExistingIconUrls() {
                 if (state.userIconUrl) {
-                    try { URL.revokeObjectURL(state.userIconUrl); } catch (e) { }
+                    try { URL.revokeObjectURL(state.userIconUrl); } catch (e) { console.warn("Error revoking user icon URL:", e); }
                     state.userIconUrl = null;
                 }
                 if (state.aiIconUrl) {
-                    try { URL.revokeObjectURL(state.aiIconUrl); } catch (e) { }
+                    try { URL.revokeObjectURL(state.aiIconUrl); } catch (e) { console.warn("Error revoking AI icon URL:", e); }
                     state.aiIconUrl = null;
                 }
             },
@@ -5569,17 +5220,8 @@
                 this.applyZoomPreventionSetting();
             },
             applySettingsToUI() {
-                elements.apiProviderSelect.value = state.settings.apiProvider || 'gemini';
                 elements.apiKeyInput.value = state.settings.apiKey || '';
                 elements.modelNameSelect.value = state.settings.modelName || DEFAULT_MODEL;
-                elements.additionalModelsTextarea.value = state.settings.additionalModels || '';
-                elements.deepSeekApiKeyInput.value = state.settings.deepSeekApiKey || '';
-                elements.deepSeekModelNameSelect.value = state.settings.deepSeekModelName || DEFAULT_DEEPSEEK_MODEL;
-                elements.deepSeekAdditionalModelsTextarea.value = state.settings.deepSeekAdditionalModels || '';
-                elements.deepSeekApiEndpointInput.value = state.settings.deepSeekApiEndpoint || '';
-                elements.includeDeepSeekThoughtsToggle.checked = state.settings.includeDeepSeekThoughts;
-                elements.expandDeepSeekThoughtsByDefaultToggle.checked = state.settings.expandDeepSeekThoughtsByDefault;
-
                 elements.streamingOutputCheckbox.checked = state.settings.streamingOutput;
                 elements.streamingSpeedInput.value = state.settings.streamingSpeed ?? DEFAULT_STREAMING_SPEED;
                 elements.systemPromptDefaultTextarea.value = state.settings.systemPrompt || '';
@@ -5591,17 +5233,15 @@
                 elements.presencePenaltyInput.value = state.settings.presencePenalty === null ? '' : state.settings.presencePenalty;
                 elements.frequencyPenaltyInput.value = state.settings.frequencyPenalty === null ? '' : state.settings.frequencyPenalty;
                 elements.thinkingBudgetInput.value = state.settings.thinkingBudget === null ? '' : state.settings.thinkingBudget;
-                elements.includeThoughtsToggle.checked = state.settings.includeThoughts;
-                elements.expandThoughtsByDefaultToggle.checked = state.settings.expandThoughtsByDefault;
                 elements.dummyUserInput.value = state.settings.dummyUser || '';
                 elements.enableDummyUserCheckbox.checked = state.settings.enableDummyUser;
                 elements.dummyModelInput.value = state.settings.dummyModel || '';
                 elements.enableDummyModelCheckbox.checked = state.settings.enableDummyModel;
                 elements.concatDummyModelCheckbox.checked = state.settings.concatDummyModel;
+                elements.additionalModelsTextarea.value = state.settings.additionalModels || '';
                 elements.pseudoStreamingCheckbox.checked = state.settings.pseudoStreaming;
                 elements.enterToSendCheckbox.checked = state.settings.enterToSend;
                 elements.autoScrollOnNewMessageCheckbox.checked = state.settings.autoScrollOnNewMessage;
-                elements.autoScrollOnThoughtCheckbox.checked = state.settings.autoScrollOnThought;
                 elements.historySortOrderSelect.value = state.settings.historySortOrder || 'updatedAt';
                 if (elements.themeSelect) elements.themeSelect.value = state.settings.theme || 'light';
                 elements.enableSessionLinkingCheckbox.checked = state.settings.enableSessionLinking;
@@ -5679,11 +5319,9 @@
                 document.documentElement.style.setProperty('--message-toggle-button-top-opacity', state.settings.toggleButtonTopOpacity);
                 document.documentElement.style.setProperty('--message-toggle-button-bottom-font-size', `${state.settings.toggleButtonBottomFontSize || DEFAULT_TOGGLE_BUTTON_BOTTOM_FONT_SIZE}px`);
 
-                this.toggleApiSettingsVisibility(state.settings.apiProvider);
                 this.updateChatScreenElementVisibility();
                 this.updateHistoryHeaderButtonVisibility();
                 this.updateUserModelOptions();
-                this.updateDeepSeekUserModelOptions();
                 this.updateBackgroundSettingsUI();
                 this.updateIconSettingsUI();
                 this.applyTheme();
@@ -5691,23 +5329,6 @@
                 this.toggleSystemPromptVisibility();
                 this.applySidePanelSettingsToUI();
                 this.updateSessionLinkingUI();
-            },
-            toggleApiSettingsVisibility(provider) {
-                const showGemini = provider === 'gemini';
-                elements.geminiSettingsGroup.classList.toggle('hidden', !showGemini);
-                elements.deepSeekSettingsGroup.classList.toggle('hidden', showGemini);
-
-                elements.geminiTopKParam.classList.toggle('hidden', !showGemini);
-                elements.geminiThinkingBudgetParam.classList.toggle('hidden', !showGemini);
-                elements.geminiThinkingBudgetNotice.classList.toggle('hidden', !showGemini);
-                elements.geminiThoughtsParam.classList.toggle('hidden', !showGemini);
-                elements.geminiPseudoStreamingParam.classList.toggle('hidden', !showGemini);
-                elements.geminiGroundingParam.classList.toggle('hidden', !showGemini);
-                elements.deepSeekThoughtsParam.classList.toggle('hidden', showGemini);
-
-                if (showGemini && !elements.geminiSettingsGroup.open) {
-                } else if (!showGemini && !elements.deepSeekSettingsGroup.open) {
-                }
             },
             updateChatScreenElementVisibility() {
                 if (elements.chatTitle) {
@@ -5780,48 +5401,6 @@
                     }
                 } else {
                     group.disabled = true;
-                }
-            },
-            updateDeepSeekUserModelOptions() {
-                const select = elements.deepSeekModelNameSelect;
-                const userDefinedOptgroup = select.querySelector('optgroup[label="ユーザー指定 (DeepSeek)"]');
-                if (userDefinedOptgroup) {
-                    userDefinedOptgroup.remove();
-                }
-
-                const baseModelsOptgroup = select.querySelector('optgroup[label="基本モデル (DeepSeek)"]') || select;
-                baseModelsOptgroup.innerHTML = '';
-                const defaultDeepSeekModels = ['deepseek-chat', 'deepseek-coder', 'deepseek-reasoner'];
-                defaultDeepSeekModels.forEach(modelId => {
-                    const option = document.createElement('option');
-                    option.value = modelId;
-                    option.textContent = modelId;
-                    baseModelsOptgroup.appendChild(option);
-                });
-
-
-                const additionalModels = (state.settings.deepSeekAdditionalModels || '')
-                    .split(',')
-                    .map(m => m.trim())
-                    .filter(m => m !== '');
-
-                if (additionalModels.length > 0) {
-                    let optgroup = document.createElement('optgroup');
-                    optgroup.label = 'ユーザー指定 (DeepSeek)';
-                    additionalModels.forEach(modelId => {
-                        const option = document.createElement('option');
-                        option.value = modelId;
-                        option.textContent = modelId;
-                        optgroup.appendChild(option);
-                    });
-                    select.appendChild(optgroup);
-                }
-
-                if (state.settings.deepSeekModelName && Array.from(select.options).some(opt => opt.value === state.settings.deepSeekModelName)) {
-                    select.value = state.settings.deepSeekModelName;
-                } else if (select.options.length > 0) {
-                    select.value = defaultDeepSeekModels[0];
-                    state.settings.deepSeekModelName = select.value;
                 }
             },
             applyFontFamily() {
@@ -6110,118 +5689,31 @@
             processInteractiveTitles(contentElement) {
                 const links = contentElement.querySelectorAll('a[href="#"]');
                 links.forEach(link => {
-                    if (link.dataset.interactiveTitleProcessed === 'true' || link.dataset.interactivePlaceholderProcessed === 'true') {
+                    if (link.dataset.interactiveTitleProcessed === 'true') {
                         return;
                     }
-
                     const titleText = link.getAttribute('title');
                     if (titleText && titleText.trim() !== '') {
                         link.dataset.interactiveTitleProcessed = 'true';
-
-                        let spanToToggle = link.nextElementSibling;
-                        if (!spanToToggle ||
-                            !spanToToggle.classList.contains('interactive-title-content') ||
-                            spanToToggle.textContent !== ` (# "${titleText}")`) {
-
-                            if (spanToToggle && spanToToggle.classList.contains('interactive-title-content')) {
-                                spanToToggle.remove();
-                            }
-
-                            spanToToggle = document.createElement('span');
-                            spanToToggle.classList.add('interactive-title-content', 'interactive-title-content-style');
-                            spanToToggle.textContent = ` (# "${titleText}")`;
-                            spanToToggle.classList.add('hidden');
-                            link.insertAdjacentElement('afterend', spanToToggle);
-                            link.setAttribute('aria-expanded', 'false');
-                        } else {
-                            const isExpanded = link.getAttribute('aria-expanded') === 'true';
-                            spanToToggle.classList.toggle('hidden', !isExpanded);
-                        }
-
                         link.addEventListener('click', function(event) {
                             event.preventDefault();
-                            const isCurrentlyHidden = spanToToggle.classList.contains('hidden');
-                            spanToToggle.classList.toggle('hidden', !isCurrentlyHidden);
-                            this.setAttribute('aria-expanded', String(!isCurrentlyHidden));
+                            let toggleContentSpan = this.nextElementSibling;
+                            if (!toggleContentSpan || !toggleContentSpan.classList.contains('interactive-title-content')) {
+                                toggleContentSpan = document.createElement('span');
+                                toggleContentSpan.classList.add('interactive-title-content');
+                                toggleContentSpan.classList.add('interactive-title-content-style');
+                                toggleContentSpan.textContent = ` (# "${titleText}")`;
+                                toggleContentSpan.classList.add('hidden');
+                                this.insertAdjacentElement('afterend', toggleContentSpan);
+                                this.setAttribute('aria-expanded', 'false');
+                            }
+                            const isCurrentlyHidden = toggleContentSpan.classList.contains('hidden');
+                            toggleContentSpan.classList.toggle('hidden', !isCurrentlyHidden);
+                            this.setAttribute('aria-expanded', String(isCurrentlyHidden));
                         });
                         link.style.cursor = 'pointer';
                     }
                 });
-            },
-            processInteractivePlaceholders(contentElement) {
-                const placeholderRegex = /(.*?)?\s*\(#\s*"([^"]+)"\)/g;
-
-                const walker = document.createTreeWalker(contentElement, NodeFilter.SHOW_TEXT, null, false);
-                const nodesToProcess = [];
-                let node;
-                while (node = walker.nextNode()) {
-                    let parent = node.parentNode;
-                    let skip = false;
-                    while (parent && parent !== contentElement) {
-                        if (['A', 'PRE', 'CODE', 'BUTTON'].includes(parent.tagName) || parent.isContentEditable) {
-                            skip = true;
-                            break;
-                        }
-                        parent = parent.parentNode;
-                    }
-                    if (!skip && node.nodeValue && node.nodeValue.includes('(# "')) {
-                        nodesToProcess.push(node);
-                    }
-                }
-
-                for (const textNode of nodesToProcess) {
-                    const textContent = textNode.nodeValue;
-                    let match;
-                    let lastIndex = 0;
-                    const fragment = document.createDocumentFragment();
-                    let replacementNeeded = false;
-
-                    placeholderRegex.lastIndex = 0;
-
-                    while ((match = placeholderRegex.exec(textContent)) !== null) {
-                        replacementNeeded = true;
-                        const precedingText = textContent.substring(lastIndex, match.index);
-                        if (precedingText) {
-                            fragment.appendChild(document.createTextNode(precedingText));
-                        }
-
-                        const leadingTextContent = (match[1] || "").trim();
-                        const clickableTextDisplay = leadingTextContent || "詳細";
-                        const detailText = match[2];
-
-                        const link = document.createElement('a');
-                        link.href = "#";
-                        link.textContent = clickableTextDisplay;
-                        link.title = detailText;
-                        link.style.cursor = 'pointer';
-                        link.dataset.interactivePlaceholderProcessed = 'true';
-
-                        const detailSpan = document.createElement('span');
-                        detailSpan.classList.add('interactive-title-content-style', 'hidden');
-                        detailSpan.textContent = ` (# "${detailText}")`;
-
-                        link.setAttribute('aria-expanded', 'false');
-                        link.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            const isCurrentlyHidden = detailSpan.classList.contains('hidden');
-                            detailSpan.classList.toggle('hidden', !isCurrentlyHidden);
-                            this.setAttribute('aria-expanded', String(!isCurrentlyHidden));
-                        });
-
-                        fragment.appendChild(link);
-                        fragment.appendChild(detailSpan);
-
-                        lastIndex = placeholderRegex.lastIndex;
-                    }
-
-                    if (replacementNeeded) {
-                        if (lastIndex < textContent.length) {
-                            fragment.appendChild(document.createTextNode(textContent.substring(lastIndex)));
-                        }
-                        textNode.parentNode.replaceChild(fragment, textNode);
-                    }
-                }
             },
             setAiToAiProcessingState(processing, message = "AI間会話処理中...") {
                 state.isAiToAiChatProcessing = processing;
@@ -6249,12 +5741,7 @@
                     elements.attachFileBtn.disabled = false;
                     elements.pasteToInputBtn.disabled = false;
                     elements.rollDiceBtn.disabled = false;
-                    if (elements.aiToAiChatBtn) {
-                        const showAiToAiBtn = state.settings.enableSessionLinking &&
-                                          state.linkedSessionIds.length === 2 &&
-                                          state.currentChatId && state.linkedSessionIds.includes(state.currentChatId);
-                        elements.aiToAiChatBtn.disabled = !showAiToAiBtn;
-                    }
+                    if (elements.aiToAiChatBtn) elements.aiToAiChatBtn.disabled = false;
                     elements.systemPromptDetails.style.pointerEvents = '';
                     elements.systemPromptDetails.style.opacity = '';
                 }
@@ -6294,16 +5781,17 @@
                              state.backgroundImageUrl = URL.createObjectURL(state.settings.backgroundImageBlob);
                              document.documentElement.style.setProperty('--chat-background-image', `url(${state.backgroundImageUrl})`);
                         } catch (e) {
+                             console.error("Error creating object URL for background:", e);
                              document.documentElement.style.setProperty('--chat-background-image', 'none');
                         }
                     } else {
                         document.documentElement.style.setProperty('--chat-background-image', 'none');
                     }
                     if (state.settings.userIconBlob instanceof Blob) {
-                        try { state.userIconUrl = URL.createObjectURL(state.settings.userIconBlob); } catch (e) { }
+                        try { state.userIconUrl = URL.createObjectURL(state.settings.userIconBlob); } catch (e) { console.error("Error creating user icon URL:", e); }
                     }
                     if (state.settings.aiIconBlob instanceof Blob) {
-                        try { state.aiIconUrl = URL.createObjectURL(state.settings.aiIconBlob); } catch (e) { }
+                        try { state.aiIconUrl = URL.createObjectURL(state.settings.aiIconBlob); } catch (e) { console.error("Error creating AI icon URL:", e); }
                     }
 
                     uiUtils.applySettingsToUI();
@@ -6318,6 +5806,7 @@
                     state.currentScreen = 'chat';
 
                 } catch (error) {
+                    console.error("App initialization error:", error);
                     await uiUtils.showCustomAlert(`アプリの初期化に失敗しました: ${error}`);
                     elements.appContainer.innerHTML = `<p style="padding: 20px; text-align: center; color: red;">アプリの起動に失敗しました。</p>`;
                 } finally {
@@ -6412,18 +5901,6 @@
                     elements.themeSelect.addEventListener('change', () => {
                         state.settings.theme = elements.themeSelect.value;
                         uiUtils.applyTheme();
-                    });
-                }
-                if (elements.apiProviderSelect) {
-                    elements.apiProviderSelect.addEventListener('change', (event) => {
-                        const selectedProvider = event.target.value;
-                        state.settings.apiProvider = selectedProvider;
-                        uiUtils.toggleApiSettingsVisibility(selectedProvider);
-                        if (selectedProvider === 'gemini') {
-                            elements.modelNameSelect.value = state.settings.modelName || DEFAULT_MODEL;
-                        } else if (selectedProvider === 'deepseek') {
-                            elements.deepSeekModelNameSelect.value = state.settings.deepSeekModelName || DEFAULT_DEEPSEEK_MODEL;
-                        }
                     });
                 }
                 if (elements.enableSessionLinkingCheckbox) {
@@ -6702,7 +6179,7 @@
 
                 elements.messageContainer.addEventListener('click', (event) => {
                     const clickedMessage = event.target.closest('.message');
-                    if (event.target.closest('.message-actions button, .message-cascade-controls button, .message-toggle-button, .interactive-title-content, .code-copy-button, a[href="#"]')) {
+                    if (event.target.closest('.message-actions button, .message-cascade-controls button, .message-toggle-button, .interactive-title-content, .code-copy-button')) {
                         return;
                     }
                     if (clickedMessage) {
@@ -6880,6 +6357,7 @@
                     elements.copyMemoBtn.disabled = true;
                     setTimeout(() => { elements.copyMemoBtn.textContent = originalText; elements.copyMemoBtn.disabled = false; }, 1500);
                 } catch (err) {
+                    console.error("Copy memo error:", err);
                     const originalText = elements.copyMemoBtn.textContent;
                     elements.copyMemoBtn.textContent = "コピー失敗";
                     elements.copyMemoBtn.disabled = true;
@@ -6914,6 +6392,7 @@
                         setTimeout(() => { elements.pasteMemoBtn.textContent = originalText; elements.pasteMemoBtn.disabled = false; }, 1500);
                     }
                 } catch (err) {
+                    console.error("Paste memo error:", err);
                     if (err.name === 'NotAllowedError' || err.message.includes('Read permission denied')) {
                          const originalText = elements.pasteMemoBtn.textContent;
                          elements.pasteMemoBtn.textContent = "許可エラー";
@@ -6981,6 +6460,7 @@
                     elements.copyClipboardStackBtn.disabled = true;
                     setTimeout(() => { elements.copyClipboardStackBtn.textContent = originalText; elements.copyClipboardStackBtn.disabled = false; }, 1500);
                 } catch (err) {
+                    console.error("Copy clipboard stack error:", err);
                     const originalText = elements.copyClipboardStackBtn.textContent;
                     elements.copyClipboardStackBtn.textContent = "コピー失敗";
                     elements.copyClipboardStackBtn.disabled = true;
@@ -7015,6 +6495,7 @@
                         setTimeout(() => { elements.pasteClipboardStackBtn.textContent = originalText; elements.pasteClipboardStackBtn.disabled = false; }, 1500);
                     }
                 } catch (err) {
+                    console.error("Paste into clipboard stack error:", err);
                     if (err.name === 'NotAllowedError' || err.message.includes('Read permission denied')) {
                          const originalText = elements.pasteClipboardStackBtn.textContent;
                          elements.pasteClipboardStackBtn.textContent = "許可エラー";
@@ -7104,6 +6585,7 @@
                         }, 1500);
                     }
                 } catch (err) {
+                    console.error("Paste to user input error:", err);
                     if (err.name === 'NotAllowedError' || err.message.includes('Read permission denied')) {
                         button.textContent = "!";
                         button.title = "クリップボードの許可なし";
@@ -7168,6 +6650,7 @@
                     try {
                         await dbUtils.saveChat();
                     } catch (error) {
+                        console.error("Error saving current chat before new chat:", error);
                         const conf = await uiUtils.showCustomConfirm("現在のチャットの保存に失敗しました。新規チャットを開始しますか？");
                         if (!conf) return;
                     }
@@ -7282,6 +6765,7 @@
                         uiUtils.showScreen('chat');
                     }
                 } catch (error) {
+                    console.error("Error loading chat:", error);
                     await uiUtils.showCustomAlert(`チャットの読み込みエラー: ${error}`);
                     this.startNewChat();
                     uiUtils.showScreen('chat');
@@ -7291,7 +6775,7 @@
                 if (state.isSending) { const conf = await uiUtils.showCustomConfirm("送信中です。中断してチャットを複製しますか？"); if (!conf) return; this.abortRequest(); }
                 if (state.editingMessageIndex !== null) { const conf = await uiUtils.showCustomConfirm("編集中です。変更を破棄してチャットを複製しますか？"); if (!conf) return; const msgEl = elements.messageContainer.querySelector(`.message[data-index="${state.editingMessageIndex}"]`); this.cancelEditMessage(state.editingMessageIndex, msgEl); }
                 if (state.isEditingSystemPrompt) { const conf = await uiUtils.showCustomConfirm("システムプロンプト編集中です。変更を破棄してチャットを複製しますか？"); if (!conf) return; this.cancelEditSystemPrompt(); }
-                if ((state.currentMessages.length > 0 || state.currentSystemPrompt) && state.currentChatId && state.currentChatId !== id) { try { await dbUtils.saveChat(); } catch (error) { const conf = await uiUtils.showCustomConfirm("現在のチャット保存に失敗しました。複製を続行しますか？"); if (!conf) return; } }
+                if ((state.currentMessages.length > 0 || state.currentSystemPrompt) && state.currentChatId && state.currentChatId !== id) { try { await dbUtils.saveChat(); } catch (error) { console.error("Error saving current chat before duplicate:", error); const conf = await uiUtils.showCustomConfirm("現在のチャット保存に失敗しました。複製を続行しますか？"); if (!conf) return; } }
                 if (state.pendingAttachments.length > 0) {
                     const confirmedAttach = await uiUtils.showCustomConfirm("添付準備中のファイルがあります。破棄してチャットを複製しますか？");
                     if (!confirmedAttach) return;
@@ -7360,6 +6844,7 @@
                         await uiUtils.showCustomAlert("複製元のチャットが見つかりません。");
                     }
                 } catch (error) {
+                    console.error("Error duplicating chat:", error);
                     await uiUtils.showCustomAlert(`チャット複製エラー: ${error}`);
                 }
             },
@@ -7406,6 +6891,7 @@
                      document.body.removeChild(a);
                      URL.revokeObjectURL(url);
                  } catch (error) {
+                     console.error("Export chat error:", error);
                      await uiUtils.showCustomAlert(`エクスポートエラー: ${error}`);
                  }
             },
@@ -7443,6 +6929,7 @@
                     this.startNewChat();
                     await uiUtils.showCustomAlert("チャットを削除しました。");
                 } catch (error) {
+                    console.error("Error deleting current session:", error);
                     await uiUtils.showCustomAlert(`チャットの削除中にエラーが発生しました: ${error}`);
                 }
             },
@@ -7481,6 +6968,7 @@
                         buttonElement.disabled = false;
                     }, 1500);
                 } catch (err) {
+                    console.error("Copy session text error:", err);
                     await uiUtils.showCustomAlert("クリップボードへのコピーに失敗しました。\nお使いのブラウザが対応していないか、セキュリティ設定が原因の可能性があります。");
                     const buttonElement = elements.copySessionBtn;
                     const originalText = buttonElement.textContent;
@@ -7512,6 +7000,7 @@
                             }
                         }
                     } catch (error) {
+                        console.error("Confirm delete chat error:", error);
                         await uiUtils.showCustomAlert(`チャット削除エラー: ${error}`);
                         uiUtils.setSendingState(false);
                     }
@@ -7535,9 +7024,48 @@
                             uiUtils.updateChatTitle(finalTitle);
                         }
                     } catch (error) {
+                        console.error("Edit history title error:", error);
                         await uiUtils.showCustomAlert(`タイトル更新エラー: ${error}`);
                     }
                 }
+            },
+            async typeCharacterByCharacter(processedChunks, messageIndex, signal, prefix = '') {
+                const speed = state.settings.streamingSpeed;
+                let accumulatedRawContent = prefix;
+                state.partialStreamContent = prefix;
+                if (prefix) {
+                    uiUtils.updateStreamingMessage(messageIndex, '');
+                }
+
+                if (!speed || speed <= 0) {
+                    accumulatedRawContent = prefix + processedChunks.map(chunk => chunk === null ? '\n\n' : chunk).join('');
+                    state.partialStreamContent = accumulatedRawContent;
+                    uiUtils.updateStreamingMessage(messageIndex, '');
+                    return accumulatedRawContent;
+                }
+
+                for (const chunk of processedChunks) {
+                    if (signal.aborted) {
+                        return accumulatedRawContent;
+                    }
+                    if (chunk === null) {
+                        const separator = '\n\n';
+                        accumulatedRawContent += separator;
+                        state.partialStreamContent = accumulatedRawContent;
+                        uiUtils.updateStreamingMessage(messageIndex, '');
+                    } else if (typeof chunk === 'string') {
+                        for (const char of chunk) {
+                            if (signal.aborted) {
+                                return accumulatedRawContent;
+                            }
+                            accumulatedRawContent += char;
+                            state.partialStreamContent = accumulatedRawContent;
+                            uiUtils.updateStreamingMessage(messageIndex, char);
+                            await sleep(speed);
+                        }
+                    }
+                }
+                return accumulatedRawContent;
             },
             async handleSend(isRetry = false, retryUserMessageIndex = -1, sourceSessionContext = null) {
                 const isBackgroundProcess = !!sourceSessionContext;
@@ -7547,12 +7075,10 @@
                 let currentContextEnableSystemPromptDefault = isBackgroundProcess ? (sourceSessionContext.enableSystemPromptDefault ?? state.settings.enableSystemPromptDefault) : state.settings.enableSystemPromptDefault;
                 let currentContextEnableDummyUser = isBackgroundProcess ? (sourceSessionContext.enableDummyUser ?? state.settings.enableDummyUser) : state.settings.enableDummyUser;
                 let currentContextEnableDummyModel = isBackgroundProcess ? (sourceSessionContext.enableDummyModel ?? state.settings.enableDummyModel) : state.settings.enableDummyModel;
-                const selectedApiProvider = isBackgroundProcess ? (sourceSessionContext.apiProvider || state.settings.apiProvider) : state.settings.apiProvider;
-
 
                 if (!isBackgroundProcess) {
                     if (state.editingMessageIndex !== null) { await uiUtils.showCustomAlert("他のメッセージを編集中です。"); return; }
-                    if (state.isEditingSystemPrompt) { await uiUtils.showCustomAlert("システムプロンプト編集中です。"); return; }
+                    if (state.isEditingSystemPrompt) { await uiUtils.showCustomAlert("システムプロンプトを編集中です。"); return; }
                 }
 
                 let text = '';
@@ -7577,19 +7103,16 @@
                 if (!isBackgroundProcess && (state.isSending || (!text && attachmentsToSend.length === 0))) {
                     return;
                 }
-
-                if (selectedApiProvider === 'gemini' && !state.settings.apiKey) {
-                    if (!isBackgroundProcess) { await uiUtils.showCustomAlert("Gemini APIキーが設定されていません。設定画面を開きます。"); uiUtils.showScreen('settings'); }
-                    return "APIキー未設定";
-                } else if (selectedApiProvider === 'deepseek' && !state.settings.deepSeekApiKey) {
-                    if (!isBackgroundProcess) { await uiUtils.showCustomAlert("DeepSeek APIキーが設定されていません。設定画面を開きます。"); uiUtils.showScreen('settings'); }
+                if (!state.settings.apiKey) {
+                    if (!isBackgroundProcess) {
+                        await uiUtils.showCustomAlert("APIキーが設定されていません。設定画面を開きます。");
+                        uiUtils.showScreen('settings');
+                    }
                     return "APIキー未設定";
                 }
 
-
                 if (!isBackgroundProcess) uiUtils.setSendingState(true);
-                state.partialStreamContent = '';
-                state.partialThoughtStreamContent = '';
+                if (!isBackgroundProcess) state.partialStreamContent = '';
 
 
                 let userMessageIndex = isRetry ? retryUserMessageIndex : -1;
@@ -7600,8 +7123,7 @@
                 if (!isBackgroundProcess && !isRetry) {
                     const userMessage = {
                         role: 'user', content: text, timestamp: Date.now(),
-                        attachments: attachmentsToSend,
-                        generatedByApiProvider: null
+                        attachments: attachmentsToSend
                     };
                     state.currentMessages.push(userMessage);
                     userMessageIndex = state.currentMessages.length - 1;
@@ -7615,8 +7137,7 @@
                 } else if (isBackgroundProcess && !isRetry) {
                     const userMessage = {
                         role: 'user', content: text, timestamp: Date.now(),
-                        attachments: attachmentsToSend,
-                        generatedByApiProvider: null
+                        attachments: attachmentsToSend
                     };
                     currentContextMessages.push(userMessage);
                     userMessageIndex = currentContextMessages.length - 1;
@@ -7680,9 +7201,6 @@
                     const chatToSave = {
                         messages: currentContextMessages.map(msg => ({
                             role: msg.role, content: msg.content, timestamp: msg.timestamp,
-                            thoughtSummary: msg.thoughtSummary || null,
-                            deepSeekThoughtSummary: msg.deepSeekThoughtSummary || null,
-                            generatedByApiProvider: msg.generatedByApiProvider || null,
                             ...(msg.finishReason && { finishReason: msg.finishReason }),
                             ...(msg.safetyRatings && { safetyRatings: msg.safetyRatings }),
                             ...(msg.error && { error: msg.error }),
@@ -7732,9 +7250,12 @@
                     }
 
                 } catch (error) {
+                    console.error("Error saving chat before send:", error);
                     if (!isBackgroundProcess) {
                         if(currentContextSessionId){
                              uiUtils.displayError("チャットの保存に失敗しましたが、送信を試みます。", false);
+                        } else {
+                             console.warn("新規チャットの初期保存に失敗しましたが、送信を試みます:", error);
                         }
                     }
                 }
@@ -7763,7 +7284,7 @@
                                 }
                             });
                         }
-                        return { role: msg.role, parts: parts.length > 0 ? parts : [{text: ''}] };
+                        return { role: msg.role, parts: parts };
                     });
                 const dummyUserText = state.settings.dummyUser?.trim();
                 const dummyModelText = state.settings.dummyModel?.trim();
@@ -7771,242 +7292,113 @@
                 if (currentContextEnableDummyModel && dummyModelText) apiMessages.push({ role: 'model', parts: [{ text: dummyModelText }] });
 
 
-                const commonGenerationConfig = {};
-                if (state.settings.temperature !== null) commonGenerationConfig.temperature = state.settings.temperature;
-                if (state.settings.maxTokens !== null) commonGenerationConfig.maxOutputTokens = state.settings.maxTokens;
-                if (state.settings.topP !== null) commonGenerationConfig.topP = state.settings.topP;
-                if (state.settings.presencePenalty !== null) commonGenerationConfig.presencePenalty = state.settings.presencePenalty;
-                if (state.settings.frequencyPenalty !== null) commonGenerationConfig.frequencyPenalty = state.settings.frequencyPenalty;
+                const generationConfig = {};
+                if (state.settings.temperature !== null) generationConfig.temperature = state.settings.temperature;
+                if (state.settings.maxTokens !== null) generationConfig.maxOutputTokens = state.settings.maxTokens;
+                if (state.settings.topK !== null) generationConfig.topK = state.settings.topK;
+                if (state.settings.topP !== null) generationConfig.topP = state.settings.topP;
+                if (state.settings.presencePenalty !== null) generationConfig.presencePenalty = state.settings.presencePenalty;
+                if (state.settings.frequencyPenalty !== null) generationConfig.frequencyPenalty = state.settings.frequencyPenalty;
 
-                if (selectedApiProvider === 'gemini') {
-                    if (state.settings.topK !== null) commonGenerationConfig.topK = state.settings.topK;
-                    if (state.settings.thinkingBudget !== null || state.settings.includeThoughts) {
-                        commonGenerationConfig.thinkingConfig = commonGenerationConfig.thinkingConfig || {};
-                        if (state.settings.thinkingBudget !== null && Number.isInteger(state.settings.thinkingBudget) && state.settings.thinkingBudget >= 0) {
-                            commonGenerationConfig.thinkingConfig.thinkingBudget = state.settings.thinkingBudget;
-                        }
-                        if (state.settings.includeThoughts) {
-                            commonGenerationConfig.thinkingConfig.includeThoughts = true;
-                        }
-                         if (Object.keys(commonGenerationConfig.thinkingConfig).length === 0) delete commonGenerationConfig.thinkingConfig;
-                    }
+                if (state.settings.thinkingBudget !== null && Number.isInteger(state.settings.thinkingBudget) && state.settings.thinkingBudget >= 0) {
+                    generationConfig.thinkingConfig = {
+                        "thinkingBudget": state.settings.thinkingBudget,
+                    };
                 }
 
-
-                let systemInstructionForProvider = null;
-                const systemPromptText = currentContextEnableSystemPromptDefault && currentContextSystemPrompt?.trim() ? currentContextSystemPrompt.trim() : null;
-
-                if (systemPromptText) {
-                    if (selectedApiProvider === 'gemini') {
-                        systemInstructionForProvider = { role: "system", parts: [{ text: systemPromptText }] };
-                    } else if (selectedApiProvider === 'deepseek') {
-                        systemInstructionForProvider = { content: systemPromptText };
-                    }
-                }
+                const systemPromptToSend = currentContextEnableSystemPromptDefault && currentContextSystemPrompt?.trim() ? currentContextSystemPrompt.trim() : null;
+                const systemInstruction = systemPromptToSend
+                    ? { role: "system", parts: [{ text: systemPromptToSend }] }
+                    : null;
 
 
                 let modelResponseRawContent = '';
-                let modelThoughtSummaryContent = '';
                 let modelResponseMetadata = {};
-                let currentGroundingMetadata = null;
-                let finalUsageMetadataFromStream = null;
+                let groundingMetadata = null;
+                let usageMetadata = null;
 
-                let useStreamingForThisCall = isBackgroundProcess ? false : state.settings.streamingOutput;
-                let usePseudoForThisCall = isBackgroundProcess ? false : (selectedApiProvider === 'gemini' && state.settings.pseudoStreaming);
+                let useStreamingForThisCall = state.settings.streamingOutput;
+                let usePseudoForThisCall = state.settings.pseudoStreaming;
+
+                if (isBackgroundProcess) {
+                    useStreamingForThisCall = false;
+                    usePseudoForThisCall = false;
+                }
 
                 try {
-                    let apiResponseObject;
-                    if (selectedApiProvider === 'gemini') {
-                        apiResponseObject = await apiUtils.callGeminiApi(apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall, usePseudoForThisCall);
-                    } else if (selectedApiProvider === 'deepseek') {
-                        apiResponseObject = await apiUtils.callDeepSeekApi(apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall);
-                    } else {
-                        throw new Error("不明なAPIプロバイダーが選択されています。");
-                    }
-
+                    const response = await apiUtils.callGeminiApi(apiMessages, generationConfig, systemInstruction, useStreamingForThisCall, usePseudoForThisCall);
                     const dummyModelPrefix = (state.settings.concatDummyModel && state.settings.dummyModel && currentContextEnableDummyModel) ? state.settings.dummyModel : '';
-                     if (!isBackgroundProcess) {
-                        state.partialStreamContent = dummyModelPrefix;
-                        state.partialThoughtStreamContent = '';
-                    }
 
-                    if (useStreamingForThisCall) {
-                        let responseStreamIterator;
-                        if (selectedApiProvider === 'gemini') {
-                            responseStreamIterator = apiUtils.handleStreamingResponse(apiResponseObject);
-                        } else if (selectedApiProvider === 'deepseek') {
-                            responseStreamIterator = apiUtils.handleDeepSeekStreamingResponse(apiResponseObject);
-                        }
+                    if (useStreamingForThisCall && !usePseudoForThisCall) {
+                        const tempPlaceholderIndex = state.currentMessages.length;
+                        uiUtils.appendMessage('model', '', tempPlaceholderIndex, true);
+                        const streamResult = await apiUtils.handleStreamingResponse(response);
+                        modelResponseMetadata = { finishReason: streamResult.finishReason, safetyRatings: streamResult.safetyRatings };
+                        groundingMetadata = streamResult.groundingMetadata;
+                        usageMetadata = streamResult.usageMetadata;
 
-                        let tempPlaceholderIndex;
-                        if (!isBackgroundProcess) {
-                            tempPlaceholderIndex = state.currentMessages.length;
-                            uiUtils.appendMessage('model', '', tempPlaceholderIndex, true);
-                        }
-                        const streamSpeed = state.settings.streamingSpeed;
+                        modelResponseRawContent = await this.typeCharacterByCharacter(streamResult.processedChunks, tempPlaceholderIndex, state.abortController.signal, dummyModelPrefix);
 
-                        for await (const streamData of responseStreamIterator) {
-                            if (state.abortController?.signal.aborted) {
-                                modelResponseMetadata.finishReason = 'ABORTED';
-                                throw new Error("リクエストがキャンセルされました。");
-                            }
-
-                            if (streamData.type === 'chunk') {
-                                if (streamData.thoughtText) {
-                                    if (isBackgroundProcess) {
-                                        modelThoughtSummaryContent += streamData.thoughtText;
-                                    } else {
-                                        if (selectedApiProvider === 'gemini' && state.settings.includeThoughts) {
-                                            for (const char of streamData.thoughtText) {
-                                                if (state.abortController?.signal.aborted) break;
-                                                state.partialThoughtStreamContent += char;
-                                                uiUtils.updateStreamingMessage(tempPlaceholderIndex, char, true);
-                                                if (streamSpeed > 0) await sleep(streamSpeed);
-                                            }
-                                        } else if (selectedApiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts) {
-                                            state.partialThoughtStreamContent += streamData.thoughtText;
-                                            uiUtils.updateStreamingMessage(tempPlaceholderIndex, streamData.thoughtText, true);
-                                        }
-                                    }
-                                }
-
-                                if (streamData.contentText) {
-                                    if (isBackgroundProcess) {
-                                        modelResponseRawContent += streamData.contentText;
-                                    } else {
-                                        if (selectedApiProvider === 'gemini') {
-                                            for (const char of streamData.contentText) {
-                                                if (state.abortController?.signal.aborted) break;
-                                                state.partialStreamContent += char;
-                                                uiUtils.updateStreamingMessage(tempPlaceholderIndex, char, false);
-                                                if (streamSpeed > 0) await sleep(streamSpeed);
-                                            }
-                                        } else {
-                                            state.partialStreamContent += streamData.contentText;
-                                            uiUtils.updateStreamingMessage(tempPlaceholderIndex, streamData.contentText, false);
-                                        }
-                                    }
-                                }
-                                if (state.abortController?.signal.aborted) {
-                                    modelResponseMetadata.finishReason = 'ABORTED';
-                                    throw new Error("リクエストがキャンセルされました。");
-                                }
-                                if (streamData.groundingMetadata && selectedApiProvider === 'gemini') currentGroundingMetadata = streamData.groundingMetadata;
-                                if (streamData.usageMetadata) finalUsageMetadataFromStream = streamData.usageMetadata;
-
-                            } else if (streamData.type === 'metadata') {
-                                modelResponseMetadata = {
-                                    finishReason: streamData.finishReason,
-                                    safetyRatings: streamData.safetyRatings,
-                                };
-                                if (streamData.groundingMetadata && selectedApiProvider === 'gemini') currentGroundingMetadata = streamData.groundingMetadata;
-                                if (streamData.usageMetadata) finalUsageMetadataFromStream = streamData.usageMetadata;
-                                if (streamData.fullReasoningContent && selectedApiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts) {
-                                    modelThoughtSummaryContent = (modelThoughtSummaryContent || "") + streamData.fullReasoningContent;
-                                }
-                                break;
-                            } else if (streamData.type === 'error') {
-                                modelResponseMetadata.finishReason = 'ERROR';
-                                modelResponseMetadata.error = streamData.error;
-                                throw new Error(streamData.message || "ストリーム内でエラーが発生しました。");
-                            }
-                        }
-                        if (!isBackgroundProcess) {
-                           modelThoughtSummaryContent = state.partialThoughtStreamContent;
-                           modelResponseRawContent = state.partialStreamContent;
-                        }
-                        if (modelResponseMetadata.fullReasoningContent && selectedApiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts) {
-                            modelThoughtSummaryContent = modelResponseMetadata.fullReasoningContent;
-                        }
-
-                         if (modelResponseMetadata.finishReason === 'ABORTED' || state.abortController?.signal.aborted) {
+                        if (modelResponseMetadata.finishReason === 'ABORTED' || state.abortController?.signal.aborted) {
                             throw new Error("リクエストがキャンセルされました。");
                         }
+                        const placeholderElement = document.getElementById(`streaming-message-${tempPlaceholderIndex}`);
+                        if (placeholderElement) placeholderElement.remove();
 
-                    } else {
-                        const data = await apiResponseObject.json();
-                        if (selectedApiProvider === 'gemini') {
-                            const candidate = data.candidates?.[0];
-                            let rawContentFromApi = "";
-                            if (candidate) {
-                                modelResponseMetadata = { finishReason: candidate.finishReason, safetyRatings: candidate.safetyRatings };
-                                candidate.content?.parts?.forEach(part => {
-                                    if (part.thought === true && state.settings.includeThoughts) {
-                                        modelThoughtSummaryContent += (part.text || "") + "\n\n";
-                                    } else if (part.thought !== true){
-                                        rawContentFromApi += (part.text || "") + "\n\n";
-                                    }
-                                });
-                                modelThoughtSummaryContent = modelThoughtSummaryContent.trim();
-                                rawContentFromApi = rawContentFromApi.trim();
+                    } else if (useStreamingForThisCall && usePseudoForThisCall) {
+                         const tempPlaceholderIndex = state.currentMessages.length;
+                        uiUtils.appendMessage('model', '', tempPlaceholderIndex, true);
+                        const streamResult = await apiUtils.handleStreamingResponse(response);
+                        modelResponseMetadata = { finishReason: streamResult.finishReason, safetyRatings: streamResult.safetyRatings };
+                        groundingMetadata = streamResult.groundingMetadata;
+                        usageMetadata = streamResult.usageMetadata;
+                        modelResponseRawContent = await this.typeCharacterByCharacter(streamResult.processedChunks, tempPlaceholderIndex, state.abortController.signal, dummyModelPrefix);
 
-                                currentGroundingMetadata = candidate.groundingMetadata || null;
-                                finalUsageMetadataFromStream = data.usageMetadata || null;
-                                if (candidate.finishReason && candidate.finishReason !== "STOP" && candidate.finishReason !== "MAX_TOKENS") {
-                                    rawContentFromApi += `\n\n(理由: ${candidate.finishReason})`;
-                                }
-                                if (!rawContentFromApi && candidate.finishReason === "STOP" && !modelThoughtSummaryContent) {
-                                    rawContentFromApi = "(応答が空です)";
-                                }
-                            } else {
-                                rawContentFromApi = "応答候補がありません";
-                                if(data.promptFeedback) {
-                                    rawContentFromApi += ` (理由: ${data.promptFeedback.blockReason || '不明'})`;
-                                    modelResponseMetadata.promptFeedback = data.promptFeedback;
-                                    modelResponseMetadata.finishReason = data.promptFeedback.blockReason || 'ERROR';
-                                } else {
-                                    modelResponseMetadata.finishReason = 'ERROR';
-                                }
-                                finalUsageMetadataFromStream = data.usageMetadata || null;
-                            }
-                             modelResponseRawContent = dummyModelPrefix + rawContentFromApi;
-                        } else if (selectedApiProvider === 'deepseek') {
-                            const choice = data.choices?.[0];
-                            let rawContentFromApi = "";
-                            if (choice) {
-                                rawContentFromApi = choice.message?.content || "";
-                                modelResponseMetadata = { finishReason: choice.finish_reason };
-                                if (data.usage) {
-                                   finalUsageMetadataFromStream = {
-                                        candidatesTokenCount: data.usage.completion_tokens,
-                                        totalTokenCount: data.usage.total_tokens,
-                                    };
-                                }
-                                if (state.settings.includeDeepSeekThoughts && data.parsedReasoningContent) {
-                                    modelThoughtSummaryContent = data.parsedReasoningContent;
-                                }
-                            } else {
-                                rawContentFromApi = "DeepSeekからの応答がありません。";
-                                modelResponseMetadata = { finishReason: 'ERROR' };
-                                if (data.error) rawContentFromApi += ` (エラー: ${data.error.message})`;
-                            }
-                            modelResponseRawContent = dummyModelPrefix + rawContentFromApi;
+                        if (modelResponseMetadata.finishReason === 'ABORTED' || state.abortController?.signal.aborted) {
+                            throw new Error("リクエストがキャンセルされました。");
                         }
+                        const placeholderElement = document.getElementById(`streaming-message-${tempPlaceholderIndex}`);
+                        if (placeholderElement) placeholderElement.remove();
+                    } else {
+                        const data = await response.json();
+                        const candidate = data.candidates?.[0];
+                        let rawContentFromApi = "";
+                        if (candidate) {
+                            modelResponseMetadata = { finishReason: candidate.finishReason, safetyRatings: candidate.safetyRatings };
+                            rawContentFromApi = candidate.content?.parts?.map(p => p.text || "").join('\n\n') || "";
+                            groundingMetadata = candidate.groundingMetadata || null;
+                            usageMetadata = data.usageMetadata || null;
+
+                            if (candidate.finishReason && candidate.finishReason !== "STOP" && candidate.finishReason !== "MAX_TOKENS") {
+                                rawContentFromApi += `\n\n(理由: ${candidate.finishReason})`;
+                            }
+                            if (!rawContentFromApi && candidate.finishReason === "STOP") {
+                                rawContentFromApi = "(応答が空です)";
+                            }
+                        } else {
+                            rawContentFromApi = "応答候補がありません";
+                            if(data.promptFeedback) {
+                                rawContentFromApi += ` (理由: ${data.promptFeedback.blockReason || '不明'})`;
+                                modelResponseMetadata.promptFeedback = data.promptFeedback;
+                                modelResponseMetadata.finishReason = data.promptFeedback.blockReason || 'ERROR';
+                            } else {
+                                modelResponseMetadata.finishReason = 'ERROR';
+                            }
+                            usageMetadata = data.usageMetadata || null;
+                        }
+                        modelResponseRawContent = dummyModelPrefix + rawContentFromApi;
                     }
 
                     if (isBackgroundProcess) {
-                        if (modelResponseRawContent || modelThoughtSummaryContent || modelResponseMetadata.finishReason) {
+                        if (modelResponseRawContent || modelResponseMetadata.finishReason) {
                              const bgModelMessage = {
-                                 role: 'model', content: modelResponseRawContent,
-                                 timestamp: Date.now(),
-                                 ...modelResponseMetadata,
-                                 usageMetadata: finalUsageMetadataFromStream,
-                                 generatedByApiProvider: selectedApiProvider
+                                 role: 'model', content: modelResponseRawContent, timestamp: Date.now(),
+                                 ...modelResponseMetadata, groundingMetadata: groundingMetadata, usageMetadata: usageMetadata
                              };
-                             if (selectedApiProvider === 'gemini' && state.settings.includeThoughts) {
-                                 bgModelMessage.thoughtSummary = modelThoughtSummaryContent || null;
-                                 bgModelMessage.groundingMetadata = currentGroundingMetadata;
-                             } else if (selectedApiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts) {
-                                 bgModelMessage.deepSeekThoughtSummary = modelThoughtSummaryContent || null;
-                             }
-
                              currentContextMessages.push(bgModelMessage);
                              const chatToSaveBg = {
                                 messages: currentContextMessages.map(msg => ({
                                     role: msg.role, content: msg.content, timestamp: msg.timestamp,
-                                    thoughtSummary: msg.thoughtSummary || null,
-                                    deepSeekThoughtSummary: msg.deepSeekThoughtSummary || null,
-                                    generatedByApiProvider: msg.generatedByApiProvider || null,
                                     ...(msg.finishReason && { finishReason: msg.finishReason }),
                                     ...(msg.safetyRatings && { safetyRatings: msg.safetyRatings }),
                                     ...(msg.error && { error: msg.error }),
@@ -8039,20 +7431,11 @@
                     }
 
 
-                    if (modelResponseRawContent || modelThoughtSummaryContent || modelResponseMetadata.finishReason) {
+                    if (modelResponseRawContent || modelResponseMetadata.finishReason) {
                          const newModelMessage = {
-                             role: 'model', content: modelResponseRawContent,
-                             timestamp: Date.now(),
-                             ...modelResponseMetadata,
-                             usageMetadata: finalUsageMetadataFromStream,
-                             generatedByApiProvider: selectedApiProvider
+                             role: 'model', content: modelResponseRawContent, timestamp: Date.now(),
+                             ...modelResponseMetadata, groundingMetadata: groundingMetadata, usageMetadata: usageMetadata
                          };
-                        if (selectedApiProvider === 'gemini' && state.settings.includeThoughts) {
-                             newModelMessage.thoughtSummary = modelThoughtSummaryContent || null;
-                             newModelMessage.groundingMetadata = currentGroundingMetadata;
-                        } else if (selectedApiProvider === 'deepseek' && state.settings.includeDeepSeekThoughts && modelThoughtSummaryContent) {
-                             newModelMessage.deepSeekThoughtSummary = modelThoughtSummaryContent || null;
-                        }
 
                          const targetUserIndexForCascade = userMessageIndex;
                          if (targetUserIndexForCascade !== -1 && !isBackgroundProcess) {
@@ -8072,54 +7455,26 @@
                          const newModelIndex = state.currentMessages.length;
                          state.currentMessages.push(newModelMessage);
                          state.messageCollapsedStates.set(newModelIndex, false);
-
-                         if (useStreamingForThisCall) {
-                             uiUtils.finalizeStreamingMessage(state.currentMessages.length - 1);
-                         } else {
-                            uiUtils.renderChatMessages();
-                         }
+                         uiUtils.renderChatMessages();
                          await dbUtils.saveChat();
-                    } else {
-                         if (useStreamingForThisCall) {
-                            const tempPlaceholderIndex = state.currentMessages.length;
-                            const placeholderElement = document.getElementById(`streaming-message-${tempPlaceholderIndex}`);
-                            if (placeholderElement) placeholderElement.remove();
-                         }
                     }
                 } catch (error) {
-                    const isAbort = error.message === "リクエストがキャンセルされました。" || modelResponseMetadata.finishReason === 'ABORTED';
+                    console.error("Error during API call or response handling:", error);
+                    const isAbort = error.message === "リクエストがキャンセルされました。";
                     const displayErrorMessage = isAbort ? error.message : (error.message || "不明なエラーが発生しました");
-
-                    const partialThoughtContentOnError = state.partialThoughtStreamContent;
-                    const partialContentOnError = state.partialStreamContent;
+                    const partialRawContent = state.partialStreamContent || error.cause?.partialChunks?.join('');
 
                     if (isBackgroundProcess) {
                          throw error;
                     }
 
-                    if ((partialContentOnError || partialThoughtContentOnError) && useStreamingForThisCall) {
-                         const finalPartialContent = partialContentOnError + `\n\n(${isAbort ? '中断されました' : 'エラーが発生しました'})`;
-                         let finalPartialThoughtValue = null;
-                         if (selectedApiProvider === 'gemini' && partialThoughtContentOnError && state.settings.includeThoughts) {
-                             finalPartialThoughtValue = partialThoughtContentOnError + `\n\n(${isAbort ? '中断されました' : 'エラーが発生しました'})`;
-                         } else if (selectedApiProvider === 'deepseek' && partialThoughtContentOnError && state.settings.includeDeepSeekThoughts) {
-                             finalPartialThoughtValue = partialThoughtContentOnError + `\n\n(${isAbort ? '中断されました' : 'エラーが発生しました'})`;
-                         }
+                    if (partialRawContent && state.settings.streamingOutput) {
+                         const finalPartialContent = partialRawContent + `\n\n(${isAbort ? '中断されました' : 'エラーが発生しました'})`;
                          const partialMessage = {
-                             role: 'model', content: finalPartialContent,
-                             timestamp: Date.now(), error: true,
+                             role: 'model', content: finalPartialContent, timestamp: Date.now(), error: true,
                              finishReason: isAbort ? 'ABORTED' : (modelResponseMetadata.finishReason || 'ERROR'),
-                             ...(modelResponseMetadata.safetyRatings && { safetyRatings: modelResponseMetadata.safetyRatings }),
-                             usageMetadata: finalUsageMetadataFromStream,
-                             generatedByApiProvider: selectedApiProvider
+                             ...(modelResponseMetadata.safetyRatings && { safetyRatings: modelResponseMetadata.safetyRatings })
                          };
-                         if (selectedApiProvider === 'gemini') {
-                             partialMessage.thoughtSummary = finalPartialThoughtValue;
-                             partialMessage.groundingMetadata = currentGroundingMetadata;
-                         } else if (selectedApiProvider === 'deepseek') {
-                             partialMessage.deepSeekThoughtSummary = finalPartialThoughtValue;
-                         }
-
                          if (isRetry && isAbort) {
                              if (siblingGroupIdToUse === null) {
                                  siblingGroupIdToUse = `gid-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
@@ -8137,21 +7492,13 @@
                          state.currentMessages.push(partialMessage);
                          state.messageCollapsedStates.set(newModelIndex, false);
                          try {
-                             if (useStreamingForThisCall) {
-                                 uiUtils.finalizeStreamingMessage(state.currentMessages.length - 1);
-                             } else {
-                                 uiUtils.renderChatMessages();
-                             }
                              await dbUtils.saveChat();
+                             uiUtils.renderChatMessages();
                          } catch (saveError) {
+                             console.error("Error saving chat after partial response:", saveError);
                              uiUtils.displayError(displayErrorMessage, !isAbort);
                          }
                     } else {
-                        if (useStreamingForThisCall && !isAbort) {
-                            const tempPlaceholderIndex = state.currentMessages.length;
-                            const placeholderElement = document.getElementById(`streaming-message-${tempPlaceholderIndex}`);
-                            if (placeholderElement) placeholderElement.remove();
-                        }
                         uiUtils.displayError(displayErrorMessage, !isAbort);
                     }
                 } finally {
@@ -8159,7 +7506,6 @@
                         uiUtils.setSendingState(false);
                         state.abortController = null;
                         state.partialStreamContent = '';
-                        state.partialThoughtStreamContent = '';
                         if (state.settings.autoScrollOnNewMessage) {
                             uiUtils.scrollToBottom();
                         }
@@ -8239,10 +7585,12 @@
                         await uiUtils.showCustomAlert(`履歴「${newChatData.title}」をインポートしました。`);
                         uiUtils.renderHistoryList();
                     } catch (error) {
+                        console.error("History import error:", error);
                         await uiUtils.showCustomAlert(`履歴のインポート中にエラーが発生しました: ${error.message}`);
                     }
                 };
                 reader.onerror = async (event) => {
+                    console.error("File read error:", event.target.error);
                     await uiUtils.showCustomAlert("ファイルの読み込みに失敗しました。");
                 };
                 reader.readAsText(file);
@@ -8313,15 +7661,12 @@
                                 role: msg.role,
                                 content: msg.content,
                                 timestamp: msg.timestamp,
-                                generatedByApiProvider: msg.generatedByApiProvider || null,
                             };
                             if (msg.isCascaded !== undefined) messageExport.isCascaded = msg.isCascaded;
                             if (msg.isSelected !== undefined) messageExport.isSelected = msg.isSelected;
                             if (msg.siblingGroupId !== undefined) messageExport.siblingGroupId = msg.siblingGroupId;
                             if (msg.groundingMetadata) messageExport.groundingMetadata = msg.groundingMetadata;
                             if (msg.usageMetadata) messageExport.usageMetadata = msg.usageMetadata;
-                            if (msg.thoughtSummary) messageExport.thoughtSummary = msg.thoughtSummary;
-                            if (msg.deepSeekThoughtSummary) messageExport.deepSeekThoughtSummary = msg.deepSeekThoughtSummary;
                             if (msg.attachments && msg.attachments.length > 0) {
                                 messageExport.attachments = msg.attachments.map(att => ({ name: att.name, mimeType: att.mimeType }));
                             }
@@ -8346,6 +7691,7 @@
                     await uiUtils.showCustomAlert(`${chats.length}件のセッションをエクスポートしました。`);
                 } catch (error) {
                     await uiUtils.showCustomAlert(`全セッションのエクスポート中にエラーが発生しました: ${error.message || error}`);
+                    console.error("Error exporting all sessions:", error);
                 }
             },
             async handleAllSessionsImport(file) {
@@ -8397,9 +7743,6 @@
                                     isCascaded: msg.isCascaded === true,
                                     isSelected: msg.isSelected === true,
                                     siblingGroupId: msg.siblingGroupId || undefined,
-                                    thoughtSummary: msg.thoughtSummary || undefined,
-                                    deepSeekThoughtSummary: msg.deepSeekThoughtSummary || undefined,
-                                    generatedByApiProvider: msg.generatedByApiProvider || undefined,
                                     attachments: (msg.attachments || []).map(att => ({
                                         name: att.name || 'imported_file',
                                         mimeType: att.mimeType || 'application/octet-stream',
@@ -8439,11 +7782,13 @@
                                         resolve();
                                     };
                                     request.onerror = (e) => {
+                                        console.error("Failed to import session:", chatData.title, e.target.error);
                                         skippedCount++;
                                         resolve();
                                     };
                                 });
                             } catch (e) {
+                                console.error("Error during DB operation for session:", chatData.title, e);
                                 skippedCount++;
                             }
                         }
@@ -8459,6 +7804,7 @@
 
                     } catch (error) {
                         await uiUtils.showCustomAlert(`全セッションのインポート中にエラーが発生しました: ${error.message || error}`);
+                        console.error("Error importing all sessions:", error);
                     }
                 };
                 reader.onerror = async () => {
@@ -8486,6 +7832,8 @@
                      document.documentElement.style.setProperty('--chat-background-image', `url(${state.backgroundImageUrl})`);
                      uiUtils.updateBackgroundSettingsUI();
                  } catch (error) {
+                     console.error("Background image upload error:", error);
+                     await uiUtils.showCustomAlert(`背景画像の処理中にエラーが発生しました: ${error}`);
                      uiUtils.revokeExistingObjectUrl();
                      document.documentElement.style.setProperty('--chat-background-image', 'none');
                      state.settings.backgroundImageBlob = null;
@@ -8506,6 +7854,8 @@
                      document.documentElement.style.setProperty('--chat-background-image', 'none');
                      uiUtils.updateBackgroundSettingsUI();
                  } catch (error) {
+                     console.error("Background image delete error:", error);
+                     await uiUtils.showCustomAlert(`背景画像の削除中にエラーが発生しました: ${error}`);
                  }
              },
             async handleIconUpload(type, file) {
@@ -8535,6 +7885,7 @@
                      uiUtils.updateIconSettingsUI();
                      uiUtils.renderChatMessages(true);
                  } catch (error) {
+                     console.error(`${type} icon upload error:`, error);
                      await uiUtils.showCustomAlert(`${type === 'user' ? 'ユーザー' : 'AI'}アイコンの処理エラー: ${error}`);
                  }
             },
@@ -8561,21 +7912,14 @@
                      uiUtils.updateIconSettingsUI();
                      uiUtils.renderChatMessages(true);
                  } catch (error) {
+                     console.error(`${type} icon delete error:`, error);
                      await uiUtils.showCustomAlert(`${type === 'user' ? 'ユーザー' : 'AI'}アイコンの削除エラー: ${error}`);
                  }
             },
             async saveSettings() {
                  const newSettings = {
-                     apiProvider: elements.apiProviderSelect.value,
                      apiKey: elements.apiKeyInput.value.trim(),
                      modelName: elements.modelNameSelect.value,
-                     additionalModels: elements.additionalModelsTextarea.value.trim(),
-                     deepSeekApiKey: elements.deepSeekApiKeyInput.value.trim(),
-                     deepSeekModelName: elements.deepSeekModelNameSelect.value,
-                     deepSeekAdditionalModels: elements.deepSeekAdditionalModelsTextarea.value.trim(),
-                     deepSeekApiEndpoint: elements.deepSeekApiEndpointInput.value.trim(),
-                     includeDeepSeekThoughts: elements.includeDeepSeekThoughtsToggle.checked,
-                     expandDeepSeekThoughtsByDefault: elements.expandDeepSeekThoughtsByDefaultToggle.checked,
                      streamingOutput: elements.streamingOutputCheckbox.checked,
                      streamingSpeed: elements.streamingSpeedInput.value === '' ? DEFAULT_STREAMING_SPEED : parseInt(elements.streamingSpeedInput.value),
                      systemPrompt: elements.systemPromptDefaultTextarea.value.trim(),
@@ -8587,17 +7931,15 @@
                      presencePenalty: elements.presencePenaltyInput.value === '' ? null : parseFloat(elements.presencePenaltyInput.value),
                      frequencyPenalty: elements.frequencyPenaltyInput.value === '' ? null : parseFloat(elements.frequencyPenaltyInput.value),
                      thinkingBudget: elements.thinkingBudgetInput.value === '' ? null : parseInt(elements.thinkingBudgetInput.value, 10),
-                     includeThoughts: elements.includeThoughtsToggle.checked,
-                     expandThoughtsByDefault: elements.expandThoughtsByDefaultToggle.checked,
                      dummyUser: elements.dummyUserInput.value.trim(),
                      enableDummyUser: elements.enableDummyUserCheckbox.checked,
                      dummyModel: elements.dummyModelInput.value.trim(),
                      enableDummyModel: elements.enableDummyModelCheckbox.checked,
                      concatDummyModel: elements.concatDummyModelCheckbox.checked,
+                     additionalModels: elements.additionalModelsTextarea.value.trim(),
                      pseudoStreaming: elements.pseudoStreamingCheckbox.checked,
                      enterToSend: elements.enterToSendCheckbox.checked,
                      autoScrollOnNewMessage: elements.autoScrollOnNewMessageCheckbox.checked,
-                     autoScrollOnThought: elements.autoScrollOnThoughtCheckbox.checked,
                      historySortOrder: elements.historySortOrderSelect.value,
                      theme: elements.themeSelect.value,
                      enableSessionLinking: elements.enableSessionLinkingCheckbox.checked,
@@ -8758,7 +8100,7 @@
 
                  try {
                      const oldSortOrder = state.settings.historySortOrder;
-                     const { backgroundImageBlob, userIconBlob, aiIconBlob, ...settingsToSave } = newSettings;
+                     const { memoWidth, backgroundImageBlob, userIconBlob, aiIconBlob, ...settingsToSave } = newSettings;
 
                      const promises = Object.entries(settingsToSave).map(([key, value]) =>
                          dbUtils.saveSetting(key, value)
@@ -8799,6 +8141,7 @@
                      }
                      uiUtils.renderChatMessages(true);
                  } catch (error) {
+                     console.error("Save settings error:", error);
                      await uiUtils.showCustomAlert(`設定の保存中にエラーが発生しました: ${error}`);
                  }
             },
@@ -8816,6 +8159,7 @@
                             uiUtils.showCustomAlert("アクティブなService Workerが見つかりません。手動でリロードが必要かもしれません。");
                         }
                     }).catch(async err => {
+                        console.error("Service Worker ready error:", err);
                         await uiUtils.showCustomAlert("Service Workerの準備中にエラーが発生しました。");
                     });
                 }
@@ -8842,46 +8186,27 @@
                         state.linkedSessionIds = [];
 
                         state.settings = {
-                            apiKey: '',
-                            modelName: DEFAULT_MODEL,
-                            streamingOutput: true,
-                            streamingSpeed: DEFAULT_STREAMING_SPEED,
-                            systemPrompt: '',
+                            apiKey: '', modelName: DEFAULT_MODEL, streamingOutput: true,
+                            streamingSpeed: DEFAULT_STREAMING_SPEED, systemPrompt: '',
                             enableSystemPromptDefault: true,
-                            temperature: null,
-                            maxTokens: null,
-                            topK: null,
-                            topP: null,
-                            presencePenalty: null,
-                            frequencyPenalty: null,
-                            thinkingBudget: null,
-                            includeThoughts: true,
-                            expandThoughtsByDefault: false,
-                            dummyUser: '',
-                            enableDummyUser: true,
-                            dummyModel: '',
-                            enableDummyModel: true,
+                            temperature: null, maxTokens: null, topK: null, topP: null,
+                            presencePenalty: null, frequencyPenalty: null, thinkingBudget: null,
+                            dummyUser: '', enableDummyUser: true,
+                            dummyModel: '', enableDummyModel: true,
                             concatDummyModel: false,
-                            additionalModels: '',
-                            pseudoStreaming: false,
-                            enterToSend: true,
+                            additionalModels: '', pseudoStreaming: false, enterToSend: true,
                             autoScrollOnNewMessage: DEFAULT_AUTO_SCROLL_ON_NEW_MESSAGE,
-                            autoScrollOnThought: false,
                             historySortOrder: 'updatedAt',
                             theme: window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'dark' : 'light',
-                            backgroundImageBlob: null,
-                            fontFamily: '',
+                            backgroundImageBlob: null, fontFamily: '',
                             messageBodyFontSize: DEFAULT_MESSAGE_BODY_FONT_SIZE,
                             codeBlockFontSize: DEFAULT_CODE_BLOCK_FONT_SIZE,
-                            hideSystemPromptInChat: false,
-                            enableGrounding: false,
-                            enableSessionLinking: false,
+                            hideSystemPromptInChat: false, enableGrounding: false, enableSessionLinking: false,
                             enableSwipeNavigation: true,
                             preventZoom: true,
                             showChatTitle: true,
                             showNewChatButton: true,
-                            showDeleteSessionButton: false,
-                            showCopySessionButton: false,
+                            showDeleteSessionButton: false, showCopySessionButton: false,
                             showScrollToTopButton: true,
                             showScrollToBottomButton: true,
                             showToggleAllContentButton: false,
@@ -8934,13 +8259,6 @@
                             toggleButtonBottomFontSize: DEFAULT_TOGGLE_BUTTON_BOTTOM_FONT_SIZE,
                             toggleButtonBottomTextCollapse: DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_COLLAPSE,
                             toggleButtonBottomTextExpand: DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_EXPAND,
-                            apiProvider: 'gemini',
-                            deepSeekApiKey: '',
-                            deepSeekModelName: DEFAULT_DEEPSEEK_MODEL,
-                            deepSeekAdditionalModels: '',
-                            deepSeekApiEndpoint: '',
-                            includeDeepSeekThoughts: true,
-                            expandDeepSeekThoughtsByDefault: false,
                         };
                         state.backgroundImageUrl = null;
                         state.userIconUrl = null;
@@ -8954,6 +8272,7 @@
                         this.startNewChat();
                         uiUtils.showScreen('chat', true);
                     } catch (error) {
+                        console.error("Clear all data error:", error);
                         await uiUtils.showCustomAlert(`データ削除中にエラーが発生しました: ${error}`);
                     }
                 }
@@ -8986,6 +8305,7 @@
                         }
 
                     } catch (error) {
+                        console.error("Clear all history error:", error);
                         await uiUtils.showCustomAlert(`チャット履歴の削除中にエラーが発生しました: ${error}`);
                     }
                 }
@@ -9004,6 +8324,7 @@
                     try {
                         await dbUtils.saveChat();
                     } catch (error) {
+                        console.error("Error saving system prompt:", error);
                         await uiUtils.showCustomAlert("システムプロンプトの保存に失敗しました。");
                     }
                 }
@@ -9067,7 +8388,7 @@
                  actionsDiv.classList.add('message-edit-actions');
 
                  if (state.settings.showPasteButtonInEdit) {
-                                     const pasteButton = document.createElement('button');
+                    const pasteButton = document.createElement('button');
                     pasteButton.textContent = '貼';
                     pasteButton.title = 'テキストエリアに貼り付け';
                     pasteButton.style.backgroundColor = 'var(--bg-button-paste)';
@@ -9111,6 +8432,7 @@
                                 }, 1500);
                             }
                         } catch (err) {
+                             console.error("Paste to edit textarea error:", err);
                              if (err.name === 'NotAllowedError' || err.message.includes('Read permission denied')) {
                                 pasteButton.textContent = "!";
                                 pasteButton.title = "クリップボードの許可なし";
@@ -9175,14 +8497,11 @@
                 const contentDiv = messageElement.querySelector('.message-content');
                 if (contentDiv && typeof marked !== 'undefined' && originalMessage.role === 'model') {
                     try {
-                        const rawHtml = marked.parse(newRawContent || '');
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = rawHtml;
-                        uiUtils.processInteractivePlaceholders(tempDiv);
-                        uiUtils.processInteractiveTitles(tempDiv);
-                        contentDiv.innerHTML = tempDiv.innerHTML;
+                        contentDiv.innerHTML = marked.parse(newRawContent || '');
+                        uiUtils.processInteractiveTitles(contentDiv);
                         uiUtils.addCopyButtonsToCodeBlocks(contentDiv);
                     } catch (e) {
+                        console.error("Markdown parse error on save edit:", e);
                         contentDiv.textContent = newRawContent;
                     }
                 } else if (contentDiv) {
@@ -9212,6 +8531,7 @@
                         this.startNewChat();
                     }
                 } catch (error) {
+                    console.error("Error saving chat after message edit:", error);
                     await uiUtils.showCustomAlert("メッセージ編集後のチャット保存に失敗しました。");
                 }
             },
@@ -9267,6 +8587,7 @@
                         buttonElement.disabled = false;
                     }, 1500);
                 } catch (err) {
+                    console.error("Copy message text to OS clipboard error:", err);
                     await uiUtils.showCustomAlert("OSクリップボードへのコピーに失敗しました。");
                     const originalText = buttonElement.textContent;
                     buttonElement.textContent = 'コピー失敗';
@@ -9365,6 +8686,7 @@
                             this.startNewChat();
                         }
                     } catch (error) {
+                        console.error("Error saving chat after message delete:", error);
                         await uiUtils.showCustomAlert("メッセージ削除後のチャット保存に失敗しました。");
                     }
                 }
@@ -9514,6 +8836,7 @@
                     try {
                         await dbUtils.saveChat();
                     } catch (error) {
+                        console.error("Error saving cascade navigation:", error);
                         await uiUtils.showCustomAlert("応答の切り替え状態の保存に失敗しました。");
                     }
                 }
@@ -9531,16 +8854,12 @@
                 const currentIndexInGroup = siblings.findIndex(m => m === msgToDelete) + 1;
                 const totalSiblings = siblings.length;
                 const contentPreview = msgToDelete.content.substring(0, 30) + "...";
-                const confirmMsgText = `この応答 (${currentIndexInGroup}/${totalSiblings})「${contentPreview}」を削除しますか？\n(この応答のみが削除されます)`;
+                const confirmMsg = `この応答 (${currentIndexInGroup}/${totalSiblings})「${contentPreview}」を削除しますか？\n(この応答のみが削除されます)`;
 
-                let confirmed = true;
-                if (!state.settings.disableDeleteMessageConfirmation) {
-                    confirmed = await uiUtils.showCustomConfirm(confirmMsgText);
-                }
-
+                const confirmed = await uiUtils.showCustomConfirm(confirmMsg);
                 if (confirmed) {
                     const wasSelected = msgToDelete.isSelected;
-                                        const groupId = msgToDelete.siblingGroupId;
+                    const groupId = msgToDelete.siblingGroupId;
 
                     state.currentMessages.splice(indexToDelete, 1);
                     state.messageCollapsedStates.delete(indexToDelete);
@@ -9566,16 +8885,14 @@
                             const lastSiblingItem = remainingSiblingsWithIndices[remainingSiblingsWithIndices.length - 1];
                             if (!lastSiblingItem.msg.isSelected) {
                                 lastSiblingItem.msg.isSelected = true;
+                                newlySelectedIndex = lastSiblingItem.originalIndex;
+                            } else {
+                                newlySelectedIndex = lastSiblingItem.originalIndex;
                             }
-                            newlySelectedIndex = lastSiblingItem.originalIndex;
                         } else {
                              const stillSelectedItem = remainingSiblingsWithIndices.find(item => item.msg.isSelected);
                              if (stillSelectedItem) {
                                  newlySelectedIndex = stillSelectedItem.originalIndex;
-                             } else {
-                                const lastSiblingItem = remainingSiblingsWithIndices[remainingSiblingsWithIndices.length - 1];
-                                lastSiblingItem.msg.isSelected = true;
-                                newlySelectedIndex = lastSiblingItem.originalIndex;
                              }
                         }
                     }
@@ -9598,6 +8915,7 @@
                     try {
                         await dbUtils.saveChat();
                     } catch (error) {
+                        console.error("Error saving chat after cascade delete:", error);
                         await uiUtils.showCustomAlert("応答削除後のチャット状態の保存に失敗しました。");
                     }
                 }
@@ -9690,6 +9008,7 @@
                             base64Data: base64Data
                         });
                     } catch (error) {
+                        console.error("File encoding error:", error);
                         encodingError = true;
                         await uiUtils.showCustomAlert(`ファイル "${item.file.name}" の処理中にエラーが発生しました。`);
                         break;
@@ -9821,9 +9140,8 @@
                     await uiUtils.showCustomAlert("AI間会話を実行するには、現在のチャットを含む2つのセッションをリンクしてください。");
                     return;
                 }
-                const selectedApiProvider = state.settings.apiProvider;
-                 if ((selectedApiProvider === 'gemini' && !state.settings.apiKey) || (selectedApiProvider === 'deepseek' && !state.settings.deepSeekApiKey)) {
-                    await uiUtils.showCustomAlert("選択中のAPIプロバイダーのAPIキーが設定されていません。");
+                 if (!state.settings.apiKey) {
+                    await uiUtils.showCustomAlert("APIキーが設定されていません。");
                     uiUtils.showScreen('settings');
                     return;
                 }
@@ -9858,8 +9176,7 @@
                         enableDummyUser: state.settings.enableDummyUser,
                         enableDummyModel: state.settings.enableDummyModel,
                         inputText: inputForB,
-                        attachments: [],
-                        apiProvider: state.settings.apiProvider
+                        attachments: []
                     };
 
                     const responseFromB = await this.handleSend(false, -1, contextForB);
@@ -9877,6 +9194,7 @@
                     await this.handleSend();
 
                 } catch (error) {
+                    console.error("AI to AI chat step error:", error);
                     await uiUtils.showCustomAlert(`AI間会話処理中にエラーが発生しました: ${error.message}`);
                     if (state.currentChatId === sessionA_Id && elements.chatScreen.classList.contains('active')) {
                          uiUtils.displayError(`AI間会話エラー: ${error.message}`, false);
@@ -9909,18 +9227,14 @@
                 const endpoint = `${GEMINI_API_BASE_URL}${model}:${endpointMethod}key=${apiKey}`;
 
                 const finalGenerationConfig = { ...generationConfig };
+                if (state.settings.presencePenalty !== null) finalGenerationConfig.presencePenalty = state.settings.presencePenalty;
+                if (state.settings.frequencyPenalty !== null) finalGenerationConfig.frequencyPenalty = state.settings.frequencyPenalty;
 
-                if (state.settings.thinkingBudget !== null || state.settings.includeThoughts) {
-                    finalGenerationConfig.thinkingConfig = finalGenerationConfig.thinkingConfig || {};
-                    if (state.settings.thinkingBudget !== null && Number.isInteger(state.settings.thinkingBudget) && state.settings.thinkingBudget >= 0) {
-                        finalGenerationConfig.thinkingConfig.thinkingBudget = state.settings.thinkingBudget;
-                    }
-                    if (state.settings.includeThoughts) {
-                        finalGenerationConfig.thinkingConfig.includeThoughts = true;
-                    }
-                     if (Object.keys(finalGenerationConfig.thinkingConfig).length === 0) delete finalGenerationConfig.thinkingConfig;
+                if (state.settings.thinkingBudget !== null && Number.isInteger(state.settings.thinkingBudget) && state.settings.thinkingBudget >= 0) {
+                    finalGenerationConfig.thinkingConfig = {
+                        "thinkingBudget": state.settings.thinkingBudget,
+                    };
                 }
-
 
                 const requestBody = {
                     contents: messagesForApi,
@@ -9969,15 +9283,17 @@
                     throw error;
                 }
             },
-            async *handleStreamingResponse(response) {
+            async handleStreamingResponse(response) {
                  if (!response.body) {
                      throw new Error("レスポンスボディがありません。");
                  }
                  const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
                  let buffer = '';
                  let lastCandidateInfo = null;
+                 const processedChunks = [];
                  let isCancelled = false;
                  let groundingMetadata = null;
+                 let currentPartIndex = -1;
                  let finalUsageMetadata = null;
 
                  try {
@@ -10006,283 +9322,94 @@
 
                          if (done) {
                              if (buffer.trim()) {
-                                 const finalData = parseSseDataForYield(buffer.trim().substring(6));
-                                 if (finalData) yield finalData;
+                                 processBuffer(buffer, true);
                              }
                              break;
                          }
 
                          buffer += value;
-                         let remainingBuffer = buffer;
-                         while (true) {
-                             const newlineIndex = remainingBuffer.indexOf('\n');
-                             if (newlineIndex === -1) {
-                                 buffer = remainingBuffer;
-                                 break;
-                             }
-                             const line = remainingBuffer.substring(0, newlineIndex).trim();
-                             remainingBuffer = remainingBuffer.substring(newlineIndex + 1);
-
-                             if (line.startsWith('data: ')) {
-                                 const chunkData = parseSseDataForYield(line.substring(6));
-                                 if (chunkData) {
-                                     if (chunkData.groundingMetadata) groundingMetadata = chunkData.groundingMetadata;
-                                     if (chunkData.usageMetadata) finalUsageMetadata = chunkData.usageMetadata;
-                                     yield chunkData;
-                                 }
-                             } else if (line !== '') {
-                             }
-                             if (remainingBuffer === '') {
-                                buffer = '';
-                                break;
-                             }
-                         }
+                         buffer = processBuffer(buffer, false);
                      }
+
                      const finishReason = lastCandidateInfo?.finishReason;
                      const safetyRatings = lastCandidateInfo?.safetyRatings;
+                     const finalGroundingMetadata = groundingMetadata;
 
-                     yield {
-                         type: 'metadata',
+                     if (!isCancelled && processedChunks.length === 0 && (!finishReason || finishReason === "STOP")) {
+                     }
+
+                     return {
+                         processedChunks: processedChunks,
                          finishReason: isCancelled ? 'ABORTED' : finishReason,
                          safetyRatings,
-                         groundingMetadata: groundingMetadata,
+                         groundingMetadata: finalGroundingMetadata,
                          usageMetadata: finalUsageMetadata
                      };
-
                  } catch (error) {
-                     throw new Error(`${error.message || error}`, { cause: { originalError: error } });
+                     const partialChunksOnError = (error.message !== "リクエストがキャンセルされました.") ? processedChunks : [];
+                     throw new Error(`${error.message || error}`, { cause: { originalError: error, partialChunks: partialChunksOnError } });
                  } finally {
                      if (!reader.closed && !isCancelled) {
                          try { await reader.cancel("Cleanup cancellation"); } catch(e) {  }
                      }
                  }
 
-                 function parseSseDataForYield(jsonString) {
-                     try {
-                         const chunkJson = JSON.parse(jsonString);
-                         if (chunkJson.error) {
-                             const errorMsg = `モデルエラー: ${chunkJson.error.message || JSON.stringify(chunkJson.error)}`;
-                             lastCandidateInfo = { error: chunkJson.error, finishReason: 'ERROR' };
-                             return { type: 'error', error: chunkJson.error, message: errorMsg };
+                 function processBuffer(currentBuffer, isFinalChunk) {
+                     let remainingBuffer = currentBuffer;
+                     while (true) {
+                         const newlineIndex = remainingBuffer.indexOf('\n');
+                         if (newlineIndex === -1) {
+                             if (isFinalChunk && remainingBuffer.trim().startsWith('data: ')) {
+                                 parseSseData(remainingBuffer.trim().substring(6));
+                                 remainingBuffer = '';
+                             }
+                             break;
                          }
+                         const line = remainingBuffer.substring(0, newlineIndex).trim();
+                         remainingBuffer = remainingBuffer.substring(newlineIndex + 1);
 
-                         let contentText = null;
-                         let thoughtText = null;
-                         let currentGroundingMetadata = null;
-                         let currentUsageMetadata = null;
+                         if (line.startsWith('data: ')) {
+                             parseSseData(line.substring(6));
+                         } else if (line !== '') {
+                         }
+                     }
+                                          return remainingBuffer;
+                 }
 
-                         if (chunkJson.candidates && chunkJson.candidates.length > 0) {
-                             lastCandidateInfo = chunkJson.candidates[0];
+                 function parseSseData(jsonString) {
+                     try {
+                         const chunkData = JSON.parse(jsonString);
+                         if (chunkData.error) {
+                             const errorMsg = `モデルエラー: ${chunkData.error.message || JSON.stringify(chunkData.error)}`;
+                             lastCandidateInfo = { error: chunkData.error, finishReason: 'ERROR' };
+                             throw new Error(errorMsg);
+                         }
+                         if (chunkData.candidates && chunkData.candidates.length > 0) {
+                             lastCandidateInfo = chunkData.candidates[0];
                              if (lastCandidateInfo?.content?.parts) {
-                                 lastCandidateInfo.content.parts.forEach(part => {
-                                     if (typeof part.text === 'string') {
-                                         if (part.thought === true) {
-                                             thoughtText = (thoughtText || '') + part.text;
-                                         } else {
-                                             contentText = (contentText || '') + part.text;
+                                 lastCandidateInfo.content.parts.forEach((part, partIndex) => {
+                                     const textChunk = part.text;
+                                     if (typeof textChunk === 'string') {
+                                         if (partIndex > currentPartIndex && currentPartIndex !== -1) {
+                                             processedChunks.push(null);
                                          }
+                                         processedChunks.push(textChunk);
+                                         currentPartIndex = partIndex;
                                      }
                                  });
                              }
                              if (lastCandidateInfo.groundingMetadata) {
-                                 currentGroundingMetadata = lastCandidateInfo.groundingMetadata;
+                                 groundingMetadata = lastCandidateInfo.groundingMetadata;
                              }
-                         } else if (chunkJson.promptFeedback) {
-                             lastCandidateInfo = { finishReason: 'SAFETY', safetyRatings: chunkJson.promptFeedback.safetyRatings };
-                             return null;
+                         } else if (chunkData.promptFeedback) {
+                             lastCandidateInfo = { finishReason: 'SAFETY', safetyRatings: chunkData.promptFeedback.safetyRatings };
                          }
-
-                         if (chunkJson.usageMetadata) {
-                             currentUsageMetadata = chunkJson.usageMetadata;
+                         if (chunkData.usageMetadata) {
+                             finalUsageMetadata = chunkData.usageMetadata;
                          }
-
-                         if (contentText !== null || thoughtText !== null || currentGroundingMetadata || currentUsageMetadata) {
-                             return {
-                                 type: 'chunk',
-                                 contentText,
-                                 thoughtText,
-                                 groundingMetadata: currentGroundingMetadata,
-                                 usageMetadata: currentUsageMetadata
-                             };
-                         }
-                         return null;
                      } catch (parseError) {
-                         return null;
                      }
                  }
-            },
-            async callDeepSeekApi(messagesForApi, generationConfig, systemInstructionForDeepSeek, useStreaming) {
-                if (!state.settings.deepSeekApiKey) {
-                    throw new Error("DeepSeek APIキーが設定されていません。");
-                }
-                state.abortController = new AbortController();
-                const { signal } = state.abortController;
-
-                const model = state.settings.deepSeekModelName || DEFAULT_DEEPSEEK_MODEL;
-                const apiKey = state.settings.deepSeekApiKey;
-                const baseUrl = state.settings.deepSeekApiEndpoint || DEEPSEEK_API_DEFAULT_BASE_URL;
-                const endpoint = `${baseUrl.replace(/\/$/, '')}/chat/completions`;
-
-                const dsMessages = [];
-                if (systemInstructionForDeepSeek && systemInstructionForDeepSeek.content) {
-                    dsMessages.push({ role: "system", content: systemInstructionForDeepSeek.content });
-                }
-
-                messagesForApi.forEach(msg => {
-                    const contentParts = msg.parts.filter(p => p.text).map(p => p.text.trim());
-                    const fullContent = contentParts.join('\n').trim();
-
-                    if (fullContent) {
-                        dsMessages.push({
-                            role: msg.role === 'model' ? 'assistant' : msg.role,
-                            content: fullContent
-                        });
-                    }
-                });
-
-
-                const dsRequestBody = {
-                    model: model,
-                    messages: dsMessages,
-                    stream: useStreaming,
-                    ...(generationConfig.temperature !== undefined && { temperature: generationConfig.temperature }),
-                    ...(generationConfig.maxOutputTokens !== undefined && { max_tokens: generationConfig.maxOutputTokens }),
-                    ...(generationConfig.topP !== undefined && { top_p: generationConfig.topP }),
-                    ...(generationConfig.presencePenalty !== undefined && { presence_penalty: generationConfig.presencePenalty }),
-                    ...(generationConfig.frequencyPenalty !== undefined && { frequency_penalty: generationConfig.frequencyPenalty }),
-                };
-
-                try {
-                    const response = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${apiKey}`
-                        },
-                        body: JSON.stringify(dsRequestBody),
-                        signal
-                    });
-
-                    if (!response.ok) {
-                        let errorMsg = `DeepSeek APIエラー (${response.status}): ${response.statusText}`;
-                        try {
-                            const errorData = await response.json();
-                            if (errorData.error && errorData.error.message) {
-                                errorMsg = `DeepSeek APIエラー (${response.status}): ${errorData.error.message} (Type: ${errorData.error.type || 'N/A'})`;
-                            }
-                        } catch (e) {  }
-                        throw new Error(errorMsg);
-                    }
-                    if (!useStreaming) {
-                        const data = await response.json();
-                        let reasoningContent = null;
-                        const choice = data.choices?.[0];
-                        if (choice && choice.message && choice.message.reasoning_content) {
-                            reasoningContent = choice.message.reasoning_content;
-                        }
-                        response.json = async () => ({ ...data, parsedReasoningContent: reasoningContent });
-                    }
-                    return response;
-                } catch (error) {
-                    if (error.name === 'AbortError') {
-                        throw new Error("リクエストがキャンセルされました。");
-                    }
-                    throw error;
-                }
-            },
-            async *handleDeepSeekStreamingResponse(response) {
-                if (!response.body) {
-                    throw new Error("DeepSeekレスポンスボディがありません。");
-                }
-                const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
-                let buffer = '';
-                let finalUsage = null;
-                let finalFinishReason = null;
-                let isCancelled = false;
-                let accumulatedFullReasoningContent = "";
-
-                try {
-                    while (true) {
-                        if (state.abortController?.signal.aborted && !isCancelled) {
-                            isCancelled = true;
-                            await reader.cancel("User aborted");
-                            throw new Error("リクエストがキャンセルされました。");
-                        }
-
-                        const { value, done } = await reader.read();
-                        if (done) break;
-
-                        buffer += value;
-                        let eolIndex;
-                        let processingBuffer = true;
-                        while (processingBuffer) {
-                            eolIndex = buffer.indexOf('\n');
-                            if (eolIndex === -1) {
-                                processingBuffer = false;
-                                continue;
-                            }
-
-                            const line = buffer.substring(0, eolIndex).trim();
-                            buffer = buffer.substring(eolIndex + 1);
-
-                            if (line.startsWith('data: ')) {
-                                const jsonData = line.substring(6);
-                                if (jsonData.trim() === '[DONE]') {
-                                    finalFinishReason = finalFinishReason || 'stop';
-                                    processingBuffer = false;
-                                    break;
-                                }
-                                try {
-                                    const chunk = JSON.parse(jsonData);
-                                    let contentTextChunk = null;
-                                    let reasoningTextChunk = null;
-
-                                    if (chunk.choices && chunk.choices[0] && chunk.choices[0].delta) {
-                                        const delta = chunk.choices[0].delta;
-                                        if (delta.reasoning_content) {
-                                            reasoningTextChunk = delta.reasoning_content;
-                                            accumulatedFullReasoningContent += reasoningTextChunk;
-                                        } else if (delta.content) {
-                                            contentTextChunk = delta.content;
-                                        }
-                                    }
-
-                                    if (chunk.choices && chunk.choices[0] && chunk.choices[0].finish_reason) {
-                                        finalFinishReason = chunk.choices[0].finish_reason;
-                                    }
-                                    if (chunk.usage) {
-                                        finalUsage = chunk.usage;
-                                    }
-
-                                    if (contentTextChunk !== null || reasoningTextChunk !== null) {
-                                        yield { type: 'chunk', contentText: contentTextChunk, thoughtText: reasoningTextChunk };
-                                    }
-                                } catch (e) {
-                                }
-                            }
-                            if (finalFinishReason && finalFinishReason !== 'null' && processingBuffer) break;
-                        }
-                         if (finalFinishReason && finalFinishReason !== 'null') break;
-                    }
-
-                    yield {
-                        type: 'metadata',
-                        finishReason: isCancelled ? 'ABORTED' : finalFinishReason || 'stop',
-                        safetyRatings: null,
-                        groundingMetadata: null,
-                        usageMetadata: finalUsage ? {
-                            candidatesTokenCount: finalUsage.completion_tokens,
-                            totalTokenCount: finalUsage.total_tokens,
-                        } : null,
-                        fullReasoningContent: accumulatedFullReasoningContent || null
-                    };
-                } catch (error) {
-                    yield { type: 'error', error: { message: error.message }, message: error.message };
-                } finally {
-                    if (!reader.closed && !isCancelled) {
-                        try { await reader.cancel("Stream processing ended."); } catch (e) { }
-                    }
-                }
             }
         };
 
