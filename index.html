@@ -3034,7 +3034,7 @@
                             <option value="gemini">Google Gemini</option>
                             <option value="deepseek">DeepSeek</option>
                             <option value="claude">Claude (Anthropic API)</option>
-                            <option value="openai">ChatGPT (OpenAI API)</option>
+                            <option value="openai">OpenAI</option>
                         </select>
                     </div>
                     <details id="settings-group-common-system-prompt" style="margin-top:15px;">
@@ -3149,16 +3149,12 @@
                 </details>
 
                 <details id="openai-settings-group" class="settings-group hidden" open>
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">ChatGPT API 設定</summary>
+                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">OpenAI API 設定</summary>
                     <div style="margin-top:15px;">
-                        <label for="openai-api-key">ChatGPT APIキー:</label>
-                        <input type="password" id="openai-api-key" placeholder="sk-..." aria-label="ChatGPT APIキー">
+                        <label for="openai-api-key">OpenAI APIキー:</label>
+                        <input type="password" id="openai-api-key" placeholder="sk-..." aria-label="OpenAI APIキー">
                         <label for="openai-model-name">モデル名:</label>
                         <select id="openai-model-name" aria-label="OpenAI モデル名">
-                            <optgroup label="GPT-4.1">
-                                <option value="gpt-4.1">gpt-4.1</option>
-                                <option value="gpt-4.1-mini">gpt-4.1-mini</option>
-                            </optgroup>
                             <optgroup label="GPT-4o & Mini">
                                 <option value="gpt-4o">gpt-4o (2024-05-13)</option>
                                 <option value="gpt-4o-2024-08-06">gpt-4o-2024-08-06</option>
@@ -3176,7 +3172,7 @@
                                 <option value="gpt-4-turbo">gpt-4-turbo (2024-04-09)</option>
                                 <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
                             </optgroup>
-                            <optgroup label="Preview & エイリアス (最新版を指す)">
+                            <optgroup label="Preview & Alias">
                                 <option value="gpt-4.5-preview">gpt-4.5-preview</option>
                                 <option value="chatgpt-4o-latest">chatgpt-4o-latest</option>
                                 <option value="o1-preview">o1-preview</option>
@@ -3382,9 +3378,9 @@
                 </details>
                 
                 <details id="openai-params-group" class="settings-group hidden" open>
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">パラメータ (ChatGPT)</summary>
+                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">パラメータ (OpenAI)</summary>
                     <div style="margin-top:15px;">
-                        <label for="openai-system-prompt-default">固有システムプロンプト (ChatGPT):</label>
+                        <label for="openai-system-prompt-default">固有システムプロンプト (OpenAI):</label>
                         <textarea id="openai-system-prompt-default" placeholder="例: You are a helpful assistant." aria-label="OpenAI 固有システムプロンプト"></textarea>
                         <label class="checkbox-label" style="margin-top: -5px; margin-bottom: 15px;">
                             <input type="checkbox" id="openai-enable-system-prompt-default">
@@ -3405,7 +3401,7 @@
                             </div>
                         </div>
                         <details id="settings-group-openai-other-params">
-                            <summary style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); margin-bottom: 10px; list-style: revert;">その他パラメータ (ChatGPT)</summary>
+                            <summary style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); margin-bottom: 10px; list-style: revert;">その他パラメータ (OpenAI)</summary>
                             <div class="param-grid">
                                 <div>
                                     <label for="openai-presence-penalty">Presence Penalty:</label>
@@ -3533,7 +3529,7 @@
                 </details>
 
                 <details id="openai-advanced-group" class="settings-group hidden" open>
-                   <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">アドバンスド (ChatGPT)</summary>
+                   <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">アドバンスド (OpenAI)</summary>
                    <div style="margin-top:15px;">
                        <label for="openai-dummy-user">ダミー User プロンプト (送信時のみ追加):</label>
                        <textarea id="openai-dummy-user" placeholder="API送信直前に user ロールとして履歴末尾に追加されます" aria-label="OpenAI ダミー User プロンプト"></textarea>
@@ -6613,7 +6609,7 @@
                     gemini: { text: 'GE', title: 'Gemini', className: 'gemini' },
                     deepseek: { text: 'DS', title: 'DeepSeek', className: 'deepseek' },
                     claude: { text: 'AN', title: 'Anthropic', className: 'claude' },
-                    openai: { text: 'OP', title: 'OpenAI', className: 'openai' },
+                    openai: { text: 'OA', title: 'OpenAI', className: 'openai' },
                 };
                 const currentProviderInfo = providerMap[state.settings.apiProvider] || { text: '??', title: 'Unknown', className: '' };
                 
@@ -6768,7 +6764,7 @@
                 this.toggleSystemPromptVisibility();
             },
             toggleSystemPromptVisibility() {
-                const shouldHide = state.settings.hideSystemPromptInChat || !state.settings.enableCommonSystemPromptDefault;
+                const shouldHide = state.settings.hideSystemPromptInChat;
                 elements.systemPromptArea.classList.toggle('hidden', shouldHide);
             },
             showScreen(screenName, fromPopState = false) {
@@ -7704,10 +7700,6 @@
                     state.settings.hideSystemPromptInChat = elements.hideSystemPromptToggle.checked;
                     uiUtils.toggleSystemPromptVisibility();
                 });
-                elements.enableCommonSystemPromptDefaultCheckbox.addEventListener('change', () => {
-                    state.settings.enableCommonSystemPromptDefault = elements.enableCommonSystemPromptDefaultCheckbox.checked;
-                    uiUtils.toggleSystemPromptVisibility();
-                });
                 elements.showChatTitleToggle.addEventListener('change', () => {
                     state.settings.showChatTitle = elements.showChatTitleToggle.checked;
                     uiUtils.updateChatScreenElementVisibility();
@@ -8345,8 +8337,20 @@
                 state.currentMessages = [];
                 state.currentSystemPrompt = '';
 
-                if (state.settings.enableCommonSystemPromptDefault) {
-                    state.currentSystemPrompt = state.settings.commonSystemPrompt || '';
+                const currentProvider = state.settings.apiProvider;
+                let individualPrompt = '';
+                if (currentProvider === 'gemini' && state.settings.geminiEnableSystemPromptDefault) {
+                    individualPrompt = state.settings.geminiSystemPrompt;
+                } else if (currentProvider === 'deepseek' && state.settings.deepSeekEnableSystemPromptDefault) {
+                    individualPrompt = state.settings.deepSeekSystemPrompt;
+                } else if (currentProvider === 'claude' && state.settings.claudeEnableSystemPromptDefault) {
+                    individualPrompt = state.settings.claudeSystemPrompt;
+                } else if (currentProvider === 'openai' && state.settings.openaiEnableSystemPromptDefault) {
+                    individualPrompt = state.settings.openaiSystemPrompt;
+                }
+                
+                if (!individualPrompt && state.settings.enableCommonSystemPromptDefault) {
+                     state.currentSystemPrompt = state.settings.commonSystemPrompt || '';
                 }
                 
                 state.pendingAttachments = [];
@@ -8734,7 +8738,7 @@
 
                 if (isBackgroundProcess) {
                     currentContextSystemPrompt = sourceSessionContext.systemPrompt || '';
-                } else if (state.settings.enableCommonSystemPromptDefault) {
+                } else {
                     const chatSystemPrompt = state.currentSystemPrompt.trim();
                     let individualPrompt = '';
                     let commonPrompt = '';
@@ -8946,7 +8950,7 @@
                     if (!isBackgroundProcess) { await uiUtils.showCustomAlert("Claude APIキーが設定されていません。設定画面を開きます。"); uiUtils.showScreen('settings'); }
                     return "APIキー未設定";
                 } else if (selectedApiProvider === 'openai' && !state.settings.openaiApiKey) {
-                    if (!isBackgroundProcess) { await uiUtils.showCustomAlert("ChatGPT APIキーが設定されていません。設定画面を開きます。"); uiUtils.showScreen('settings'); }
+                    if (!isBackgroundProcess) { await uiUtils.showCustomAlert("OpenAI APIキーが設定されていません。設定画面を開きます。"); uiUtils.showScreen('settings'); }
                     return "APIキー未設定";
                 }
 
@@ -9341,7 +9345,7 @@
                                              if ((state.deepSeekThoughtStreamCompleted || !state.deepSeekThoughtRawTextBuffer) &&
                                                  !state.deepSeekIsProcessingContentQueue) {
                                                 uiUtils.processDeepSeekContentQueue(messageIndexForDisplay);
-                                             }
+                                            }
                                         }
                                     }
                                 }
@@ -10767,7 +10771,7 @@
                      return;
                  }
                  if (state.isEditingSystemPrompt) {
-                     await uiUtils.showCustomAlert("システムプロンプトを編集中です。");
+                     await uiUtils.showCustomAlert("システムプロンプト編集中です。");
                      return;
                  }
                  if (state.editingMessageIndex === index) {
@@ -12168,7 +12172,7 @@
                         fullReasoningContent: accumulatedFullReasoningContent || null
                     };
                 } catch (error) {
-                     yield { type: 'error', error: { message: error.message }, message: error.message };
+                    yield { type: 'error', error: { message: error.message }, message: error.message };
                 } finally {
                     if (!reader.closed && !isCancelled) {
                         try { await reader.cancel("Stream processing ended."); } catch (e) { }
@@ -12373,7 +12377,7 @@
             },
             async callOpenAiApi(messagesForApi, generationConfig, systemInstruction, useStreaming, enableVision) {
                 if (!state.settings.openaiApiKey) {
-                    throw new Error("ChatGPT APIキーが設定されていません。");
+                    throw new Error("OpenAI APIキーが設定されていません。");
                 }
                 state.abortController = new AbortController();
                 const { signal } = state.abortController;
