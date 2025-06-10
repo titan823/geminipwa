@@ -1869,7 +1869,6 @@
         .app-header .api-provider-toggle-btn.gemini { background-color: #ffffff !important; color: #8A75D2 !important; }
         .app-header .api-provider-toggle-btn.deepseek { background-color: #4D6BFF !important; color: #ffffff !important; }
         .app-header .api-provider-toggle-btn.claude { background-color: #D97757 !important; color: #EFEDE5 !important; }
-        .app-header .api-provider-toggle-btn.openai { background-color: #10A37F !important; color: #ffffff !important; }
         body.dark-mode .app-header .api-provider-toggle-btn.gemini:hover {
             background-color: rgba(255, 255, 255, 0.9) !important;
             color: #8A75D2 !important;
@@ -1882,14 +1881,9 @@
             background-color: rgba(217, 119, 87, 0.9) !important;
             color: #EFEDE5 !important;
         }
-        body.dark-mode .app-header .api-provider-toggle-btn.openai:hover {
-            background-color: rgba(16, 163, 127, 0.9) !important;
-            color: #ffffff !important;
-        }
         .chat-input-area .api-provider-toggle-btn.gemini { background-color: #ffffff !important; color: #8A75D2 !important; }
         .chat-input-area .api-provider-toggle-btn.deepseek { background-color: #4D6BFF !important; color: #ffffff !important; }
         .chat-input-area .api-provider-toggle-btn.claude { background-color: #D97757 !important; color: #EFEDE5 !important; }
-        .chat-input-area .api-provider-toggle-btn.openai { background-color: #10A37F !important; color: #ffffff !important; }
         
         .attachment-badge {
             position: absolute;
@@ -3034,7 +3028,6 @@
                             <option value="gemini">Google Gemini</option>
                             <option value="deepseek">DeepSeek</option>
                             <option value="claude">Claude (Anthropic API)</option>
-                            <option value="openai">OpenAI</option>
                         </select>
                     </div>
                     <details id="settings-group-common-system-prompt" style="margin-top:15px;">
@@ -3145,44 +3138,6 @@
                         </select>
                         <label for="claude-additional-models" style="margin-top:10px;">追加モデル (カンマ区切り):</label>
                         <textarea id="claude-additional-models" placeholder="例: my-custom-claude-model" aria-label="Claude 追加モデル"></textarea>
-                    </div>
-                </details>
-
-                <details id="openai-settings-group" class="settings-group hidden" open>
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">OpenAI API 設定</summary>
-                    <div style="margin-top:15px;">
-                        <label for="openai-api-key">OpenAI APIキー:</label>
-                        <input type="password" id="openai-api-key" placeholder="sk-..." aria-label="OpenAI APIキー">
-                        <label for="openai-model-name">モデル名:</label>
-                        <select id="openai-model-name" aria-label="OpenAI モデル名">
-                            <optgroup label="GPT-4o & Mini">
-                                <option value="gpt-4o">gpt-4o (2024-05-13)</option>
-                                <option value="gpt-4o-2024-08-06">gpt-4o-2024-08-06</option>
-                                <option value="gpt-4o-mini">gpt-4o-mini</option>
-                                <option value="gpt-4o-mini-2024-07-18">gpt-4o-mini-2024-07-18</option>
-                            </optgroup>
-                            <optgroup label="o1">
-                                <option value="o1">o1</option>
-                                <option value="o1-2024-12-17">o1-2024-12-17</option>
-                                <option value="o1-mini">o1-mini</option>
-                                <option value="o1-mini-2024-09-12">o1-mini-2024-09-12</option>
-                                <option value="o3-mini-2025-01-31">o3-mini-2025-01-31</option>
-                            </optgroup>
-                            <optgroup label="GPT-4 Turbo">
-                                <option value="gpt-4-turbo">gpt-4-turbo (2024-04-09)</option>
-                                <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-                            </optgroup>
-                            <optgroup label="Preview & Alias">
-                                <option value="gpt-4.5-preview">gpt-4.5-preview</option>
-                                <option value="chatgpt-4o-latest">chatgpt-4o-latest</option>
-                                <option value="o1-preview">o1-preview</option>
-                                <option value="gpt-4o-realtime-preview">gpt-4o-realtime-preview</option>
-                                <option value="gpt-4o-mini-realtime-preview">gpt-4o-mini-realtime-preview</option>
-                                <option value="gpt-4o-audio-preview">gpt-4o-audio-preview</option>
-                            </optgroup>
-                        </select>
-                        <label for="openai-additional-models" style="margin-top:10px;">追加モデル (カンマ区切り):</label>
-                        <textarea id="openai-additional-models" placeholder="例: gpt-4,my-finetuned-model" aria-label="OpenAI 追加モデル"></textarea>
                     </div>
                 </details>
 
@@ -3376,45 +3331,6 @@
 
                     </div>
                 </details>
-                
-                <details id="openai-params-group" class="settings-group hidden" open>
-                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">パラメータ (OpenAI)</summary>
-                    <div style="margin-top:15px;">
-                        <label for="openai-system-prompt-default">固有システムプロンプト (OpenAI):</label>
-                        <textarea id="openai-system-prompt-default" placeholder="例: You are a helpful assistant." aria-label="OpenAI 固有システムプロンプト"></textarea>
-                        <label class="checkbox-label" style="margin-top: -5px; margin-bottom: 15px;">
-                            <input type="checkbox" id="openai-enable-system-prompt-default">
-                            このシステムプロンプトを有効にする (共通システムプロンプトより優先度高)
-                        </label>
-                        <div class="param-grid">
-                            <div>
-                                <label for="openai-max-tokens">Max Tokens:</label>
-                                <input type="number" id="openai-max-tokens" step="1" min="1" placeholder="例:4096" aria-label="OpenAI Max Tokens">
-                            </div>
-                            <div>
-                                <label for="openai-temperature">Temperature:</label>
-                                <input type="number" id="openai-temperature" step="0.1" min="0" max="2" placeholder="例:1.0(0.0-2.0)" aria-label="OpenAI Temperature">
-                            </div>
-                            <div>
-                                <label for="openai-top-p">Top P:</label>
-                                <input type="number" id="openai-top-p" step="0.01" min="0" max="1" placeholder="例:1.0(0.0 - 1.0)" aria-label="OpenAI Top P">
-                            </div>
-                        </div>
-                        <details id="settings-group-openai-other-params">
-                            <summary style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); margin-bottom: 10px; list-style: revert;">その他パラメータ (OpenAI)</summary>
-                            <div class="param-grid">
-                                <div>
-                                    <label for="openai-presence-penalty">Presence Penalty:</label>
-                                    <input type="number" id="openai-presence-penalty" step="0.1" min="-2.0" max="2.0" placeholder="例:0.0 (-2.0～2.0)" aria-label="OpenAI Presence Penalty">
-                                </div>
-                                <div>
-                                    <label for="openai-frequency-penalty">Frequency Penalty:</label>
-                                    <input type="number" id="openai-frequency-penalty" step="0.1" min="-2.0" max="2.0" placeholder="例:0.0 (-2.0～2.0)" aria-label="OpenAI Frequency Penalty">
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                </details>
 
                 <details id="gemini-advanced-group" class="settings-group" open>
                    <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">アドバンスド (Gemini)</summary>
@@ -3525,46 +3441,6 @@
                        <label for="claude-streaming-speed">文字送り速度 (ミリ秒/文字):</label>
 
                        <input type="number" id="claude-streaming-speed" min="0" step="1" placeholder="例: 30 (0で無効)" aria-label="Claude 文字送り速度">
-                    </div>
-                </details>
-
-                <details id="openai-advanced-group" class="settings-group hidden" open>
-                   <summary style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">アドバンスド (OpenAI)</summary>
-                   <div style="margin-top:15px;">
-                       <label for="openai-dummy-user">ダミー User プロンプト (送信時のみ追加):</label>
-                       <textarea id="openai-dummy-user" placeholder="API送信直前に user ロールとして履歴末尾に追加されます" aria-label="OpenAI ダミー User プロンプト"></textarea>
-                       <label class="checkbox-label" style="margin-top: -5px; margin-bottom: 15px;">
-                           <input type="checkbox" id="openai-enable-dummy-user">
-                           このダミーUserプロンプトを有効にする
-                       </label>
-
-                       <label for="openai-dummy-model">ダミー Model プロンプト (送信時のみ追加):</label>
-                       <textarea id="openai-dummy-model" placeholder="API送信直前に model ロールとして履歴最末尾に追加されます" aria-label="OpenAI ダミー Model プロンプト"></textarea>
-                       <label class="checkbox-label" style="margin-top: -5px;">
-                           <input type="checkbox" id="openai-enable-dummy-model">
-                           このダミーModelプロンプトを有効にする
-                       </label>
-                       <label class="checkbox-label" style="margin-top: -5px; margin-bottom: 15px;">
-                           <input type="checkbox" id="openai-concat-dummy-model">
-                           ダミーモデルと回答を連結
-                       </label>
-                       <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
-                           ※チェック時、モデル応答の先頭に上記ダミーModelの内容を付与。
-                       </p>
-                       <hr style="margin: 15px 0;">
-                       <label class="checkbox-label">
-                           <input type="checkbox" id="openai-streaming-output">
-                           ストリーミング出力を使用する
-                       </label>
-                       <label for="openai-streaming-speed">文字送り速度 (ミリ秒/文字):</label>
-                       <input type="number" id="openai-streaming-speed" min="0" step="1" placeholder="例: 30 (0で無効)" aria-label="OpenAI 文字送り速度">
-                       <label class="checkbox-label" style="margin-top: 15px;">
-                           <input type="checkbox" id="openai-vision-enable">
-                           Vision (画像入力) を有効にする
-                       </label>
-                       <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 10px;">
-                           ※gpt-4-turbo, gpt-4o, gpt-4o-mini など画像入力対応モデルを選択してください。
-                       </p>
                     </div>
                 </details>
 
@@ -3838,10 +3714,6 @@
                                                    <input type="checkbox" id="api-provider-cycle-claude">
                                                    Claude (Anthropic API)
                                                </label>
-                                               <label class="checkbox-label" style="font-size: 12px;">
-                                                   <input type="checkbox" id="api-provider-cycle-openai">
-                                                   OpenAI
-                                               </label>
                                            </div>
                                        </div>
                                    </details>
@@ -4062,7 +3934,6 @@
         const DEFAULT_MODEL = 'gemini-2.5-flash-preview-05-20';
         const DEFAULT_DEEPSEEK_MODEL = 'deepseek-reasoner';
         const DEFAULT_CLAUDE_MODEL = 'claude-sonnet-4-20250514';
-        const DEFAULT_OPENAI_MODEL = 'gpt-4o-mini';
         const DEFAULT_STREAMING_SPEED = 12;
         const DEFAULT_TEMPERATURE = 0.5;
         const DEFAULT_MAX_TOKENS = 4000;
@@ -4091,7 +3962,6 @@
         const GEMINI_API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
         const DEEPSEEK_API_DEFAULT_BASE_URL = 'https://api.deepseek.com';
         const CLAUDE_API_BASE_URL = 'https://api.anthropic.com/v1/messages';
-        const OPENAI_API_BASE_URL = 'https://api.openai.com/v1/chat/completions';
         const DUPLICATE_SUFFIX = ' (コピー)';
         const IMPORT_PREFIX = '(取込) ';
 
@@ -4226,19 +4096,13 @@
             claudeModelNameSelect: document.getElementById('claude-model-name'),
             claudeUserDefinedModelsGroup: document.getElementById('claude-user-defined-models-group'),
             claudeAdditionalModelsTextarea: document.getElementById('claude-additional-models'),
-            openaiSettingsGroup: document.getElementById('openai-settings-group'),
-            openaiApiKeyInput: document.getElementById('openai-api-key'),
-            openaiModelNameSelect: document.getElementById('openai-model-name'),
-            openaiAdditionalModelsTextarea: document.getElementById('openai-additional-models'),
 
             geminiParamsGroup: document.getElementById('gemini-params-group'),
             deepseekParamsGroup: document.getElementById('deepseek-params-group'),
             claudeParamsGroup: document.getElementById('claude-params-group'),
-            openaiParamsGroup: document.getElementById('openai-params-group'),
             geminiAdvancedGroup: document.getElementById('gemini-advanced-group'),
             deepseekAdvancedGroup: document.getElementById('deepseek-advanced-group'),
             claudeAdvancedGroup: document.getElementById('claude-advanced-group'),
-            openaiAdvancedGroup: document.getElementById('openai-advanced-group'),
 
             geminiSystemPromptDefaultTextarea: document.getElementById('gemini-system-prompt-default'),
             geminiEnableSystemPromptDefaultCheckbox: document.getElementById('gemini-enable-system-prompt-default'),
@@ -4294,22 +4158,6 @@
             claudeIncludeThoughtsToggle: document.getElementById('claude-include-thoughts-toggle'),
             claudeExpandThoughtsByDefaultToggle: document.getElementById('claude-expand-thoughts-by-default-toggle'),
             claudeThinkingBudgetInput: document.getElementById('claude-thinking-budget'),
-
-            openaiSystemPromptDefaultTextarea: document.getElementById('openai-system-prompt-default'),
-            openaiEnableSystemPromptDefaultCheckbox: document.getElementById('openai-enable-system-prompt-default'),
-            openaiMaxTokensInput: document.getElementById('openai-max-tokens'),
-            openaiTemperatureInput: document.getElementById('openai-temperature'),
-            openaiTopPInput: document.getElementById('openai-top-p'),
-            openaiPresencePenaltyInput: document.getElementById('openai-presence-penalty'),
-            openaiFrequencyPenaltyInput: document.getElementById('openai-frequency-penalty'),
-            openaiStreamingOutputCheckbox: document.getElementById('openai-streaming-output'),
-            openaiStreamingSpeedInput: document.getElementById('openai-streaming-speed'),
-            openaiVisionEnableCheckbox: document.getElementById('openai-vision-enable'),
-            openaiDummyUserInput: document.getElementById('openai-dummy-user'),
-            openaiEnableDummyUserCheckbox: document.getElementById('openai-enable-dummy-user'),
-            openaiDummyModelInput: document.getElementById('openai-dummy-model'),
-            openaiEnableDummyModelCheckbox: document.getElementById('openai-enable-dummy-model'),
-            openaiConcatDummyModelCheckbox: document.getElementById('openai-concat-dummy-model'),
 
             setThinkingBudgetBtns: document.querySelectorAll('.set-thinking-budget-btn'),
             setClaudeParamBtns: document.querySelectorAll('.set-claude-param-btn'),
@@ -4459,7 +4307,6 @@
             apiProviderCycleGeminiCheckbox: document.getElementById('api-provider-cycle-gemini'),
             apiProviderCycleDeepSeekCheckbox: document.getElementById('api-provider-cycle-deepseek'),
             apiProviderCycleClaudeCheckbox: document.getElementById('api-provider-cycle-claude'),
-            apiProviderCycleOpenAICheckbox: document.getElementById('api-provider-cycle-openai'),
         };
 
         const state = {
@@ -4532,24 +4379,6 @@
                 claudeIncludeThoughts: false,
                 claudeExpandThoughtsByDefault: false,
                 claudeThinkingBudget: null,
-                openaiApiKey: '',
-                openaiModelName: DEFAULT_OPENAI_MODEL,
-                openaiAdditionalModels: '',
-                openaiSystemPrompt: '',
-                openaiEnableSystemPromptDefault: true,
-                openaiTemperature: null,
-                openaiMaxTokens: null,
-                openaiTopP: null,
-                openaiPresencePenalty: null,
-                openaiFrequencyPenalty: null,
-                openaiStreamingOutput: true,
-                openaiStreamingSpeed: DEFAULT_STREAMING_SPEED,
-                openaiVisionEnable: false,
-                openaiDummyUser: '',
-                openaiEnableDummyUser: true,
-                openaiDummyModel: '',
-                openaiEnableDummyModel: true,
-                openaiConcatDummyModel: false,
                 enterToSend: true,
                 autoScrollOnNewMessage: DEFAULT_AUTO_SCROLL_ON_NEW_MESSAGE,
                 autoScrollOnThought: false,
@@ -4630,7 +4459,6 @@
                     gemini: true,
                     deepseek: true,
                     claude: true,
-                    openai: true,
                 },
             },
             backgroundImageUrl: null,
@@ -4678,7 +4506,7 @@
             isAiToAiChatProcessing: false,
         };
 
-        const sanitizeText = (text, maxLength = 255) => {
+        function sanitizeText(text, maxLength = 255) {
             if (typeof text !== 'string') return '';
             return text.replace(/[<>'"&]/g, '').substring(0, maxLength);
         }
@@ -4729,7 +4557,8 @@
                                 }
                             });
                         })
-                        .catch(err => {});
+                        .catch(err => {
+                        });
                 });
             }
         }
@@ -4809,7 +4638,7 @@
 
                         const oldGlobalParams = ['temperature', 'maxTokens', 'topP', 'presencePenalty', 'frequencyPenalty', 'systemPrompt', 'enableSystemPromptDefault'];
                         const oldGlobalAdvanced = ['streamingOutput', 'streamingSpeed', 'dummyUser', 'enableDummyUser', 'dummyModel', 'enableDummyModel', 'concatDummyModel'];
-                        const providerPrefixes = ['gemini', 'deepSeek', 'claude', 'openai'];
+                        const providerPrefixes = ['gemini', 'deepSeek', 'claude'];
 
                         oldGlobalParams.forEach(param => {
                             if (loadedSettings.hasOwnProperty(param)) {
@@ -4873,7 +4702,7 @@
                                         state.settings[key] = defaultValue;
                                     }
                                 } else if (key === 'apiProvider') {
-                                    if (['gemini', 'deepseek', 'claude', 'openai'].includes(loadedValue)) {
+                                    if (['gemini', 'deepseek', 'claude'].includes(loadedValue)) {
                                         state.settings.apiProvider = loadedValue;
                                     } else {
                                         state.settings.apiProvider = defaultValue;
@@ -4897,7 +4726,6 @@
                                     state.settings.apiProviderCycle.gemini = loadedValue.gemini === true;
                                     state.settings.apiProviderCycle.deepseek = loadedValue.deepseek === true;
                                     state.settings.apiProviderCycle.claude = loadedValue.claude === true;
-                                    state.settings.apiProviderCycle.openai = loadedValue.openai === true;
                                 } else if (typeof defaultValue === 'number' || defaultValue === null) {
                                      let num;
                                      if (key.toLowerCase().includes('temperature') || key.toLowerCase().includes('topp') || key.toLowerCase().includes('penalty') ||
@@ -4964,9 +4792,6 @@
                                 'claude-settings-group': true,
                                 'claude-params-group': true,
                                 'claude-advanced-group': true,
-                                'openai-settings-group': true,
-                                'openai-params-group': true,
-                                'openai-advanced-group': true,
                             };
                         }
                         resolve(state.settings);
@@ -5703,8 +5528,7 @@
                 const selectedApiProvider = state.settings.apiProvider;
                 const streamSpeed = selectedApiProvider === 'gemini' ? state.settings.geminiStreamingSpeed : 
                                   selectedApiProvider === 'deepseek' ? state.settings.deepSeekStreamingSpeed :
-                                  selectedApiProvider === 'claude' ? state.settings.claudeStreamingSpeed :
-                                  state.settings.openaiStreamingSpeed;
+                                  state.settings.claudeStreamingSpeed;
 
 
                 if (isThoughtSummary) {
@@ -5719,7 +5543,7 @@
                     }
                 } else {
                     targetContentDiv = messageDiv.querySelector(`#streaming-content-${index}`);
-                    if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                    if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude') {
                         accumulatedContentForDisplay = state.partialStreamContent;
                     } else {
                         return;
@@ -6310,9 +6134,6 @@
                 elements.claudeApiKeyInput.value = state.settings.claudeApiKey || '';
                 elements.claudeModelNameSelect.value = state.settings.claudeModelName || DEFAULT_CLAUDE_MODEL;
                 elements.claudeAdditionalModelsTextarea.value = state.settings.claudeAdditionalModels || '';
-                elements.openaiApiKeyInput.value = state.settings.openaiApiKey || '';
-                elements.openaiModelNameSelect.value = state.settings.openaiModelName || DEFAULT_OPENAI_MODEL;
-                elements.openaiAdditionalModelsTextarea.value = state.settings.openaiAdditionalModels || '';
 
                 elements.geminiSystemPromptDefaultTextarea.value = state.settings.geminiSystemPrompt || '';
                 elements.geminiEnableSystemPromptDefaultCheckbox.checked = state.settings.geminiEnableSystemPromptDefault;
@@ -6369,22 +6190,6 @@
                 elements.claudeExpandThoughtsByDefaultToggle.checked = state.settings.claudeExpandThoughtsByDefault;
                 elements.claudeThinkingBudgetInput.value = state.settings.claudeThinkingBudget === null ? '' : state.settings.claudeThinkingBudget;
 
-                elements.openaiSystemPromptDefaultTextarea.value = state.settings.openaiSystemPrompt || '';
-                elements.openaiEnableSystemPromptDefaultCheckbox.checked = state.settings.openaiEnableSystemPromptDefault;
-                elements.openaiTemperatureInput.value = state.settings.openaiTemperature === null ? '' : state.settings.openaiTemperature;
-                elements.openaiMaxTokensInput.value = state.settings.openaiMaxTokens === null ? '' : state.settings.openaiMaxTokens;
-                elements.openaiTopPInput.value = state.settings.openaiTopP === null ? '' : state.settings.openaiTopP;
-                elements.openaiPresencePenaltyInput.value = state.settings.openaiPresencePenalty === null ? '' : state.settings.openaiPresencePenalty;
-                elements.openaiFrequencyPenaltyInput.value = state.settings.openaiFrequencyPenalty === null ? '' : state.settings.openaiFrequencyPenalty;
-                elements.openaiStreamingOutputCheckbox.checked = state.settings.openaiStreamingOutput;
-                elements.openaiStreamingSpeedInput.value = state.settings.openaiStreamingSpeed ?? DEFAULT_STREAMING_SPEED;
-                elements.openaiVisionEnableCheckbox.checked = state.settings.openaiVisionEnable;
-                elements.openaiDummyUserInput.value = state.settings.openaiDummyUser || '';
-                elements.openaiEnableDummyUserCheckbox.checked = state.settings.openaiEnableDummyUser;
-                elements.openaiDummyModelInput.value = state.settings.openaiDummyModel || '';
-                elements.openaiEnableDummyModelCheckbox.checked = state.settings.openaiEnableDummyModel;
-                elements.openaiConcatDummyModelCheckbox.checked = state.settings.openaiConcatDummyModel;
-
                  elements.enterToSendCheckbox.checked = state.settings.enterToSend;
                  elements.autoScrollOnNewMessageCheckbox.checked = state.settings.autoScrollOnNewMessage;
                  elements.autoScrollOnThoughtCheckbox.checked = state.settings.autoScrollOnThought;
@@ -6422,7 +6227,6 @@
                  elements.apiProviderCycleGeminiCheckbox.checked = state.settings.apiProviderCycle.gemini;
                  elements.apiProviderCycleDeepSeekCheckbox.checked = state.settings.apiProviderCycle.deepseek;
                  elements.apiProviderCycleClaudeCheckbox.checked = state.settings.apiProviderCycle.claude;
-                 elements.apiProviderCycleOpenAICheckbox.checked = state.settings.apiProviderCycle.openai;
 
                 elements.showMemoButtonToggle.checked = state.settings.showMemoButton;
                 elements.memoHeightInput.value = state.settings.memoHeight || '';
@@ -6481,7 +6285,6 @@
                 this.updateUserModelOptions();
                 this.updateDeepSeekUserModelOptions();
                 this.updateClaudeUserModelOptions();
-                this.updateOpenAIUserModelOptions();
                 this.updateBackgroundSettingsUI();
                 this.updateIconSettingsUI();
                 this.applyTheme();
@@ -6504,7 +6307,6 @@
                 const showGemini = provider === 'gemini';
                 const showDeepSeek = provider === 'deepseek';
                 const showClaude = provider === 'claude';
-                const showOpenAI = provider === 'openai';
 
                 elements.geminiSettingsGroup.classList.toggle('hidden', !showGemini);
                 elements.geminiParamsGroup.classList.toggle('hidden', !showGemini);
@@ -6518,10 +6320,6 @@
                 elements.claudeSettingsGroup.classList.toggle('hidden', !showClaude);
                 elements.claudeParamsGroup.classList.toggle('hidden', !showClaude);
                 elements.claudeAdvancedGroup.classList.toggle('hidden', !showClaude);
-                
-                elements.openaiSettingsGroup.classList.toggle('hidden', !showOpenAI);
-                elements.openaiParamsGroup.classList.toggle('hidden', !showOpenAI);
-                elements.openaiAdvancedGroup.classList.toggle('hidden', !showOpenAI);
             },
             updateChatScreenElementVisibility() {
                 const header = elements.chatScreen.querySelector('.app-header');
@@ -6609,7 +6407,6 @@
                     gemini: { text: 'GE', title: 'Gemini', className: 'gemini' },
                     deepseek: { text: 'DS', title: 'DeepSeek', className: 'deepseek' },
                     claude: { text: 'AN', title: 'Anthropic', className: 'claude' },
-                    openai: { text: 'OA', title: 'OpenAI', className: 'openai' },
                 };
                 const currentProviderInfo = providerMap[state.settings.apiProvider] || { text: '??', title: 'Unknown', className: '' };
                 
@@ -6617,7 +6414,7 @@
                     if (button) {
                         button.textContent = currentProviderInfo.text;
                         button.title = `API: ${currentProviderInfo.title}`;
-                        button.classList.remove('gemini', 'deepseek', 'claude', 'openai');
+                        button.classList.remove('gemini', 'deepseek', 'claude');
                         if (currentProviderInfo.className) {
                             button.classList.add(currentProviderInfo.className);
                         }
@@ -6720,31 +6517,6 @@
                     }
                 } else {
                     group.disabled = true;
-                }
-            },
-            updateOpenAIUserModelOptions() {
-                const select = elements.openaiModelNameSelect;
-                select.querySelectorAll('optgroup[label="ユーザー指定"]').forEach(el => el.remove());
-                const models = (state.settings.openaiAdditionalModels || '')
-                    .split(',')
-                    .map(m => m.trim())
-                    .filter(m => m !== '');
-
-                if (models.length > 0) {
-                    const optgroup = document.createElement('optgroup');
-                    optgroup.label = 'ユーザー指定';
-                    models.forEach(modelId => {
-                        const option = document.createElement('option');
-                        option.value = modelId;
-                        option.textContent = modelId;
-                        optgroup.appendChild(option);
-                    });
-                    select.appendChild(optgroup);
-                }
-                if (Array.from(select.options).some(opt => opt.value === state.settings.openaiModelName)) {
-                    select.value = state.settings.openaiModelName;
-                } else {
-                    select.value = DEFAULT_OPENAI_MODEL;
                 }
             },
             applyFontFamily() {
@@ -8337,20 +8109,8 @@
                 state.currentMessages = [];
                 state.currentSystemPrompt = '';
 
-                const currentProvider = state.settings.apiProvider;
-                let individualPrompt = '';
-                if (currentProvider === 'gemini' && state.settings.geminiEnableSystemPromptDefault) {
-                    individualPrompt = state.settings.geminiSystemPrompt;
-                } else if (currentProvider === 'deepseek' && state.settings.deepSeekEnableSystemPromptDefault) {
-                    individualPrompt = state.settings.deepSeekSystemPrompt;
-                } else if (currentProvider === 'claude' && state.settings.claudeEnableSystemPromptDefault) {
-                    individualPrompt = state.settings.claudeSystemPrompt;
-                } else if (currentProvider === 'openai' && state.settings.openaiEnableSystemPromptDefault) {
-                    individualPrompt = state.settings.openaiSystemPrompt;
-                }
-                
-                if (!individualPrompt && state.settings.enableCommonSystemPromptDefault) {
-                     state.currentSystemPrompt = state.settings.commonSystemPrompt || '';
+                if (state.settings.enableCommonSystemPromptDefault) {
+                    state.currentSystemPrompt = state.settings.commonSystemPrompt || '';
                 }
                 
                 state.pendingAttachments = [];
@@ -8749,8 +8509,6 @@
                         individualPrompt = state.settings.deepSeekSystemPrompt.trim();
                     } else if (selectedApiProvider === 'claude' && state.settings.claudeEnableSystemPromptDefault) {
                         individualPrompt = state.settings.claudeSystemPrompt.trim();
-                    } else if (selectedApiProvider === 'openai' && state.settings.openaiEnableSystemPromptDefault) {
-                        individualPrompt = state.settings.openaiSystemPrompt.trim();
                     }
                     
                     if (state.settings.enableCommonSystemPromptDefault) {
@@ -8778,13 +8536,11 @@
                 let contextDeepSeekIncludeThoughts;
 
                 let contextClaudeTopK, contextClaudeIncludeThoughts, contextClaudeThinkingBudget, contextClaudeExpandThoughtsByDefault;
-                
-                let contextOpenAIVisionEnable;
 
 
                 if (isBackgroundProcess) {
-                    const providerForSettingsB = sourceSessionContext.apiProvider || state.settings.apiProvider;
-                    if (providerForSettingsB === 'gemini') {
+                    const providerForBgSettings = sourceSessionContext.apiProvider || state.settings.apiProvider;
+                    if (providerForBgSettings === 'gemini') {
                         contextTemperature = sourceSessionContext.temperature ?? state.settings.geminiTemperature;
                         contextMaxTokens = sourceSessionContext.maxTokens ?? state.settings.geminiMaxTokens;
                         contextGeminiTopK = sourceSessionContext.topK ?? state.settings.geminiTopK;
@@ -8802,7 +8558,7 @@
                         contextConcatDummyModel = sourceSessionContext.concatDummyModel ?? state.settings.geminiConcatDummyModel;
                         contextGeminiPseudoStreaming = sourceSessionContext.pseudoStreaming ?? state.settings.geminiPseudoStreaming;
                         contextGeminiEnableGrounding = sourceSessionContext.enableGrounding ?? state.settings.geminiEnableGrounding;
-                    } else if (providerForSettingsB === 'deepseek') {
+                    } else if (providerForBgSettings === 'deepseek') {
                         contextTemperature = sourceSessionContext.temperature ?? state.settings.deepSeekTemperature;
                         contextMaxTokens = sourceSessionContext.maxTokens ?? state.settings.deepSeekMaxTokens;
                         contextTopP = sourceSessionContext.topP ?? state.settings.deepSeekTopP;
@@ -8831,20 +8587,6 @@
                         contextClaudeIncludeThoughts = sourceSessionContext.includeThoughts ?? state.settings.claudeIncludeThoughts;
                         contextClaudeThinkingBudget = sourceSessionContext.thinkingBudget ?? state.settings.claudeThinkingBudget;
                         contextClaudeExpandThoughtsByDefault = sourceSessionContext.expandThoughtsByDefault ?? state.settings.claudeExpandThoughtsByDefault;
-                    } else if (providerForSettingsB === 'openai') {
-                        contextTemperature = sourceSessionContext.temperature ?? state.settings.openaiTemperature;
-                        contextMaxTokens = sourceSessionContext.maxTokens ?? state.settings.openaiMaxTokens;
-                        contextTopP = sourceSessionContext.topP ?? state.settings.openaiTopP;
-                        contextPresencePenalty = sourceSessionContext.presencePenalty ?? state.settings.openaiPresencePenalty;
-                        contextFrequencyPenalty = sourceSessionContext.frequencyPenalty ?? state.settings.openaiFrequencyPenalty;
-                        contextStreamingOutput = sourceSessionContext.streamingOutput ?? state.settings.openaiStreamingOutput;
-                        contextStreamingSpeed = sourceSessionContext.streamingSpeed ?? state.settings.openaiStreamingSpeed;
-                        contextDummyUser = sourceSessionContext.dummyUser ?? state.settings.openaiDummyUser;
-                        contextEnableDummyUser = sourceSessionContext.enableDummyUser ?? state.settings.openaiEnableDummyUser;
-                        contextDummyModel = sourceSessionContext.dummyModel ?? state.settings.openaiDummyModel;
-                        contextEnableDummyModel = sourceSessionContext.enableDummyModel ?? state.settings.openaiEnableDummyModel;
-                        contextConcatDummyModel = sourceSessionContext.concatDummyModel ?? state.settings.openaiConcatDummyModel;
-                        contextOpenAIVisionEnable = sourceSessionContext.visionEnable ?? state.settings.openaiVisionEnable;
                     }
                 } else {
                     if (selectedApiProvider === 'gemini') {
@@ -8894,20 +8636,6 @@
                         contextClaudeIncludeThoughts = state.settings.claudeIncludeThoughts;
                         contextClaudeThinkingBudget = state.settings.claudeThinkingBudget;
                         contextClaudeExpandThoughtsByDefault = state.settings.claudeExpandThoughtsByDefault;
-                    } else if (selectedApiProvider === 'openai') {
-                        contextTemperature = state.settings.openaiTemperature;
-                        contextMaxTokens = state.settings.openaiMaxTokens;
-                        contextTopP = state.settings.openaiTopP;
-                        contextPresencePenalty = state.settings.openaiPresencePenalty;
-                        contextFrequencyPenalty = state.settings.openaiFrequencyPenalty;
-                        contextStreamingOutput = state.settings.openaiStreamingOutput;
-                        contextStreamingSpeed = state.settings.openaiStreamingSpeed;
-                        contextDummyUser = state.settings.openaiDummyUser;
-                        contextEnableDummyUser = state.settings.openaiEnableDummyUser;
-                        contextDummyModel = state.settings.openaiDummyModel;
-                        contextEnableDummyModel = state.settings.openaiEnableDummyModel;
-                        contextConcatDummyModel = state.settings.openaiConcatDummyModel;
-                        contextOpenAIVisionEnable = state.settings.openaiVisionEnable;
                     }
                 }
 
@@ -8948,9 +8676,6 @@
                     return "APIキー未設定";
                 } else if (selectedApiProvider === 'claude' && !state.settings.claudeApiKey) {
                     if (!isBackgroundProcess) { await uiUtils.showCustomAlert("Claude APIキーが設定されていません。設定画面を開きます。"); uiUtils.showScreen('settings'); }
-                    return "APIキー未設定";
-                } else if (selectedApiProvider === 'openai' && !state.settings.openaiApiKey) {
-                    if (!isBackgroundProcess) { await uiUtils.showCustomAlert("OpenAI APIキーが設定されていません。設定画面を開きます。"); uiUtils.showScreen('settings'); }
                     return "APIキー未設定";
                 }
 
@@ -9195,7 +8920,7 @@
                 if (systemPromptTextToUseForApi) {
                     if (selectedApiProvider === 'gemini') {
                         systemInstructionForProvider = { role: "system", parts: [{ text: systemPromptTextToUseForApi }] };
-                    } else if (selectedApiProvider === 'deepseek' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                    } else if (selectedApiProvider === 'deepseek' || selectedApiProvider === 'claude') {
                         systemInstructionForProvider = { content: systemPromptTextToUseForApi, parts: [{ text: systemPromptTextToUseForApi }] };
                     }
                 }
@@ -9220,15 +8945,13 @@
                         apiResponseObject = await apiUtils.callDeepSeekApi(apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall);
                     } else if (selectedApiProvider === 'claude') {
                         apiResponseObject = await apiUtils.callClaudeApi(apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall);
-                    } else if (selectedApiProvider === 'openai') {
-                        apiResponseObject = await apiUtils.callOpenAiApi(apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall, contextOpenAIVisionEnable);
                     } else {
                         throw new Error("不明なAPIプロバイダーが選択されています。");
                     }
 
                     const dummyModelPrefix = (contextConcatDummyModel && dummyModelTextToUse) ? dummyModelTextToUse : '';
                      if (!isBackgroundProcess) {
-                        if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                        if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude') {
                             state.partialStreamContent = dummyModelPrefix;
                             state.partialThoughtStreamContent = '';
                         } else if (selectedApiProvider === 'deepseek') {
@@ -9282,15 +9005,12 @@
                             responseStreamIterator = apiUtils.handleDeepSeekStreamingResponse(apiResponseObject);
                         } else if (selectedApiProvider === 'claude') {
                             responseStreamIterator = apiUtils.handleClaudeStreamingResponse(apiResponseObject);
-                        } else if (selectedApiProvider === 'openai') {
-                            responseStreamIterator = apiUtils.handleOpenAiStreamingResponse(apiResponseObject);
                         }
 
 
                         const currentContextStreamSpeed = selectedApiProvider === 'gemini' ? contextStreamingSpeed : 
                                                           selectedApiProvider === 'deepseek' ? state.settings.deepSeekStreamingSpeed :
-                                                          selectedApiProvider === 'claude' ? state.settings.claudeStreamingSpeed :
-                                                          state.settings.openaiStreamingSpeed;
+                                                          state.settings.claudeStreamingSpeed;
 
                         const messageIndexForDisplay = isBackgroundProcess ? -1 : (modelMessageObjectForStream ? state.currentMessages.indexOf(modelMessageObjectForStream) : -1);
 
@@ -9333,7 +9053,7 @@
                                     if (isBackgroundProcess) {
                                         modelResponseRawContent += streamData.contentText;
                                     } else {
-                                        if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                                        if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude') {
                                             for (const char of streamData.contentText) {
                                                 if (state.abortController?.signal.aborted) break;
                                                 state.partialStreamContent += char;
@@ -9405,7 +9125,7 @@
                                         modelThoughtSummaryContent = streamData.fullReasoningContent;
                                     }
                                     if (streamData.usageMetadata) finalUsageMetadataFromStream = streamData.usageMetadata;
-                                } else if (selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                                } else if (selectedApiProvider === 'claude') {
                                     if (streamData.usageMetadata) finalUsageMetadataFromStream = streamData.usageMetadata;
                                 }
                                 break;
@@ -9417,7 +9137,7 @@
                         }
 
                         if (!isBackgroundProcess) {
-                           if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                           if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude') {
                                modelThoughtSummaryContent = state.partialThoughtStreamContent;
                                modelResponseRawContent = state.partialStreamContent;
                            } else if (selectedApiProvider === 'deepseek') {
@@ -9511,22 +9231,6 @@
                                 rawContentFromApi = "(応答が空です)";
                             }
                             modelResponseRawContent = dummyModelPrefix + rawContentFromApi;
-                        } else if (selectedApiProvider === 'openai') {
-                            let rawContentFromApi = "";
-                            if (data.choices && data.choices.length > 0) {
-                                rawContentFromApi = data.choices[0].message?.content || "";
-                                modelResponseMetadata = { finishReason: data.choices[0].finish_reason };
-                            }
-                            if (data.usage) {
-                                finalUsageMetadataFromStream = {
-                                    candidatesTokenCount: data.usage.completion_tokens,
-                                    totalTokenCount: data.usage.prompt_tokens + data.usage.completion_tokens
-                                };
-                            }
-                            if (!rawContentFromApi && modelResponseMetadata.finishReason === 'stop') {
-                                rawContentFromApi = "(応答が空です)";
-                            }
-                            modelResponseRawContent = dummyModelPrefix + rawContentFromApi;
                         }
                     }
 
@@ -9611,7 +9315,7 @@
                                 } else if (selectedApiProvider === 'claude' && contextClaudeIncludeThoughts && modelThoughtSummaryContent) {
                                     msgToUpdate.thoughtSummary = modelThoughtSummaryContent || null;
                                 }
-                                if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                                if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude') {
                                     uiUtils.finalizeStreamingMessage(finalModelMessageIndex);
                                 } else if (selectedApiProvider === 'deepseek') {
                                     uiUtils.finalizeDeepSeekDisplay(finalModelMessageIndex);
@@ -9673,7 +9377,7 @@
                     const displayErrorMessage = isAbort ? error.message : (error.message || "不明なエラーが発生しました");
 
                     let partialThoughtContentOnError, partialContentOnError;
-                    if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                    if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude') {
                         partialThoughtContentOnError = state.partialThoughtStreamContent;
                         partialContentOnError = state.partialStreamContent;
                     } else if (selectedApiProvider === 'deepseek') {
@@ -9718,7 +9422,7 @@
                             }
 
                              try {
-                                 if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude' || selectedApiProvider === 'openai') {
+                                 if (selectedApiProvider === 'gemini' || selectedApiProvider === 'claude') {
                                      uiUtils.finalizeStreamingMessage(streamingMessageIndex);
                                  } else if (selectedApiProvider === 'deepseek') {
                                      uiUtils.finalizeDeepSeekDisplay(streamingMessageIndex);
@@ -10237,9 +9941,6 @@
                  newSettings.claudeApiKey = elements.claudeApiKeyInput.value.trim();
                  newSettings.claudeModelName = elements.claudeModelNameSelect.value;
                  newSettings.claudeAdditionalModels = elements.claudeAdditionalModelsTextarea.value.trim();
-                 newSettings.openaiApiKey = elements.openaiApiKeyInput.value.trim();
-                 newSettings.openaiModelName = elements.openaiModelNameSelect.value;
-                 newSettings.openaiAdditionalModels = elements.openaiAdditionalModelsTextarea.value.trim();
 
                 newSettings.geminiSystemPrompt = elements.geminiSystemPromptDefaultTextarea.value.trim();
                 newSettings.geminiEnableSystemPromptDefault = elements.geminiEnableSystemPromptDefaultCheckbox.checked;
@@ -10295,23 +9996,6 @@
                 newSettings.claudeIncludeThoughts = elements.claudeIncludeThoughtsToggle.checked;
                 newSettings.claudeExpandThoughtsByDefault = elements.claudeExpandThoughtsByDefaultToggle.checked;
                 newSettings.claudeThinkingBudget = elements.claudeThinkingBudgetInput.value === '' ? null : parseInt(elements.claudeThinkingBudgetInput.value, 10);
-
-                newSettings.openaiSystemPrompt = elements.openaiSystemPromptDefaultTextarea.value.trim();
-                newSettings.openaiEnableSystemPromptDefault = elements.openaiEnableSystemPromptDefaultCheckbox.checked;
-                newSettings.openaiTemperature = elements.openaiTemperatureInput.value === '' ? null : parseFloat(elements.openaiTemperatureInput.value);
-                newSettings.openaiMaxTokens = elements.openaiMaxTokensInput.value === '' ? null : parseInt(elements.openaiMaxTokensInput.value);
-                newSettings.openaiTopP = elements.openaiTopPInput.value === '' ? null : parseFloat(elements.openaiTopPInput.value);
-                newSettings.openaiPresencePenalty = elements.openaiPresencePenaltyInput.value === '' ? null : parseFloat(elements.openaiPresencePenaltyInput.value);
-                newSettings.openaiFrequencyPenalty = elements.openaiFrequencyPenaltyInput.value === '' ? null : parseFloat(elements.openaiFrequencyPenaltyInput.value);
-                newSettings.openaiStreamingOutput = elements.openaiStreamingOutputCheckbox.checked;
-                newSettings.openaiStreamingSpeed = elements.openaiStreamingSpeedInput.value === '' ? DEFAULT_STREAMING_SPEED : parseInt(elements.openaiStreamingSpeedInput.value);
-                newSettings.openaiVisionEnable = elements.openaiVisionEnableCheckbox.checked;
-                newSettings.openaiDummyUser = elements.openaiDummyUserInput.value.trim();
-                newSettings.openaiEnableDummyUser = elements.openaiEnableDummyUserCheckbox.checked;
-                newSettings.openaiDummyModel = elements.openaiDummyModelInput.value.trim();
-                newSettings.openaiEnableDummyModel = elements.openaiEnableDummyModelCheckbox.checked;
-                newSettings.openaiConcatDummyModel = elements.openaiConcatDummyModelCheckbox.checked;
-
                  newSettings.enterToSend = elements.enterToSendCheckbox.checked;
                  newSettings.autoScrollOnNewMessage = elements.autoScrollOnNewMessageCheckbox.checked;
                  newSettings.autoScrollOnThought = elements.autoScrollOnThoughtCheckbox.checked;
@@ -10387,7 +10071,6 @@
                      gemini: elements.apiProviderCycleGeminiCheckbox.checked,
                      deepseek: elements.apiProviderCycleDeepSeekCheckbox.checked,
                      claude: elements.apiProviderCycleClaudeCheckbox.checked,
-                     openai: elements.apiProviderCycleOpenAICheckbox.checked,
                  };
 
 
@@ -10423,13 +10106,6 @@
                     newSettings.claudeTopK = validateNumeric(newSettings.claudeTopK, null, 1, Infinity, true);
                     newSettings.claudeTopP = validateNumeric(newSettings.claudeTopP, null, 0, 1);
                     newSettings.claudeThinkingBudget = validateNumeric(newSettings.claudeThinkingBudget, null, 1024, Infinity, true);
-                } else if (currentProvider === 'openai') {
-                    newSettings.openaiStreamingSpeed = validateNumeric(newSettings.openaiStreamingSpeed, DEFAULT_STREAMING_SPEED, 0, Infinity, true);
-                    newSettings.openaiTemperature = validateNumeric(newSettings.openaiTemperature, null, 0, 2);
-                    newSettings.openaiMaxTokens = validateNumeric(newSettings.openaiMaxTokens, null, 1, Infinity, true);
-                    newSettings.openaiTopP = validateNumeric(newSettings.openaiTopP, null, 0, 1);
-                    newSettings.openaiPresencePenalty = validateNumeric(newSettings.openaiPresencePenalty, null, -2.0, 2.0);
-                    newSettings.openaiFrequencyPenalty = validateNumeric(newSettings.openaiFrequencyPenalty, null, -2.0, 2.0);
                 }
 
 
@@ -10571,7 +10247,7 @@
 
                         const defaultSettingsCopy = JSON.parse(JSON.stringify(state.settings));
                         Object.keys(defaultSettingsCopy).forEach(key => {
-                            if (key.startsWith('gemini') || key.startsWith('deepSeek') || key.startsWith('claude') || key.startsWith('openai')) {
+                            if (key.startsWith('gemini') || key.startsWith('deepSeek') || key.startsWith('claude')) {
                                 if(key.toLowerCase().includes('systemprompt')) defaultSettingsCopy[key] = '';
                                 else if(key.toLowerCase().includes('enablesystempromptdefault')) defaultSettingsCopy[key] = true;
                                 else if(key.toLowerCase().includes('temperature') || key.toLowerCase().includes('maxtokens') || key.toLowerCase().includes('topk') || key.toLowerCase().includes('topp') || key.toLowerCase().includes('penalty') || key.toLowerCase().includes('budget')) defaultSettingsCopy[key] = null;
@@ -10589,7 +10265,6 @@
                                 else if(key === 'claudeIncludeThoughts') defaultSettingsCopy[key] = false;
                                 else if(key === 'claudeExpandThoughtsByDefault') defaultSettingsCopy[key] = false;
                                 else if(key === 'claudeThinkingBudget') defaultSettingsCopy[key] = null;
-                                else if(key === 'openaiVisionEnable') defaultSettingsCopy[key] = false;
                             }
                         });
                         defaultSettingsCopy.apiKey = '';
@@ -10604,9 +10279,6 @@
                         defaultSettingsCopy.claudeApiKey = '';
                         defaultSettingsCopy.claudeModelName = DEFAULT_CLAUDE_MODEL;
                         defaultSettingsCopy.claudeAdditionalModels = '';
-                        defaultSettingsCopy.openaiApiKey = '';
-                        defaultSettingsCopy.openaiModelName = DEFAULT_OPENAI_MODEL;
-                        defaultSettingsCopy.openaiAdditionalModels = '';
                         defaultSettingsCopy.apiProvider = 'gemini';
                         defaultSettingsCopy.enterToSend = true;
                         defaultSettingsCopy.autoScrollOnNewMessage = DEFAULT_AUTO_SCROLL_ON_NEW_MESSAGE;
@@ -10683,7 +10355,7 @@
                         defaultSettingsCopy.settingsUIDetailsOpenStates = {};
                         defaultSettingsCopy.showApiProviderToggleHeader = false;
                         defaultSettingsCopy.showApiProviderToggleFooter = true;
-                        defaultSettingsCopy.apiProviderCycle = { gemini: true, deepseek: true, claude: true, openai: true };
+                        defaultSettingsCopy.apiProviderCycle = { gemini: true, deepseek: true, claude: true };
 
                         state.settings = defaultSettingsCopy;
 
@@ -11607,8 +11279,7 @@
                 const selectedApiProvider = state.settings.apiProvider;
                  if ((selectedApiProvider === 'gemini' && !state.settings.apiKey) || 
                      (selectedApiProvider === 'deepseek' && !state.settings.deepSeekApiKey) ||
-                     (selectedApiProvider === 'claude' && !state.settings.claudeApiKey) ||
-                     (selectedApiProvider === 'openai' && !state.settings.openaiApiKey)
+                     (selectedApiProvider === 'claude' && !state.settings.claudeApiKey)
                     ) {
                     await uiUtils.showCustomAlert("選択中のAPIプロバイダーのAPIキーが設定されていません。");
                     uiUtils.showScreen('settings');
@@ -11643,8 +11314,7 @@
                         streamingOutputB, streamingSpeedB, concatDummyModelB,
                         geminiTopKB, geminiThinkingBudgetB, geminiIncludeThoughtsB, geminiPseudoStreamingB, geminiEnableGroundingB,
                         deepSeekIncludeThoughtsB,
-                        claudeTopKB, claudeIncludeThoughtsB, claudeThinkingBudgetB, claudeExpandThoughtsByDefaultB,
-                        openaiVisionEnableB;
+                        claudeTopKB, claudeIncludeThoughtsB, claudeThinkingBudgetB, claudeExpandThoughtsByDefaultB;
 
                     if (providerForSettingsB === 'gemini') {
                         systemPromptB = sessionB_Data.systemPrompt !== undefined ? sessionB_Data.systemPrompt : state.settings.geminiSystemPrompt;
@@ -11699,22 +11369,6 @@
                         claudeIncludeThoughtsB = state.settings.claudeIncludeThoughts;
                         claudeThinkingBudgetB = state.settings.claudeThinkingBudget;
                         claudeExpandThoughtsByDefaultB = state.settings.claudeExpandThoughtsByDefault;
-                    } else if (providerForSettingsB === 'openai') {
-                        systemPromptB = sessionB_Data.systemPrompt !== undefined ? sessionB_Data.systemPrompt : state.settings.openaiSystemPrompt;
-                        enableSystemPromptDefaultB = state.settings.openaiEnableSystemPromptDefault;
-                        temperatureB = state.settings.openaiTemperature;
-                        maxTokensB = state.settings.openaiMaxTokens;
-                        topPB = state.settings.openaiTopP;
-                        presencePenaltyB = state.settings.openaiPresencePenalty;
-                        frequencyPenaltyB = state.settings.openaiFrequencyPenalty;
-                        streamingOutputB = state.settings.openaiStreamingOutput;
-                        streamingSpeedB = state.settings.openaiStreamingSpeed;
-                        dummyUserB = state.settings.openaiDummyUser;
-                        enableDummyUserB = state.settings.openaiEnableDummyUser;
-                        dummyModelB = state.settings.openaiDummyModel;
-                        enableDummyModelB = state.settings.openaiEnableDummyModel;
-                        concatDummyModelB = state.settings.openaiConcatDummyModel;
-                        openaiVisionEnableB = state.settings.openaiVisionEnable;
                     }
 
 
@@ -11738,7 +11392,6 @@
                         expandThoughtsByDefault: providerForSettingsB === 'claude' ? claudeExpandThoughtsByDefaultB : undefined,
                         pseudoStreaming: providerForSettingsB === 'gemini' ? geminiPseudoStreamingB : undefined,
                         enableGrounding: providerForSettingsB === 'gemini' ? geminiEnableGroundingB : undefined,
-                        visionEnable: providerForSettingsB === 'openai' ? openaiVisionEnableB : undefined,
                         inputText: inputForB,
                         attachments: [],
                         apiProvider: providerForSettingsB
@@ -12372,135 +12025,6 @@
                 } finally {
                     if (!reader.closed && !isCancelled) {
                         try { await reader.cancel("Stream processing ended."); } catch (e) { }
-                    }
-                }
-            },
-            async callOpenAiApi(messagesForApi, generationConfig, systemInstruction, useStreaming, enableVision) {
-                if (!state.settings.openaiApiKey) {
-                    throw new Error("OpenAI APIキーが設定されていません。");
-                }
-                state.abortController = new AbortController();
-                const { signal } = state.abortController;
-
-                const headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${state.settings.openaiApiKey}`
-                };
-
-                const oaMessages = [];
-                if (systemInstruction && systemInstruction.parts?.[0]?.text) {
-                    oaMessages.push({ role: "system", content: systemInstruction.parts[0].text });
-                }
-
-                messagesForApi.forEach(m => {
-                    const role = m.role === "model" ? "assistant" : m.role;
-                    const contentParts = m.parts.map(p => {
-                        if (p.text) {
-                            return { type: "text", text: p.text };
-                        }
-                        if (enableVision && p.inlineData && p.inlineData.mimeType && p.inlineData.data && p.inlineData.mimeType.startsWith('image/')) {
-                            return {
-                                type: "image_url",
-                                image_url: { url: `data:${p.inlineData.mimeType};base64,${p.inlineData.data}` }
-                            };
-                        }
-                        return null;
-                    }).filter(Boolean);
-
-                    if (contentParts.length > 0) {
-                        oaMessages.push({ role: role, content: contentParts });
-                    }
-                });
-
-                const body = {
-                    model: state.settings.openaiModelName,
-                    messages: oaMessages,
-                    stream: useStreaming,
-                    temperature: generationConfig.temperature ?? state.settings.openaiTemperature ?? 1,
-                };
-                if (generationConfig.maxOutputTokens != null) body.max_tokens = generationConfig.maxOutputTokens;
-                if (generationConfig.topP != null) body.top_p = generationConfig.topP;
-                if (generationConfig.presencePenalty != null) body.presence_penalty = generationConfig.presencePenalty;
-                if (generationConfig.frequencyPenalty != null) body.frequency_penalty = generationConfig.frequencyPenalty;
-
-                const response = await fetch(OPENAI_API_BASE_URL, { method: "POST", headers, body: JSON.stringify(body), signal });
-                if (!response.ok) {
-                    let msg = `OpenAI API error ${response.status}`;
-                    try {
-                        const je = await response.json();
-                        msg = je.error?.message || msg;
-                    } catch {}
-                    throw new Error(msg);
-                }
-                return response;
-            },
-            async *handleOpenAiStreamingResponse(response) {
-                if (!response.body) {
-                    throw new Error("OpenAIレスポンスボディがありません。");
-                }
-                const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
-                let buffer = '';
-                let usage = null;
-                let finishReason = null;
-                let isCancelled = false;
-
-                try {
-                    while (true) {
-                        if (state.abortController?.signal.aborted) {
-                            isCancelled = true;
-                            await reader.cancel();
-                            throw new Error("リクエストがキャンセルされました。");
-                        }
-
-                        const { value, done } = await reader.read();
-                        if (done) break;
-
-                        buffer += value;
-                        let eolIndex;
-                        while ((eolIndex = buffer.indexOf('\n')) >= 0) {
-                            const line = buffer.slice(0, eolIndex).trim();
-                            buffer = buffer.slice(eolIndex + 1);
-
-                            if (!line.startsWith('data:')) continue;
-                            const data = line.slice(5).trim();
-
-                            if (data === '[DONE]') {
-                                finishReason = 'stop';
-                                break;
-                            }
-                            try {
-                                const chunk = JSON.parse(data);
-                                if (chunk.choices?.[0]) {
-                                    const delta = chunk.choices[0].delta;
-                                    if (delta?.content) {
-                                        yield { type: "chunk", contentText: delta.content, thoughtText: null };
-                                    }
-                                    if (chunk.choices[0].finish_reason) {
-                                        finishReason = chunk.choices[0].finish_reason;
-                                    }
-                                }
-                                if (chunk.usage) {
-                                    usage = chunk.usage;
-                                }
-                            } catch (e) {}
-                        }
-                        if (finishReason) break;
-                    }
-                    yield {
-                        type: "metadata",
-                        finishReason: isCancelled ? "ABORTED" : finishReason || 'stop',
-                        usageMetadata: usage ? {
-                            candidatesTokenCount: usage.completion_tokens,
-                            totalTokenCount: usage.prompt_tokens + usage.completion_tokens
-                        } : null,
-                        safetyRatings: null,
-                        groundingMetadata: null
-                    };
-                } catch (error) {
-                     yield { type: 'error', error: { message: error.message }, message: error.message };
-                } finally {
-                    if (!reader.closed && !isCancelled) {
-                        try { await reader.cancel(); } catch (e) {}
                     }
                 }
             }
