@@ -4458,6 +4458,8 @@
                         <label for="xai-model-name">モデル名:</label>
                         <select id="xai-model-name" aria-label="xAI モデル名">
                             <optgroup label="Grok">
+                                <option value="grok-4-fast-non-reasoning">grok-4-fast-non-reasoning</option>   
+                                <option value="grok-4-fast-reasoning">grok-4-fast-reasoning</option>                            
                                 <option value="grok-3-mini">grok-3-mini</option>
                                 <option value="grok-3-mini-fast">grok-3-mini-fast</option>
                                 <option value="grok-3">grok-3</option>
@@ -4500,6 +4502,8 @@
                         <label for="llmaggregator-model-name">モデル名:</label>
                         <select id="llmaggregator-model-name" aria-label="LLM Aggregator モデル名">
                             <optgroup label="デフォルト">
+                                <option value="x-ai/grok-4-fast:free">x-ai/grok-4-fast:free
+                                </option>
                                 <option value="meta-llama/llama-4-maverick-17b-128e-instruct:free">
                                     meta-llama/llama-4-maverick-17b-128e-instruct:free</option>
                                 <option value="qwen/qwen2.5-vl-32b-instruct:free">qwen/qwen2.5-vl-32b-instruct:free
@@ -6239,8 +6243,8 @@
         const DEFAULT_DEEPSEEK_MODEL = 'deepseek-reasoner';
         const DEFAULT_CLAUDE_MODEL = 'claude-3-7-sonnet-20250219';
         const DEFAULT_OPENAI_MODEL = 'gpt-3.5-turbo';
-        const DEFAULT_XAI_MODEL = 'grok-3-mini';
-        const DEFAULT_LLMAGGREGATOR_MODEL = 'meta-llama/llama-4-maverick-17b-128e-instruct:free';
+        const DEFAULT_XAI_MODEL = 'grok-4-fast-non-reasoning';
+        const DEFAULT_LLMAGGREGATOR_MODEL = 'x-ai/grok-4-fast:free';
         const DEFAULT_STREAMING_SPEED = 12;
         const DEFAULT_TEMPERATURE = 0.5;
         const DEFAULT_MAX_TOKENS = 4000;
@@ -10155,7 +10159,7 @@
 
                 const defaultOptgroup = select.querySelector('optgroup[label="デフォルト"]') || select;
                 defaultOptgroup.innerHTML = '';
-                const defaultModels = ['meta-llama/llama-4-maverick-17b-128e-instruct:free', 'qwen/qwen2.5-vl-32b-instruct:free', 'deepseek/deepseek-chat-v3-0324:free'];
+                const defaultModels = ['x-ai/grok-4-fast:free', 'meta-llama/llama-4-maverick-17b-128e-instruct:free', 'qwen/qwen2.5-vl-32b-instruct:free', 'deepseek/deepseek-chat-v3-0324:free'];
                 defaultModels.forEach(modelId => {
                     const option = document.createElement('option');
                     option.value = modelId;
