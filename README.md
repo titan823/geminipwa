@@ -35,7 +35,7 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 * Claudeの推論機能とダミーModelプロンプトは現在併用できません（推論を使わない場合は大丈夫です）
 -  自分用メモ:OpusはSonnetの5倍のコスト。SonnetはHaikuのおよそ4倍のコスト。DeepSeekはR1ですらHaikuよりも大幅に安い。Command AはSonnetより若干安い程度で、使う意味は薄い。
 -  Claudeの最新の料金表は　https://www.anthropic.com/pricing
--  Gemini用API課金管理
+-  Gemini用API課金管理 ※GeminiのAPI料金は後払い
 -  https://console.cloud.google.com/welcome/new?hl=ja&inv=1&invt=AbzdRA&project=gen-lang-client-0937440006
 -  DeepSeek用API管理
 -  https://platform.deepseek.com/api_keys
