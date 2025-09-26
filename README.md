@@ -63,7 +63,7 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 ### 【2025/09/23】
 -  本リポジトリで公開しているgeminipwa-NV-variant-b(2dc6a82)に対し、便宜的にgrok4 fastをXAとLAのモデルオプションとして追加しました。
 ### 【2025/09/14】
--  本リポジトリのPWAのコードを、tomo00024氏のgeminipwa-NV-variant-b(2dc6a82)と同一のものに差し替えました。（『画像URL変換設定』の導入。それまでの版はブランチへ格納）
+-  本リポジトリのPWAのコードを、tomo00024氏のgeminipwa-NV-variant-b(2dc6a82)と同一のものに差し替えました。（『画像URL変換設定』の導入。それまでの版はブランチへ格納）※今後の状況次第でgeminipwa-NV-variant-aに差し替える場合があります
 ### 【2025/08/22】
 -  微調整（ロールバック）
 ### 【2025/08/11】
