@@ -41,6 +41,8 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 -  https://platform.deepseek.com/api_keys
 -  Anthropic用API管理
 -  https://console.anthropic.com/settings/keys
+-  モデル一覧
+-  https://docs.claude.com/en/docs/about-claude/models/overview
 -  OpenAI用 API課金管理
 -  https://platform.openai.com/settings/organization/billing/overview
 -  xAIのAPIコンソール
