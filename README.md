@@ -61,7 +61,7 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 -  本コードの利用基準（本コードの改変、コードのフォーク、他コードへのコード流用など）は、本コードのフォーク元の基準に準拠致します。（MITライセンス）
 ## ■ 更新履歴
 ### 【2025/09/30】
--  従前と同じ理由のもとANのモデルオプションにClaude Opus 4.1及びClaude Sonnet 4.5を追加いたしました。また、パラメータを送信しないボタンを応急処置的に取り付けました（これを使用しないと当該AN新モデルではエラーが出ます。実装手順: https://tinyurl.com/y85kwj24）。なおDeepSeekのモデルは既に自動的にDeepSeek-V3.2-Expへ移行されているものと思われます。
+-  従前と同じ理由のもとANのモデルオプションにClaude Opus 4.1及びClaude Sonnet 4.5を追加いたしました。また、パラメータを送信しないボタンを応急処置的に取り付けました（これを使用しないと当該AN新モデルではエラーが出ます。実装手順: https://tinyurl.com/y85kwj24 ）。なおDeepSeekのモデルは既に自動的にDeepSeek-V3.2-Expへ移行されているものと思われます。
 ### 【2025/09/26】
 -  便宜的措置としてgemini-flash-latestをモデルオプションへ追加
 ### 【2025/09/23】
