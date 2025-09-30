@@ -4358,6 +4358,8 @@
                         <label for="claude-model-name">モデル名:</label>
                         <select id="claude-model-name" aria-label="Claudeモデル名">
                             <optgroup label="Claude 4">
+                                 <option value="claude-opus-4-1-20250805">Claude Opus 4.1</option>
+                                <option value="claude-sonnet-4-5-20250929">Claude Sonnet 4.5</option>                           
                                 <option value="claude-opus-4-20250514">Claude 4 Opus</option>
                                 <option value="claude-sonnet-4-20250514">Claude 4 Sonnet</option>
                             </optgroup>
@@ -4750,10 +4752,13 @@
                                 <div style="display: flex; gap: 8px; margin-top: 5px; margin-bottom: 10px;">
                                     <button type="button" class="set-claude-param-btn" data-target="claude-max-tokens"
                                         data-value="null"
-                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px;">無</button>
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">送信しない</button>
+                                    <button type="button" class="set-claude-param-btn" data-target="claude-max-tokens"
+                                        data-value="4096"
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">4096</button>
                                     <button type="button" class="set-claude-param-btn" data-target="claude-max-tokens"
                                         data-value="32000"
-                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px;">32000</button>
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">32000</button>
                                 </div>
                             </div>
                             <div>
@@ -4763,24 +4768,34 @@
                                 <div style="display: flex; gap: 8px; margin-top: 5px; margin-bottom: 10px;">
                                     <button type="button" class="set-claude-param-btn" data-target="claude-temperature"
                                         data-value="null"
-                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px;">無</button>
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">送信しない</button>
                                     <button type="button" class="set-claude-param-btn" data-target="claude-temperature"
                                         data-value="0"
-                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px;">0</button>
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">0</button>
                                     <button type="button" class="set-claude-param-btn" data-target="claude-temperature"
                                         data-value="1.0"
-                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px;">1.0</button>
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">1.0</button>
                                 </div>
                             </div>
                             <div>
                                 <label for="claude-top-k">Top K:</label>
                                 <input type="number" id="claude-top-k" step="1" min="1" placeholder="例:5"
                                     aria-label="Claude Top K">
+                                <div style="display: flex; gap: 8px; margin-top: 5px; margin-bottom: 10px;">
+                                    <button type="button" class="set-claude-param-btn" data-target="claude-top-k"
+                                        data-value="null"
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">送信しない</button>
+                                </div>
                             </div>
                             <div>
                                 <label for="claude-top-p">Top P:</label>
                                 <input type="number" id="claude-top-p" step="0.01" min="0" max="1"
                                     placeholder="例:1.0 (0.0 - 1.0)" aria-label="Claude Top P">
+                                <div style="display: flex; gap: 8px; margin-top: 5px; margin-bottom: 10px;">
+                                    <button type="button" class="set-claude-param-btn" data-target="claude-top-p"
+                                        data-value="null"
+                                        style="padding: 4px 8px; font-size: 12px; background-color: var(--bg-button-action); color: var(--text-light); border-radius:3px; flex-grow:1;">送信しない</button>
+                                </div>
                             </div>
                         </div>
 
@@ -17002,26 +17017,32 @@
                     max_tokens: generationConfig.maxOutputTokens || state.settings.claudeMaxTokens || DEFAULT_CLAUDE_MAX_TOKENS
                 };
                 if (anthropicRequest.system) requestBody.system = anthropicRequest.system;
-                if (generationConfig.temperature !== undefined && generationConfig.temperature !== null) {
-                    requestBody.temperature = generationConfig.temperature;
-                } else if (state.settings.claudeTemperature !== null) {
-                    requestBody.temperature = state.settings.claudeTemperature;
-                } else {
-                    requestBody.temperature = DEFAULT_CLAUDE_TEMPERATURE;
+                let tempValue = (generationConfig.temperature !== undefined && generationConfig.temperature !== null)
+                    ? generationConfig.temperature
+                    : state.settings.claudeTemperature;
+
+                let topPValue = (generationConfig.topP !== undefined && generationConfig.topP !== null)
+                    ? generationConfig.topP
+                    : state.settings.claudeTopP;
+
+                if (tempValue === null && topPValue === null) {
+                }
+                else if (tempValue !== null) {
+                    requestBody.temperature = tempValue;
+                }
+                else if (topPValue !== null) {
+                    requestBody.top_p = topPValue;
+                }
+                else {
+                    requestBody.temperature = tempValue;
                 }
 
-                if (generationConfig.topK !== undefined && generationConfig.topK !== null) {
-                    requestBody.top_k = generationConfig.topK;
-                } else if (state.settings.claudeTopK !== null) {
-                    requestBody.top_k = state.settings.claudeTopK;
-                }
+                const topKValue = (generationConfig.topK !== undefined && generationConfig.topK !== null)
+                    ? generationConfig.topK
+                    : state.settings.claudeTopK;
 
-                if (generationConfig.topP !== undefined && generationConfig.topP !== null) {
-                    requestBody.top_p = generationConfig.topP;
-                } else if (state.settings.claudeTopP !== null) {
-                    requestBody.top_p = state.settings.claudeTopP;
-                } else {
-                    requestBody.top_p = DEFAULT_CLAUDE_TOP_P;
+                if (topKValue !== null) {
+                    requestBody.top_k = topKValue;
                 }
                 if (state.settings.claudeIncludeThoughts) {
                     requestBody.thinking = { "type": "enabled" };
