@@ -725,6 +725,104 @@
             --default-user-name-bubble-custom-rgb: 245, 245, 245;
             --default-ai-name-bubble-custom-rgb: 245, 245, 245;
         }
+        
+body.turf-mode {
+      --dazzle-scale: 3;
+      --dazzle-dark: 0.10;
+      --dazzle-size: 340%;
+      --dazzle-light: 0.06;
+      --border-alpha: 0.28;
+
+      /* --- 色設定（細分化・ホバー色なしバージョン） --- */
+
+      /* [1] 基本色 */
+      --bg-primary: #F6F4F9;
+      --bg-secondary: #F6F4F9;
+      --bg-tertiary: #F6F4F9;
+      --bg-user-message: #ffffff;
+      --bg-model-message: #ffffff;
+      --text-primary: #7A4114;
+      --text-secondary: #7A4114;
+      --text-link: #388e3c;
+      
+      /* [2] ヘッダーと主要ボタン（送信など） */
+      --bg-header: #4CAF50;
+      --bg-header-hover: #4CAF50; /* ホバー色を通常色と同じに */
+      --bg-button: #4CAF50;
+      --bg-button-hover: #4CAF50; /* ホバー色を通常色と同じに */
+      --bg-button-rgb: 76, 175, 80;
+
+      /* [3] アクションボタン（汎用：Cascade, 汎用アクションなど） */
+      --bg-button-action: #9ccc65;
+      --bg-button-action-hover: #9ccc65; /* ホバー色を通常色と同じに */
+
+      /* [4] 編集ボタン */
+      --bg-button-edit: #F9B218;
+      --bg-button-edit-hover: #F9B218; /* ホバー色を通常色と同じに */
+
+      /* [5] 危険・キャンセル系ボタン */
+      --bg-button-delete: #F25560;
+      --bg-button-delete-hover: #F25560; /* ホバー色を通常色と同じに */
+      --bg-button-cancel: #F25560;
+      --bg-button-cancel-hover: #F25560;
+      --bg-button-header-delete: #F25560;
+      --bg-button-header-delete-hover: #F25560;
+
+      /* [6] 肯定・実行系ボタン */
+      --bg-button-save: #2D7FD4;
+      --bg-button-save-hover: #2D7FD4;
+      --bg-button-update: #2D7FD4;
+      --bg-button-update-hover: #2D7FD4;
+      --bg-button-retry: #2D7FD4;
+      --bg-button-retry-hover: #2D7FD4;
+
+      /* [7] データ操作系ボタン */
+      --bg-button-copy: #F5488A;
+      --bg-button-copy-hover: #F5488A;
+      --bg-button-paste: #9ccc65;
+      --bg-button-paste-hover: #9ccc65;
+      --bg-button-duplicate: #aed581;
+      --bg-button-duplicate-hover: #aed581;
+      --bg-button-export: #dce775;
+      --bg-button-export-hover: #dce775;
+      --bg-button-header-copy: #F5488A;
+      --bg-button-header-copy-hover: #F5488A;
+
+      /* [8] チャットバブル開閉ボタン */
+      --bg-toggle-button: #9E9E9E; /* 新規追加：グレー系の色を設定 */
+      --bg-toggle-button-hover: #9E9E9E; /* ホバー色を通常色と同じに */
+      --text-toggle-button: #ffffff; /* 文字色もここで設定可能 */
+
+      /* [9] その他 */
+      --border-system: #a5d6a7;
+}
+
+        /* ターフモード専用のメッセージバブル枠線 */
+        body.turf-mode .message.user {
+            border: 2px solid #66D713; /* ユーザー: 緑色の線 */
+        }
+        body.turf-mode .message.model {
+            border: 2px solid #FD6EA3; /* AI: ピンク色の線 */
+        }
+        
+        /* ターフモード専用のメッセージテキスト色（ここから追加） */
+        body.turf-mode .message.user {
+            color: #7a4114; /* ユーザーの文字*/
+        }
+        body.turf-mode .message.model {
+            color: #7a4114; /* AIの文字 */
+        }
+        body.turf-mode .mermaid-diagram {
+            background-color: #f8fff8 !important;
+        }
+
+        body.turf-mode .mermaid-diagram svg .node rect,
+        body.turf-mode .mermaid-diagram svg .node circle,
+        body.turf-mode .mermaid-diagram svg .node ellipse,
+        body.turf-mode .mermaid-diagram svg .node polygon {
+            fill: #e8f5e9 !important;
+            stroke: #4CAF50 !important;
+        }
 
         * {
             margin: 0;
@@ -1672,7 +1770,7 @@
             align-self: flex-end;
             border-bottom-right-radius: 5px;
 
-            body:not(.dark-mode):not(.pastel-pink-mode):not(.pastel-blue-mode):not(.pastel-yellow-mode):not(.pastel-purple-mode):not(.pastel-rainbow-mode) & {
+            body:not(.dark-mode):not(.pastel-pink-mode):not(.pastel-blue-mode):not(.pastel-yellow-mode):not(.pastel-purple-mode):not(.pastel-rainbow-mode):not(.turf-mode) & {
                 color: #333;
             }
 
@@ -2602,7 +2700,7 @@
         }
 
         @media (prefers-color-scheme: dark) {
-            body:not(.light-mode-forced):not(.pastel-pink-mode):not(.pastel-blue-mode):not(.pastel-yellow-mode):not(.pastel-purple-mode):not(.pastel-rainbow-mode) {
+    body:not(.light-mode-forced):not(.pastel-pink-mode):not(.pastel-blue-mode):not(.pastel-yellow-mode):not(.pastel-purple-mode):not(.pastel-rainbow-mode):not(.turf-mode) {
                 --bg-primary: #1a1a1a;
                 --text-primary: #e0e0e0;
             }
@@ -3958,6 +4056,134 @@
             width: 100%;
             flex-basis: 100%;
         }
+
+
+body.turf-mode .app-header,
+body.turf-mode button {
+  /* 既存の background-color をベースに使用 */
+  background-image:
+    conic-gradient(from 12deg at 28% 34%,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 1.00)) 0 62deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.80)) 62deg 66deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.50)) 66deg 69deg,
+      transparent 69deg 360deg),
+    conic-gradient(from -24deg at 72% 28%,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.80)) 0 82deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.60)) 82deg 87deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.35)) 87deg 90deg,
+      transparent 90deg 360deg),
+    conic-gradient(from 140deg at 22% 78%,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.65)) 0 54deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.50)) 54deg 57deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.30)) 57deg 60deg,
+      transparent 60deg 360deg),
+    conic-gradient(from 60deg at 82% 66%,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.70)) 0 69deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.50)) 69deg 72deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.30)) 72deg 75deg,
+      transparent 75deg 360deg),
+    conic-gradient(from -40deg at 50% 50%,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.55)) 0 102deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.40)) 102deg 106deg,
+      rgba(0, 0, 0, calc(var(--dazzle-dark) * 0.25)) 106deg 110deg,
+      transparent 110deg 360deg);
+
+  background-blend-mode: multiply, multiply, multiply, multiply, multiply;
+
+  /* 柄のサイズを拡大（要素中央で固定） */
+  background-size:
+    var(--dazzle-size) var(--dazzle-size),
+    var(--dazzle-size) var(--dazzle-size),
+    var(--dazzle-size) var(--dazzle-size),
+    var(--dazzle-size) var(--dazzle-size),
+    var(--dazzle-size) var(--dazzle-size);
+  background-position: center, center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+
+  /* フラット化：ベベル/ハイライト/テキストシャドウ類は無し */
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+  text-shadow: none;
+  transition: background-image 0.25s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+body.turf-mode button:hover:not(:disabled) {
+  --dazzle-dark: 0.14; /* ホバーで少しだけコントラストUP（フラットのまま） */
+}
+
+body.turf-mode button:active:not(:disabled) {
+  --dazzle-dark: 0.16; /* アクティブでさらに少し濃く */
+  transform: none;     /* 押し込み変形なし（3D禁止） */
+}
+
+body.turf-mode button:disabled {
+  opacity: 0.55;
+  background-image: none; /* 無効時は柄もカットして認知性UP */
+  cursor: not-allowed;
+}
+
+body.turf-mode .app-header:hover,
+body.turf-mode .app-header:active {
+  /* ヘッダーはフラットのまま（見た目変化なし） */
+  transform: none;
+}
+
+/* フォールバック（古い環境で conic-gradient or blend-mode が無い場合） */
+@supports not ((background: conic-gradient(from 0deg, #000 0 90deg, transparent 90deg)) and (background-blend-mode: multiply)) {
+  body.turf-mode .app-header,
+  body.turf-mode button {
+    background-image:
+      linear-gradient(135deg, rgba(0, 0, 0, 0.10) 0 45%, transparent 45% 55%, rgba(0, 0, 0, 0.08) 55% 100%);
+    background-size: 200% 200%;
+    background-position: center;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  body.turf-mode button:hover:not(:disabled) {
+    filter: contrast(1.05);
+  }
+}
+
+
+
+body.turf-mode button:disabled {
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+body.turf-mode .app-header:hover,
+body.turf-mode .app-header:active {
+  transform: none;
+  box-shadow: none;
+}
+/* buttons only: vary the visible crop per layer */
+body.turf-mode button:nth-of-type(6n+1) {
+  background-position: 15% 88%, 92% 18%, 45% 63%, 7% 39%, 68% 51%;
+  background-size:     2446% 3546%, 2821% 2821%, 3389% 3389%, 2173% 2173%, 3565% 3565%;
+}
+body.turf-mode button:nth-of-type(6n+2) {
+  background-position: 81% 25%, 29% 95%, 5% 49%, 98% 71%, 42% 13%;
+  background-size:     2618% 2618%, 3032% 3032%, 2788% 2788%, 3950% 3950%, 2294% 2294%;
+}
+body.turf-mode button:nth-of-type(6n+3) {
+  background-position: 58% 9%, 19% 82%, 88% 34%, 31% 55%, 66% 97%;
+  background-size:     3536% 3536%, 2955% 2955%, 2081% 2081%, 3829% 3829%, 2407% 2407%;
+}
+body.turf-mode button:nth-of-type(6n+4) {
+  background-position: 23% 69%, 77% 12%, 11% 85%, 91% 28%, 50% 48%;
+  background-size:     2792% 2792%, 3111% 3111%, 2543% 2543%, 3926% 3926%, 2330% 2330%;
+}
+body.turf-mode button:nth-of-type(6n+5) {
+  background-position: 96% 41%, 38% 8%, 62% 79%, 14% 33%, 84% 60%;
+  background-size:     3467% 3467%, 2884% 2884%, 2149% 2149%, 3702% 3702%, 2605% 2605%;
+}
+body.turf-mode button:nth-of-type(6n) {
+  background-position: 4% 59%, 89% 21%, 27% 93%, 73% 16%, 53% 75%;
+  background-size:     2676% 2676%, 3214% 3214%, 2960% 2960%, 3898% 3898%, 2495% 2495%;
+}
+
+
     </style>
     <script src="marked.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
@@ -5502,6 +5728,7 @@
                                 <option value="pastel-yellow">パステルモード🟡</option>
                                 <option value="pastel-purple">パステルモード🟣</option>
                                 <option value="pastel-rainbow">パステルモード🌈</option>
+                                <option value="turf">ターフモード🌱exp</option>
                             </select>
                             <p style="height:10px"></p>
                             <details id="settings-group-behavior-adjustment" open>
@@ -6300,7 +6527,8 @@
         const PASTEL_BLUE_THEME_COLOR = '#87cefa';
         const PASTEL_YELLOW_THEME_COLOR = '#ffd700';
         const PASTEL_PURPLE_THEME_COLOR = '#ab47bc';
-        const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
+const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
+        const TURF_THEME_COLOR = '#4CAF50';
 
         const DARK_MODE_USER_MESSAGE_COLOR = '#056162';
         const DARK_MODE_MODEL_MESSAGE_COLOR = '#3a3a3c';
@@ -6336,6 +6564,12 @@
         const PASTEL_RAINBOW_SECONDARY_COLOR = '#f0f0f0';
         const PASTEL_RAINBOW_HEADER_COLOR = '#ffadad';
         const PASTEL_RAINBOW_PRIMARY_COLOR = '#fdfdfd';
+
+        const TURF_USER_MESSAGE_COLOR = '#ffffff';
+        const TURF_MODEL_MESSAGE_COLOR = '#ffffff';
+        const TURF_SECONDARY_COLOR = '#F6F4F9';
+        const TURF_HEADER_COLOR = '#89d010';
+        const TURF_PRIMARY_COLOR = '#F6F4F9';
 
         const LIGHT_MODE_USER_MESSAGE_COLOR = '#dcf8c6';
         const LIGHT_MODE_MODEL_MESSAGE_COLOR = '#e5e5ea';
@@ -7325,8 +7559,8 @@
                                     } else {
                                         state.settings[key] = null;
                                     }
-                                } else if (key === 'theme') {
-                                    if (['light', 'dark', 'pastel-pink', 'pastel-blue', 'pastel-yellow', 'pastel-purple', 'pastel-rainbow'].includes(loadedValue)) {
+} else if (key === 'theme') {
+                                    if (['light', 'dark', 'pastel-pink', 'pastel-blue', 'pastel-yellow', 'pastel-purple', 'pastel-rainbow', 'turf'].includes(loadedValue)) {
                                         state.settings[key] = loadedValue;
                                     } else {
                                         state.settings[key] = defaultValue;
@@ -7410,7 +7644,7 @@
                         if (state.settings.diceMinValue !== null && state.settings.diceMaxValue !== null && state.settings.diceMinValue > state.settings.diceMaxValue) {
                             state.settings.diceMaxValue = state.settings.diceMinValue;
                         }
-                        if (!['light', 'dark', 'pastel-pink', 'pastel-blue', 'pastel-yellow', 'pastel-purple', 'pastel-rainbow'].includes(state.settings.theme)) {
+                        if (!['light', 'dark', 'pastel-pink', 'pastel-blue', 'pastel-yellow', 'pastel-purple', 'pastel-rainbow', 'turf'].includes(state.settings.theme)) { // ← ここに 'turf' を追加
                             state.settings.theme = window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                         }
                         if (state.settings.thoughtSummaryOpacity === undefined || state.settings.thoughtSummaryOpacity === null || isNaN(parseFloat(state.settings.thoughtSummaryOpacity))) {
@@ -8108,12 +8342,12 @@
                         this.appendMessage(msg.role, msg.content, i, false, null, msg.attachments);
                     }
                 }
-                if (maintainScroll && oldScrollTop !== null) {
-                    requestAnimationFrame(() => {
-                        const newScrollHeight = mainContent.scrollHeight;
-                        mainContent.scrollTop = oldScrollTop + (newScrollHeight - oldScrollHeight);
-                    });
-                }
+if (maintainScroll && oldScrollTop !== null) {
+                requestAnimationFrame(() => {
+
+                    mainContent.scrollTop = oldScrollTop;
+                });
+            }
             },
             appendMessage(role, content, index, isStreamingPlaceholder = false, cascadeInfo = null, attachments = null) {
                 const messageDiv = document.createElement('div');
@@ -8669,10 +8903,12 @@
                     return;
                 }
 
-                const getCurrentMermaidTheme = () => {
+const getCurrentMermaidTheme = () => {
                     const bodyClasses = document.body.classList;
                     if (bodyClasses.contains('dark-mode')) {
                         return 'dark';
+                    } else if (bodyClasses.contains('turf-mode')) {
+                        return 'default';
                     } else if (bodyClasses.contains('pastel-pink-mode')) {
                         return 'base';
                     } else if (bodyClasses.contains('pastel-blue-mode')) {
@@ -9292,13 +9528,21 @@
 
                 let headerColor, secondaryColor, userMessageColor, modelMessageColor, overlayBaseColor, tertiaryColorRgbStr;
 
-                switch (state.settings.theme) {
+switch (state.settings.theme) {
                     case 'dark':
                         headerColor = DARK_THEME_COLOR;
                         secondaryColor = DARK_MODE_SECONDARY_COLOR;
                         userMessageColor = DARK_MODE_USER_MESSAGE_COLOR;
                         modelMessageColor = DARK_MODE_MODEL_MESSAGE_COLOR;
                         overlayBaseColor = DARK_MODE_PRIMARY_COLOR;
+                        tertiaryColorRgbStr = getComputedStyle(document.body).getPropertyValue('--bg-tertiary-rgb').trim();
+                        break;
+                    case 'turf':
+                        headerColor = TURF_HEADER_COLOR;
+                        secondaryColor = TURF_SECONDARY_COLOR;
+                        userMessageColor = TURF_USER_MESSAGE_COLOR;
+                        modelMessageColor = TURF_MODEL_MESSAGE_COLOR;
+                        overlayBaseColor = TURF_PRIMARY_COLOR;
                         tertiaryColorRgbStr = getComputedStyle(document.body).getPropertyValue('--bg-tertiary-rgb').trim();
                         break;
                     case 'pastel-pink':
@@ -9412,7 +9656,7 @@
             },
             applyTheme() {
                 const theme = state.settings.theme;
-                document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mode', 'pastel-blue-mode', 'pastel-yellow-mode', 'pastel-purple-mode', 'pastel-rainbow-mode');
+document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mode', 'pastel-blue-mode', 'pastel-yellow-mode', 'pastel-purple-mode', 'pastel-rainbow-mode', 'turf-mode');
                 let themeColorMetaValue;
                 let currentThemeUserMessageBgRgb = this.hexToRgb(LIGHT_MODE_USER_MESSAGE_COLOR) || { r: 220, g: 248, b: 198 };
                 let currentThemeModelMessageBgRgb = this.hexToRgb(LIGHT_MODE_MODEL_MESSAGE_COLOR) || { r: 229, g: 229, b: 234 };
@@ -9423,6 +9667,12 @@
                         themeColorMetaValue = DARK_THEME_COLOR;
                         currentThemeUserMessageBgRgb = this.hexToRgb(DARK_MODE_USER_MESSAGE_COLOR) || { r: 5, g: 97, b: 98 };
                         currentThemeModelMessageBgRgb = this.hexToRgb(DARK_MODE_MODEL_MESSAGE_COLOR) || { r: 58, g: 58, b: 60 };
+                        break;
+                    case 'turf':
+                        document.body.classList.add('turf-mode');
+                        themeColorMetaValue = TURF_THEME_COLOR;
+                        currentThemeUserMessageBgRgb = this.hexToRgb(TURF_USER_MESSAGE_COLOR) || { r: 220, g: 248, b: 198 };
+                        currentThemeModelMessageBgRgb = this.hexToRgb(TURF_MODEL_MESSAGE_COLOR) || { r: 229, g: 229, b: 234 };
                         break;
                     case 'pastel-pink':
                         document.body.classList.add('pastel-pink-mode');
@@ -13918,7 +14168,8 @@
                             if (useStreamingForThisCall) {
                                 uiUtils.finalizeStreamingMessage(finalModelMessageIndex);
                             } else {
-                                uiUtils.renderChatMessages();
+                                const shouldMaintainScroll = !isBackgroundProcess && !state.settings.autoScrollOnNewMessage;
+uiUtils.renderChatMessages(shouldMaintainScroll);
                             }
                             await dbUtils.saveChat();
 
