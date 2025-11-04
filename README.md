@@ -63,7 +63,7 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 ### 【2025/11/04】
 -  特定の環境下でメッセージの受信時にスクロール位置が不自然にズレる問題への対策
 ### 【2025/09/30】
--  従前と同じ理由のもとANのモデルオプションにClaude Opus 4.1及びClaude Sonnet 4.5を追加いたしました。また、パラメータを送信しないボタンを応急処置的に取り付けました（これを使用しないと当該AN新モデルではエラーが出ます。実装手順: https://tinyurl.com/y85kwj24 ）。なおDeepSeekのモデルは既に自動的にDeepSeek-V3.2-Expへ移行されているものと思われます。
+-  従前と同じ理由のもとANのモデルオプションにClaude Opus 4.1及びClaude Sonnet 4.5を追加いたしました。また、パラメータを送信しないボタンを応急処置的に取り付けました（これを使用しないと当該AN新モデルではエラーが出ます。）。なおDeepSeekのモデルは既に自動的にDeepSeek-V3.2-Expへ移行されているものと思われます。
 ### 【2025/09/26】
 -  便宜的措置としてgemini-flash-latestをモデルオプションへ追加
 ### 【2025/09/23】
