@@ -60,11 +60,10 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 -  本コードの利用基準（本コードの改変、コードのフォーク、他コードへのコード流用など）は、本コードのフォーク元の基準に準拠致します。（MITライセンス）
 ## ■ 更新履歴
 ### 【2025/11/11】
--  kinkan04氏（https://github.com/kinkan04/Gemini-PWA-Mk-II ）のコード及びアイディアを参考にし、取り入れてUIに立体的にするオプションを追加。また、githubリポジトリへのアクセスを設定画面の下部に追加
+-  kinkan04氏（https://github.com/kinkan04/Gemini-PWA-Mk-II ）のコード及びアイディアを参考にし、取り入れてUIに立体的にするオプションを追加。“その他設定”内の“UIを立体的にする”オプションから使用を選択できます。また、githubリポジトリへのアクセスを設定画面の下部に追加
 -  複数APIキー機能の再設計、一挙に多数のAPIキーを登録できるよう変更
 -  LAのHugging Face用モデルサンプルとして
-『moonshotai/Kimi-K2-Thinking:novita』をピックアップ。
--  “htps://router.huggingface.co/v1 ” を“API バックエンド URL”にて指定し、roleがread等のHugging FaceのAPIキーを入力することで使用できます。
+『moonshotai/Kimi-K2-Thinking:novita』をピックアップ。 htps://router.huggingface.co/v1 ” を“API バックエンド URL”にて指定し、roleがread等のHugging FaceのAPIキーを入力することで使用できます。
 -  ユーザーによるモデル追加が機能しない不具合を修正しました。ご不便をおかけしてしまい大変申し訳ありません。
 -  新しいパラメータUIを導入。まだ挙動の調整が万全ではありませんが、前述の不具合が深刻であることから、処置的に新しい版をリリースすることにしました
 ### 【2025/11/04】
