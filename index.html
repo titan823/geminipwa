@@ -11225,7 +11225,7 @@ document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mo
                 if (state.settings.llmAggregatorModelName && Array.from(select.options).some(opt => opt.value === state.settings.llmAggregatorModelName)) {
                     select.value = state.settings.llmAggregatorModelName;
                 } else if (select.options.length > 0) {
-                    select.value = defaultModels[0];
+                    select.value = DEFAULT_LLMAGGREGATOR_MODEL;
                     state.settings.llmAggregatorModelName = select.value;
                 }
             },
