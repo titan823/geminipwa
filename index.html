@@ -7174,7 +7174,7 @@ const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
         const LIGHT_MODE_HEADER_COLOR = '#4a90e2';
         const LIGHT_MODE_PRIMARY_COLOR = '#ffffff';
 
-        const APP_VERSION = "0.26ti (484)";
+        const APP_VERSION = "0.26ti (489)";
         const SWIPE_THRESHOLD = 50;
         const ZOOM_THRESHOLD = 1.01;
         const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -8159,28 +8159,37 @@ enableElevation: true,
                         if (loadedSettings.hasOwnProperty('expandDeepSeekThoughtsByDefault') && !loadedSettings.hasOwnProperty('deepSeekExpandThoughtsByDefault') && state.settings.hasOwnProperty('deepSeekExpandThoughtsByDefault')) {
                             state.settings.deepSeekExpandThoughtsByDefault = loadedSettings.expandDeepSeekThoughtsByDefault;
                         }
-                        if (!loadedSettings.llmaggregatorBackends && loadedSettings.llmAggregatorApiBackend) {
-                        state.settings.llmaggregatorBackends = [{
-                            id: `migrated-${Date.now()}`,
+                        let backends = loadedSettings.llmaggregatorBackends || [];
+
+                    if (backends.length === 0 && loadedSettings.llmAggregatorApiBackend) {
+                        backends.push({
+                            id: `migrated-backend-${Date.now()}`,
                             label: 'デフォルトURL',
                             url: loadedSettings.llmAggregatorApiBackend,
                             isActive: true,
                             apiKeys: [],
                             activeApiKeyIndex: -1
-                        }];
-                        state.settings.llmaggregatorActiveBackendIndex = 0;
-                        state.settings.showMultiBackends = true;
+                        });
                     }
 
-                    if (loadedSettings.llmaggregatorApiKeys && Array.isArray(loadedSettings.llmaggregatorApiKeys) && state.settings.llmaggregatorBackends.length > 0) {
-                        const firstBackend = state.settings.llmaggregatorBackends[0];
-                        if (!firstBackend.apiKeys || firstBackend.apiKeys.length === 0) {
-                            firstBackend.apiKeys = loadedSettings.llmaggregatorApiKeys;
-                            firstBackend.activeApiKeyIndex = loadedSettings.llmaggregatorActiveApiKeyIndex;
+                    if (backends.length > 0) {
+                        const firstBackend = backends[0];
+                        if ((!firstBackend.apiKeys || firstBackend.apiKeys.length === 0) && loadedSettings.llmAggregatorApiKey) {
+                            firstBackend.apiKeys = [{
+                                id: `rescued-key-${Date.now()}`,
+                                label: 'キー 1',
+                                value: loadedSettings.llmAggregatorApiKey,
+                                isActive: true
+                            }];
+                            firstBackend.activeApiKeyIndex = 0;
                         }
                     }
-                    delete loadedSettings.llmaggregatorApiKeys;
-                    delete loadedSettings.llmaggregatorActiveApiKeyIndex;
+
+                    state.settings.llmaggregatorBackends = backends;
+                    state.settings.llmaggregatorActiveBackendIndex = (backends.length > 0) ? 0 : -1;
+
+                    if (loadedSettings.llmaggregatorApiKeys) delete loadedSettings.llmaggregatorApiKeys;
+                    if (loadedSettings.llmaggregatorActiveApiKeyIndex) delete loadedSettings.llmaggregatorActiveApiKeyIndex;
 
                     if (loadedSettings.webhookUrl && !loadedSettings.webhooks) {
                             loadedSettings.webhooks = [{
@@ -11791,7 +11800,7 @@ document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mo
                 });
             },
             toggleMultiApiKeysVisibility(show) {
-                const providers = ['gemini', 'deepseek', 'claude', 'openai', 'xai', 'llmaggregator'];
+                const providers = ['gemini', 'deepseek', 'claude', 'openai', 'xai'];
 
                 providers.forEach(provider => {
                     const multiKeySection = document.getElementById(`${provider}-multi-api-keys-section`);
