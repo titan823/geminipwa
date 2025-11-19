@@ -8159,28 +8159,59 @@ enableElevation: true,
                         if (loadedSettings.hasOwnProperty('expandDeepSeekThoughtsByDefault') && !loadedSettings.hasOwnProperty('deepSeekExpandThoughtsByDefault') && state.settings.hasOwnProperty('deepSeekExpandThoughtsByDefault')) {
                             state.settings.deepSeekExpandThoughtsByDefault = loadedSettings.expandDeepSeekThoughtsByDefault;
                         }
+                        // --- LLM Aggregator マイグレーション処理 ---
+                        // 古い「単一URL設定」が存在する場合、それを「複数バックエンドリスト」の1つ目として登録
                         if (!loadedSettings.llmaggregatorBackends && loadedSettings.llmAggregatorApiBackend) {
-                        state.settings.llmaggregatorBackends = [{
-                            id: `migrated-${Date.now()}`,
-                            label: 'デフォルトURL',
-                            url: loadedSettings.llmAggregatorApiBackend,
-                            isActive: true,
-                            apiKeys: [],
-                            activeApiKeyIndex: -1
-                        }];
-                        state.settings.llmaggregatorActiveBackendIndex = 0;
-                        state.settings.showMultiBackends = true;
-                    }
-
-                    if (loadedSettings.llmaggregatorApiKeys && Array.isArray(loadedSettings.llmaggregatorApiKeys) && state.settings.llmaggregatorBackends.length > 0) {
-                        const firstBackend = state.settings.llmaggregatorBackends[0];
-                        if (!firstBackend.apiKeys || firstBackend.apiKeys.length === 0) {
-                            firstBackend.apiKeys = loadedSettings.llmaggregatorApiKeys;
-                            firstBackend.activeApiKeyIndex = loadedSettings.llmaggregatorActiveApiKeyIndex;
+                            state.settings.llmaggregatorBackends = [{
+                                id: `migrated-${Date.now()}`,
+                                label: 'デフォルトURL',
+                                url: loadedSettings.llmAggregatorApiBackend,
+                                isActive: true,
+                                apiKeys: [],
+                                activeApiKeyIndex: -1
+                            }];
+                            state.settings.llmaggregatorActiveBackendIndex = 0;
+                            state.settings.showMultiBackends = true; // 常にマルチモードを有効化
                         }
-                    }
-                    delete loadedSettings.llmaggregatorApiKeys;
-                    delete loadedSettings.llmaggregatorActiveApiKeyIndex;
+
+                        // もしバックエンドリストが空なら（初回起動など）、空の配列で初期化
+                        if (!state.settings.llmaggregatorBackends) {
+                            state.settings.llmaggregatorBackends = [];
+                        }
+
+
+                        if (loadedSettings.llmAggregatorApiKey && state.settings.llmaggregatorBackends.length > 0) {
+                            const targetBackend = state.settings.llmaggregatorBackends.find(b => b.isActive) || state.settings.llmaggregatorBackends[0];
+                            
+
+                            if (!targetBackend.apiKeys.some(k => k.value === loadedSettings.llmAggregatorApiKey)) {
+                                const newKeyId = `migrated-key-${Date.now()}`;
+                                targetBackend.apiKeys.push({
+                                    id: newKeyId,
+                                    label: '移行されたキー',
+                                    value: loadedSettings.llmAggregatorApiKey,
+                                    isActive: targetBackend.apiKeys.length === 0 
+                                });
+
+                                if (targetBackend.activeApiKeyIndex === -1) {
+                                     targetBackend.activeApiKeyIndex = 0;
+                                }
+                            }
+
+                        }
+
+                        if (loadedSettings.llmaggregatorApiKeys && Array.isArray(loadedSettings.llmaggregatorApiKeys) && state.settings.llmaggregatorBackends.length > 0) {
+                            const firstBackend = state.settings.llmaggregatorBackends[0];
+
+                            if (!firstBackend.apiKeys || firstBackend.apiKeys.length === 0) {
+                                firstBackend.apiKeys = loadedSettings.llmaggregatorApiKeys;
+                                firstBackend.activeApiKeyIndex = loadedSettings.llmaggregatorActiveApiKeyIndex;
+                            }
+                        }
+
+                        delete loadedSettings.llmaggregatorApiKeys;
+                        delete loadedSettings.llmaggregatorActiveApiKeyIndex;
+
 
                     if (loadedSettings.webhookUrl && !loadedSettings.webhooks) {
                             loadedSettings.webhooks = [{
@@ -10429,6 +10460,7 @@ document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mo
                 elements.llmAggregatorModelNameSelect.value = state.settings.llmAggregatorModelName || DEFAULT_LLMAGGREGATOR_MODEL;
                 elements.llmAggregatorAdditionalModelsTextarea.value = state.settings.llmAggregatorAdditionalModels || '';
 
+                state.settings.showMultiBackends = true; 
                 multiBackendUtils.toggleMultiBackendsVisibility(true);
                 elements.showSettingsScrollButtonsToggle.checked = state.settings.showSettingsScrollButtons;
     this.updateSettingsScreenElementVisibility();
