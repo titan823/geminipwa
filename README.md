@@ -62,13 +62,14 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 ### 【2025/11/19】
 -  モデルオプションにgemini-3-pro-previewを追加※従来の2.5 proと料金が異なるため、使用前に公式ドキュメントでご確認ください。
 -  旬が過ぎた感がありますが、ワンタッチでAPIキーを切り替えられる、『APIキー切り替えボタン』を実装しました。
--  LLM Aggregatorは複数の「バックエンドURL」を登録し、それらを切り替えられる仕様になりました。この各URLは、それぞれ独自の「APIキーのリスト」を持つという入れ子構造を有しています。この仕様変更により、従来のLLM Aggregator用APIキーの引き継ぎが行われない場合があります。
+-  LLM Aggregatorは複数の「バックエンドURL」を登録し、それらを切り替えられる仕様になりました。この各URLは、それぞれ独自の「APIキーのリスト」を持つという入れ子構造を有しています。この仕様変更により、従来のLLM Aggregator用APIキーの引き継ぎが行われない場合があります。（容赦ください）
 -  設定パネルのヘッダーにスクロールボタン(🔼/🔽)追加（非表示化可能）
+-  LLM AggregatorのサンプルにSherlock Think Alphaをピックアップ。
 ### 【2025/11/11】
 -  kinkan04氏（https://github.com/kinkan04/Gemini-PWA-Mk-II ）のコード及びアイディアを参考にし、取り入れてUIに立体的にするオプションを追加。“その他設定”内の“UIを立体的にする”オプションから使用を選択できます。また、githubリポジトリへのアクセスを設定画面の下部に追加
 -  複数APIキー機能の再設計、一挙に多数のAPIキーを登録できるよう変更
 -  LAのHugging Face用モデルサンプルとして
-『moonshotai/Kimi-K2-Thinking:novita』をピックアップ。 htps://router.huggingface.co/v1 ” を“API バックエンド URL”にて指定し、roleがread等のHugging FaceのAPIキーを入力することで使用できます。
+『moonshotai/Kimi-K2-Thinking:novita』を追加。 htps://router.huggingface.co/v1 ” を“API バックエンド URL”にて指定し、roleがread等のHugging FaceのAPIキーを入力することで使用できます。
 -  ユーザーによるモデル追加が機能しない不具合を修正しました。ご不便をおかけしてしまい大変申し訳ありません。
 -  新しいパラメータUIを導入。まだ挙動の調整が万全ではありませんが、前述の不具合が深刻であることから、処置的に新しい版をリリースすることにしました
 ### 【2025/11/04】
