@@ -64,7 +64,7 @@ together.ai,console.groq.com,fireworks.ai,hugging face.co,deepinfra.comといっ
 -  旬が過ぎた感がありますが、ワンタッチでAPIキーを切り替えられる、『APIキー切り替えボタン』を実装しました。
 -  LLM Aggregatorは複数の「バックエンドURL」を登録し、それらを切り替えられる仕様になりました。この各URLは、それぞれ独自の「APIキーのリスト」を持つという入れ子構造を有しています。この仕様変更により、従来のLLM Aggregator用APIキーの引き継ぎが行われない場合があります。（容赦ください）
 -  設定パネルのヘッダーにスクロールボタン(🔼/🔽)追加（非表示化可能）
--  LLM AggregatorのOpenRouter用サンプルにSherlock Think Alphaをピックアップ。
+-  LLM AggregatorのOpenRouter用サンプルにSherlock Think Alpha→x-ai/grok-4.1-fastをピックアップ
 ### 【2025/11/11】
 -  kinkan04氏（https://github.com/kinkan04/Gemini-PWA-Mk-II ）のコード及びアイディアを参考にし、取り入れてUIに立体的にするオプションを追加。“その他設定”内の“UIを立体的にする”オプションから使用を選択できます。また、githubリポジトリへのアクセスを設定画面の下部に追加
 -  複数APIキー機能の再設計、一挙に多数のAPIキーを登録できるよう変更
