@@ -4984,8 +4984,8 @@ body.pastel-yellow-mode .api-key-help-icon {
                                 <option value="moonshotai/Kimi-K2-Thinking:novita">moonshotai/Kimi-K2-Thinking:novita</option>
                             </optgroup>
                             <optgroup label="OpenRouterサンプル">
-                                <option value="openrouter/sherlock-think-alpha">
-                                    openrouter/sherlock-think-alpha</option>
+                                <option value="x-ai/grok-4.1-fast">
+                                    x-ai/grok-4.1-fast</option>
                                 <option value="qwen/qwen2.5-vl-32b-instruct:free">qwen/qwen2.5-vl-32b-instruct:free
                                 </option>
                                 <option value="deepseek/deepseek-chat-v3-0324:free">deepseek/deepseek-chat-v3-0324:free
@@ -7084,7 +7084,7 @@ body.pastel-yellow-mode .api-key-help-icon {
         const DEFAULT_CLAUDE_MODEL = 'claude-3-7-sonnet-20250219';
         const DEFAULT_OPENAI_MODEL = 'gpt-3.5-turbo';
         const DEFAULT_XAI_MODEL = 'grok-4-fast-non-reasoning';
-        const DEFAULT_LLMAGGREGATOR_MODEL = 'openrouter/sherlock-think-alpha';
+        const DEFAULT_LLMAGGREGATOR_MODEL = 'x-ai/grok-4.1-fast';
         const DEFAULT_STREAMING_SPEED = 12;
         const DEFAULT_TEMPERATURE = 0.5;
         const DEFAULT_MAX_TOKENS = 4000;
@@ -11204,7 +11204,7 @@ document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mo
 
                 const openRouterOptgroup = document.createElement('optgroup');
                 openRouterOptgroup.label = 'OpenRouterサンプル';
-                const openRouterModels = ['openrouter/sherlock-think-alpha', 'qwen/qwen2.5-vl-32b-instruct:free', 'deepseek/deepseek-chat-v3-0324:free'];
+                const openRouterModels = ['x-ai/grok-4.1-fast', 'qwen/qwen2.5-vl-32b-instruct:free', 'deepseek/deepseek-chat-v3-0324:free'];
                 openRouterModels.forEach(modelId => {
                     const option = document.createElement('option');
                     option.value = modelId;
