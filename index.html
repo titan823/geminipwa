@@ -4816,8 +4816,9 @@ body.pastel-yellow-mode .api-key-help-icon {
                         DeepSeek API 設定</summary>
                     <div style="margin-top:15px;">
                         <label for="deepseek-api-key">DeepSeek APIキー:</label>
-                        <input type="password" id="deepseek-api-key" placeholder="DeepSeek APIキーを入力"
-                            aria-label="DeepSeek APIキー">
+<input type="password" id="deepseek-api-key" placeholder="DeepSeek APIキーを入力" aria-label="DeepSeek APIキー">
+<label for="deepseek-api-endpoint" style="margin-top: 10px;">API エンドポイントURL (任意):</label>
+<input type="text" id="deepseek-api-endpoint" placeholder="例: https://api.deepseek.com (空欄でデフォルト)" aria-label="DeepSeek API エンドポイント">
                         <details id="deepseek-multi-api-keys-section" style="margin-top: 10px;">
                             <summary
                                 style="font-size: 14px; color: var(--text-link); padding-bottom: 5px; margin-bottom: 10px; display: list-item; list-style: revert; cursor: pointer; font-weight: normal;">
@@ -4853,9 +4854,15 @@ body.pastel-yellow-mode .api-key-help-icon {
                             </optgroup>
                         </select>
                         <details style="margin-top: 10px;">
-                            <summary style="font-size: 14px; color: var(--text-link); cursor: pointer; list-style: revert;">DeepSeek 追加モデル (カンマ区切り)</summary>
-                            <textarea id="deepseek-additional-models" placeholder="例: custom-model-1,custom-model-2" aria-label="DeepSeek 追加モデル" style="margin-top: 5px;"></textarea>
-                        </details>
+    <summary style="font-size: 14px; color: var(--text-link); cursor: pointer; list-style: revert;">DeepSeek 追加モデル (カンマ区切り)</summary>
+    <textarea id="deepseek-additional-models" placeholder="例: custom-model-1,custom-model-2" aria-label="DeepSeek 追加モデル" style="margin-top: 5px;"></textarea>
+</details>
+<label for="deepseek-api-endpoint" style="margin-top: 10px;">API エンドポイントURL (任意):</label>
+<input type="text" id="deepseek-api-endpoint" placeholder="例: https://api.deepseek.com (空欄でデフォルト)" aria-label="DeepSeek API エンドポイント">
+<p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 15px;">
+    ※ 通常は変更不要です。プロキシや互換APIを使用する場合のみ変更してください。<br>
+    ※ 入力がない場合はデフォルト（簡易の中継サーバー）が使用されます。（現在DeepSeek APIはブラウザからの直接アクセスを認めておらず、形式的にでもサーバーを中継する必要があります。）
+</p>
                     </div>
                 </details>
 
@@ -7321,7 +7328,7 @@ body.pastel-yellow-mode .api-key-help-icon {
         const CHAT_TITLE_LENGTH = 15;
         const TEXTAREA_MAX_HEIGHT = 120;
         const GEMINI_API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
-        const DEEPSEEK_API_DEFAULT_BASE_URL = 'https://api.deepseek.com';
+        const DEEPSEEK_API_DEFAULT_BASE_URL = 'https://wild-star-4b72.chi87767.workers.dev/';
         const CLAUDE_API_BASE_URL = 'https://api.anthropic.com/v1/messages';
         const OPENAI_API_BASE_URL = 'https://api.openai.com/v1/chat/completions';
         const XAI_API_BASE_URL = 'https://api.x.ai/v1/chat/completions';
@@ -7460,8 +7467,9 @@ const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
             geminiUserDefinedModelsGroup: document.getElementById('gemini-user-defined-models-group'),
             geminiAdditionalModelsTextarea: document.getElementById('gemini-additional-models'),
             deepSeekSettingsGroup: document.getElementById('deepseek-settings-group'),
-            deepSeekApiKeyInput: document.getElementById('deepseek-api-key'),
-            deepSeekModelNameSelect: document.getElementById('deepseek-model-name'),
+deepSeekApiKeyInput: document.getElementById('deepseek-api-key'),
+deepSeekApiEndpointInput: document.getElementById('deepseek-api-endpoint'),
+deepSeekModelNameSelect: document.getElementById('deepseek-model-name'),
             deepSeekUserDefinedModelsGroup: document.getElementById('deepseek-user-defined-models-group'),
             deepSeekAdditionalModelsTextarea: document.getElementById('deepseek-additional-models'),
             claudeSettingsGroup: document.getElementById('claude-settings-group'),
@@ -7909,8 +7917,9 @@ geminiIncludeThoughts: false,
                 fuzzySearchThreshold: 1,              // デフォルト閾値は1
                 characterNamesList: 'まゆみ,れな,みのり,葛城,日影,モガドール,メイ,アン,グレア,アストルフォ,ノーデ,レグナ,エルナ,ミネット,アキラ,グートルーネ,ハヅキ,イスタロト,フィー,ダルク,ヤン,ロイス,グライアス,ズィーグス,サンドラ,ジェシカ,アンナ,フェイ,ロディ,ジェイ,エマ,クリス,体操服,スクール水着,水着,初期衣装,マイクロビキニ,制服,全裸,私服,ビキニ,下着,部屋着,ドヤ顔,怪訝,大泣き,恐怖する,驚き,苦痛に耐える,泣く,嫌悪,困る,照れ笑い,にしし,真顔,退屈,挑発する,通常,怒る,発情,微笑,ウィンク,とろ顔,恍惚,快感,睡眠,キス顔,拗ねる,きょとん,悲しみ,眠い,恥じらう,はにかむ,涙ぐむ,嬉し泣き,笑う,てへぺろ,はわわ,悔しい,怯える,上目遣い,満面の笑み,考える,混乱,疲れてる,表情通常,表情微笑,表情哀,表情笑顔,表情怒,表情発情,表情軽い絶頂,表情深い絶頂,表情恐怖,表情驚き,表情照れ,ダンジョンを探索,攻撃,山を探索,宿に宿泊,森を探索,昼の町,町で食事,町で買い物,洞窟を探索,夜の町,昼野営,夜野営,冒険者ギルド,野外で食事,仕事中,水浴び,うろたえる,ニヤリ,むっとする,怪訝な顔,驚く,嫌悪する,号泣する,最高の笑顔,深い絶頂,真剣,赤面して耐える,赤面快感,赤面恐怖,赤面絶望,赤面涙目,赤面蠱惑的な笑み,絶頂する,絶望する,退屈する,恥ずかしがる,通常時,悲しむ,目を閉じる,落ち込む,ゲルヒルデ,リコリス,マルレーネ',                 // ▲ここまで追加▲
                 enableRomajiToKatakanaConversion: true,
-                deepSeekApiKey: '',
-                deepSeekModelName: DEFAULT_DEEPSEEK_MODEL,
+deepSeekApiKey: '',
+deepSeekApiEndpoint: '',
+deepSeekModelName: DEFAULT_DEEPSEEK_MODEL,
                 deepSeekAdditionalModels: '',
                 deepSeekSystemPrompt: '',
                 deepSeekEnableSystemPromptDefault: true,
@@ -10680,8 +10689,9 @@ document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mo
                 elements.geminiApiKeyInput.value = state.settings.apiKey || '';
                 elements.geminiModelNameSelect.value = state.settings.modelName || DEFAULT_MODEL;
                 elements.geminiAdditionalModelsTextarea.value = state.settings.additionalModels || '';
-                elements.deepSeekApiKeyInput.value = state.settings.deepSeekApiKey || '';
-                elements.deepSeekModelNameSelect.value = state.settings.deepSeekModelName || DEFAULT_DEEPSEEK_MODEL;
+elements.deepSeekApiKeyInput.value = state.settings.deepSeekApiKey || '';
+elements.deepSeekApiEndpointInput.value = state.settings.deepSeekApiEndpoint || '';
+elements.deepSeekModelNameSelect.value = state.settings.deepSeekModelName || DEFAULT_DEEPSEEK_MODEL;
                 elements.deepSeekAdditionalModelsTextarea.value = state.settings.deepSeekAdditionalModels || '';
                 elements.claudeApiKeyInput.value = state.settings.claudeApiKey || '';
                 elements.claudeModelNameSelect.value = state.settings.claudeModelName || DEFAULT_CLAUDE_MODEL;
@@ -16403,7 +16413,8 @@ uiUtils.renderChatMessages(shouldMaintainScroll);
                 newSettings.geminiPseudoStreaming = elements.geminiPseudoStreamingCheckbox.checked;
                 newSettings.geminiEnableGrounding = elements.geminiEnableGroundingToggle.checked;
 
-                newSettings.deepSeekModelName = elements.deepSeekModelNameSelect.value;
+newSettings.deepSeekApiEndpoint = elements.deepSeekApiEndpointInput.value.trim();
+newSettings.deepSeekModelName = elements.deepSeekModelNameSelect.value;
                 newSettings.deepSeekAdditionalModels = elements.deepSeekAdditionalModelsTextarea.value.trim();
                 newSettings.deepSeekSystemPrompt = elements.deepSeekSystemPromptDefaultTextarea.value.trim();
                 newSettings.deepSeekEnableSystemPromptDefault = elements.deepSeekEnableSystemPromptDefaultCheckbox.checked;
@@ -18451,10 +18462,10 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                         throw new Error("LLM AggregatorのAPIバックエンドURLが設定されていません。");
                     }
                 } else {
-                    baseUrl = DEEPSEEK_API_DEFAULT_BASE_URL;
-                }
+        baseUrl = state.settings.deepSeekApiEndpoint || DEEPSEEK_API_DEFAULT_BASE_URL;
+    }
 
-                if (!apiKey) {
+    if (!apiKey) {
                     throw new Error(`${provider.toUpperCase()} APIキーが設定されていません。`);
                 }
                 state.abortController = new AbortController();
