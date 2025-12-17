@@ -3192,6 +3192,7 @@ body.turf-mode {
             color: var(--text-primary);
             word-wrap: break-word;
             overflow-wrap: break-word;
+            cursor: pointer;
         }
 
         .thought-summary-content>*:first-child {
@@ -3233,6 +3234,7 @@ body.turf-mode {
             font-size: var(--thought-summary-font-size);
             border: 1px solid var(--border-tertiary);
             color: var(--text-secondary);
+            cursor: text;
         }
 
         body.dark-mode .thought-summary-content pre {
@@ -7389,7 +7391,7 @@ const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
         const LIGHT_MODE_HEADER_COLOR = '#4a90e2';
         const LIGHT_MODE_PRIMARY_COLOR = '#ffffff';
 
-        const APP_VERSION = "0.26ti (553a8)";
+        const APP_VERSION = "0.26ti (553a9)";
         const SWIPE_THRESHOLD = 50;
         const ZOOM_THRESHOLD = 1.01;
         const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -9363,6 +9365,14 @@ if (maintainScroll && oldScrollTop !== null) {
 
                     const thoughtContentDiv = document.createElement('div');
                     thoughtContentDiv.classList.add('thought-summary-content');
+
+                    thoughtContentDiv.addEventListener('click', (event) => {
+                        if (window.getSelection().toString().length > 0) return;
+                        if (event.target === thoughtContentDiv) {
+                            event.preventDefault();
+                            thoughtDetails.open = !thoughtDetails.open;
+                        }
+                    });
 
                     if (isStreamingPlaceholder) {
                         thoughtContentDiv.id = `streaming-thought-summary-${index}`;
@@ -11544,14 +11554,6 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                 document.documentElement.style.setProperty('--history-ui-scale', state.settings.historyUiScale || 1.0);
             },
             showScreen(screenName, fromPopState = false) {
-                if (state.editingMessageIndex !== null) {
-                    const messageElement = elements.messageContainer.querySelector(`.message[data-index="${state.editingMessageIndex}"]`);
-                    if (messageElement) {
-                        appLogic.cancelEditMessage(state.editingMessageIndex, messageElement);
-                    } else {
-                        state.editingMessageIndex = null;
-                    }
-                }
                 if (state.isMemoVisible && screenName !== 'chat') {
                     elements.memoArea.classList.add('hidden');
                     state.isMemoVisible = false;
