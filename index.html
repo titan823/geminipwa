@@ -18,6 +18,7 @@
             --bg-model-message: #e5e5ea;
             --bg-system-message: #f0f8ff;
             --bg-error-message: #ffebee;
+            --cryscroller-scroll-width: 30px;
             --bg-button: #4a90e2;
             --bg-button-rgb: 74, 144, 226;
             --bg-button-hover: #357abd;
@@ -83,10 +84,13 @@
             --message-max-width: 85%;
             --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --message-body-font-size: 14px;
-            --code-block-font-size: 13px;
+                        --code-block-font-size: 13px;
             --chat-background-image: none;
+            --history-background-image: none;
+            --settings-background-image: none;
 
             --bg-dialog-file-item: var(--bg-tertiary);
+
             --border-dialog-file-item: var(--border-secondary);
             --text-dialog-file-name: var(--text-primary);
             --text-dialog-file-size: var(--text-secondary);
@@ -854,8 +858,10 @@ body.turf-mode {
             line-height: 1.4;
         }
 
-        button:hover:not(:disabled) {
-            background-color: var(--bg-button-hover);
+        @media (hover: hover) {
+            button:hover:not(:disabled) {
+                background-color: var(--bg-button-hover);
+            }
         }
 
         button:disabled {
@@ -988,14 +994,16 @@ body.turf-mode {
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
 
-        .app-header #toggle-clipboard-stack-btn:hover,
-        .app-header #toggle-memo-btn:hover,
-        .app-header #twin-engine-summary-btn:hover,
-        .app-header .scroll-jump-button:hover,
-        .app-header #toggle-all-content-btn:hover,
-        .app-header .api-provider-toggle-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1) !important;
-            border-color: rgba(255, 255, 255, 0.3) !important;
+        @media (hover: hover) {
+            .app-header #toggle-clipboard-stack-btn:hover,
+            .app-header #toggle-memo-btn:hover,
+            .app-header #twin-engine-summary-btn:hover,
+            .app-header .scroll-jump-button:hover,
+            .app-header #toggle-all-content-btn:hover,
+            .app-header .api-provider-toggle-btn:hover {
+                background-color: rgba(255, 255, 255, 0.1) !important;
+                border-color: rgba(255, 255, 255, 0.3) !important;
+            }
         }
 
         body.pastel-yellow-mode .app-header #toggle-clipboard-stack-btn,
@@ -1007,24 +1015,28 @@ body.turf-mode {
             color: #424242;
         }
 
-        body.pastel-yellow-mode .app-header #toggle-clipboard-stack-btn:hover,
-        body.pastel-yellow-mode .app-header #toggle-memo-btn:hover,
-        body.pastel-yellow-mode .app-header #twin-engine-summary-btn:hover,
-        body.pastel-yellow-mode .app-header .scroll-jump-button:hover,
-        body.pastel-yellow-mode .app-header #toggle-all-content-btn:hover,
-        body.pastel-yellow-mode .app-header .api-provider-toggle-btn:hover {
-            background-color: rgba(0, 0, 0, 0.05) !important;
-            border-color: rgba(0, 0, 0, 0.1) !important;
+        @media (hover: hover) {
+            body.pastel-yellow-mode .app-header #toggle-clipboard-stack-btn:hover,
+            body.pastel-yellow-mode .app-header #toggle-memo-btn:hover,
+            body.pastel-yellow-mode .app-header #twin-engine-summary-btn:hover,
+            body.pastel-yellow-mode .app-header .scroll-jump-button:hover,
+            body.pastel-yellow-mode .app-header #toggle-all-content-btn:hover,
+            body.pastel-yellow-mode .app-header .api-provider-toggle-btn:hover {
+                background-color: rgba(0, 0, 0, 0.05) !important;
+                border-color: rgba(0, 0, 0, 0.1) !important;
+            }
         }
 
-        body.dark-mode .app-header #toggle-clipboard-stack-btn:hover,
-        body.dark-mode .app-header #toggle-memo-btn:hover,
-        body.dark-mode .app-header #twin-engine-summary-btn:hover,
-        body.dark-mode .app-header .scroll-jump-button:hover,
-        body.dark-mode .app-header #toggle-all-content-btn:hover,
-        body.dark-mode .app-header .api-provider-toggle-btn:hover {
-            background-color: rgba(255, 255, 255, 0.08) !important;
-            border-color: rgba(255, 255, 255, 0.2) !important;
+        @media (hover: hover) {
+            body.dark-mode .app-header #toggle-clipboard-stack-btn:hover,
+            body.dark-mode .app-header #toggle-memo-btn:hover,
+            body.dark-mode .app-header #twin-engine-summary-btn:hover,
+            body.dark-mode .app-header .scroll-jump-button:hover,
+            body.dark-mode .app-header #toggle-all-content-btn:hover,
+            body.dark-mode .app-header .api-provider-toggle-btn:hover {
+                background-color: rgba(255, 255, 255, 0.08) !important;
+                border-color: rgba(255, 255, 255, 0.2) !important;
+            }
         }
 
         #history-screen .app-header {
@@ -1039,8 +1051,8 @@ body.turf-mode {
             z-index: 10;
             transition: background-color 0.3s ease, padding 0.2s ease, gap 0.2s ease, min-height 0.2s ease;
             gap: 10px;
-            flex-direction: row-reverse;
-            justify-content: flex-start;
+            flex-direction: row;
+            justify-content: space-between;
         }
 
         body.pastel-rainbow-mode #history-screen .app-header {
@@ -1053,29 +1065,30 @@ body.turf-mode {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            text-align: right;
+            text-align: left;
             margin: 0;
-            margin-left: auto;
-            order: 2;
+            margin-right: auto;
+            order: 1;
             transition: font-size 0.2s ease;
+            flex-grow: 1;
         }
 
         #history-screen .app-header #back-to-chat-from-history {
-            order: 1;
+            order: 100;
         }
 
         #history-screen .app-header #export-all-sessions-btn {
-            order: 3;
+            order: 2;
             padding: 4px 8px;
         }
 
         #history-screen .app-header #import-all-sessions-btn {
-            order: 4;
+            order: 3;
             padding: 4px 8px;
         }
 
         #history-screen .app-header #import-history-btn {
-            order: 5;
+            order: 4;
             margin-right: 0;
             padding: 4px 8px;
         }
@@ -1284,7 +1297,7 @@ body.turf-mode {
             touch-action: pan-y;
         }
 
-        .screen {
+                .screen {
             position: absolute;
             top: 0;
             left: 0;
@@ -1297,10 +1310,15 @@ body.turf-mode {
             z-index: 0;
         }
 
+        .screen.dormant {
+            visibility: hidden !important;
+        }
+
         .screen.active {
             transform: translateX(0);
             z-index: 1;
         }
+
 
         #chat-screen {
             transform: translateX(0);
@@ -1894,7 +1912,7 @@ body.turf-mode {
             cursor: pointer;
             z-index: 3;
             opacity: 0.6;
-            transition: opacity 0.2s ease, background-color 0.2s ease;
+            transition: opacity 0.1s ease, background-color 0.1s ease;
             pointer-events: auto;
             min-width: auto;
             white-space: nowrap;
@@ -2409,14 +2427,41 @@ body.turf-mode {
             box-shadow: 0 2px 6px var(--shadow-secondary);
         }
 
-        #history-screen {
+                        #history-screen {
             background-color: var(--bg-primary);
             transition: transform 0.3s ease-in-out;
+            background-image: var(--history-background-image);
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        #history-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(var(--overlay-base-rgb), var(--chat-overlay-alpha));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+                #history-screen .app-header {
+            position: relative;
+            z-index: 2;
+
         }
 
         #history-screen .main-content {
+            position: relative;
+            z-index: 2;
             background-color: transparent;
         }
+
+
+
 
         .history-list {
             list-style: none;
@@ -2435,6 +2480,23 @@ body.turf-mode {
 
         .history-item:hover {
             background-color: var(--bg-tertiary);
+        }
+
+        .history-list.striped .history-item:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+
+        body.turf-mode .history-list.striped .history-item:nth-child(even) {
+            background-color: rgba(76, 175, 80, 0.08);
+        }
+
+        .history-list.striped .history-item:hover {
+            background-color: var(--bg-tertiary) !important;
+            filter: brightness(0.95);
+        }
+
+        body.dark-mode .history-list.striped .history-item:hover {
+            filter: brightness(1.2);
         }
 
         .history-item-details {
@@ -2539,9 +2601,42 @@ body.turf-mode {
             margin-top: 20px;
         }
 
-        #settings-screen {
+                        #settings-screen {
             background-color: var(--bg-primary);
             transition: transform 0.3s ease-in-out;
+            -webkit-user-select: none;
+            user-select: none;
+            background-image: var(--settings-background-image);
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        #settings-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(var(--overlay-base-rgb), var(--chat-overlay-alpha));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #settings-screen .app-header,
+        #settings-screen .main-content {
+            position: relative;
+            z-index: 2;
+        }
+
+
+
+        #settings-screen input,
+        #settings-screen textarea,
+        #settings-screen select {
+            -webkit-user-select: text;
+            user-select: text;
         }
 
         #settings-screen .main-content {
@@ -4385,26 +4480,26 @@ body.pastel-yellow-mode .api-key-help-icon {
             font-size: calc(14px * var(--settings-ui-scale));
         }
         #settings-screen .main-content .settings-group,
-        #settings-screen .main-content .settings-group details,
-        #settings-screen .main-content .danger-zone,
-        #settings-screen .main-content input:not([type="range"]),
-        #settings-screen .main-content select,
-        #settings-screen .main-content textarea,
-        #settings-screen .main-content button,
-        #settings-screen .main-content label,
-        #settings-screen .main-content .checkbox-label {
-            font-size: 1em;
-        }
+#settings-screen .main-content .settings-group details,
+#settings-screen .main-content .danger-zone,
+#settings-screen .main-content input:not([type="range"]),
+#settings-screen .main-content select,
+#settings-screen .main-content textarea,
+#settings-screen .main-content button,
+#settings-screen .main-content label,
+#settings-screen .main-content .checkbox-label {
+font-size: 1em;
+}
 
-        #settings-screen .main-content summary {
-            font-size: 1em !important;
-        }
+#settings-screen .main-content summary {
+font-size: 1em !important;
+}
 
-        #settings-screen .main-content .settings-group > summary,
-        #settings-screen .main-content .settings-group > details > summary,
-        #settings-screen .main-content h3 {
-            font-size: 1.142em !important;
-        }
+#settings-screen .main-content .settings-group > summary,
+#settings-screen .main-content .settings-group > details > summary,
+#settings-screen .main-content h3 {
+font-size: 1.142em !important;
+}
         #settings-screen .main-content p[style*="font-size: 11px"],
         #settings-screen .main-content div[style*="font-size: 11px"],
         #settings-screen .main-content span[style*="font-size: 11px"] {
@@ -4451,6 +4546,287 @@ body.pastel-yellow-mode .api-key-help-icon {
         .thought-summary-content,
         .thought-summary-content pre {
             font-size: calc(var(--thought-summary-font-size) * var(--chat-ui-scale)) !important;
+        }
+
+        #cryscroller-scroll-zone {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: var(--cryscroller-scroll-width);
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.02);
+            z-index: 90;
+            touch-action: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, background-color 0.2s ease;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body.cryscroller-scroll-enabled #cryscroller-scroll-zone {
+            opacity: var(--cryscroller-scroll-opacity, 0.3);
+            pointer-events: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        body.cryscroller-scroll-enabled #cryscroller-scroll-zone.is-dragging,
+        body.cryscroller-scroll-enabled #cryscroller-scroll-zone.is-scrolling {
+            opacity: var(--cryscroller-scroll-active-opacity, 1);
+        }
+        @media (hover: hover) {
+            body.cryscroller-scroll-enabled #cryscroller-scroll-zone:hover {
+                opacity: var(--cryscroller-scroll-active-opacity, 1);
+            }
+        }
+
+        body.cryscroller-scroll-enabled #chat-screen .main-content {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-right: var(--cryscroller-scroll-width) !important;
+        }
+        body.cryscroller-scroll-enabled #chat-screen .main-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        #cryscroller-scroll-handle {
+            position: absolute;
+            right: 2px;
+            width: calc(var(--cryscroller-scroll-width) - 4px);
+            min-height: 40px;
+            background-color: rgba(100, 100, 100, 0.5);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, height 0.1s ease;
+        }
+
+        #cryscroller-scroll-zone:active #cryscroller-scroll-handle,
+        #cryscroller-scroll-zone:hover #cryscroller-scroll-handle {
+            background-color: rgba(100, 100, 100, 0.7);
+        }
+
+        body.dark-mode #cryscroller-scroll-zone {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        body.dark-mode #cryscroller-scroll-handle {
+            background-color: rgba(200, 200, 200, 0.4);
+        }
+        body.dark-mode #cryscroller-scroll-zone:active #cryscroller-scroll-handle {
+            background-color: rgba(200, 200, 200, 0.6);
+        }
+
+        .scroll-marker {
+            position: absolute;
+            right: 0;
+            width: 75%;
+            height: 4px;
+            z-index: 89;
+            cursor: pointer;
+            pointer-events: auto;
+            border-radius: 10px 0 0 10px;
+        }
+        .scroll-marker:hover {
+            height: 6px;
+            transform: scaleX(1.2);
+            z-index: 91;
+        }
+        .scroll-marker.user {
+            background-color: rgba(200, 200, 200, 0.6);
+        }
+        .scroll-marker.model {
+            background-color: rgba(50, 50, 50, 0.6);
+        }
+        body.dark-mode .scroll-marker.user {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        body.dark-mode .scroll-marker.model {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        #cryscroller-scroll-zone.is-dragging .scroll-marker {
+            pointer-events: none;
+        }
+
+        
+               .history-item { position: relative; z-index: 1; overflow: hidden; }
+        .history-item-details, .history-item-bottom-row { position: relative; z-index: 2; text-shadow: 0 1px 3px var(--bg-primary), 0 0 5px var(--bg-primary), 0 0 10px var(--bg-primary); }
+        .history-item-preview-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; padding: 0; }
+       .history-preview-bubble { width: 100%; height: 100%; padding: 0px 10px 0px 10px; font-size: 13.5px; line-height: 1.2; white-space: pre-wrap; word-break: break-all; overflow: hidden; opacity: 0.2; color: var(--text-primary); box-sizing: border-box; display: flex; align-items: flex-start; -webkit-mask-image: linear-gradient(195deg, transparent 0%, black 25%, black 90%, transparent 100%); mask-image: linear-gradient(195deg, transparent 0%, black 25%, black 90%, transparent 100%); }
+        .history-item-preview-layer.align-right .history-preview-bubble { justify-content: flex-end; text-align: right; background: linear-gradient(to left, var(--bg-user-message), transparent 90%); }
+        .history-item-preview-layer.align-left .history-preview-bubble { justify-content: flex-start; text-align: left; background: linear-gradient(to right, var(--bg-model-message), transparent 90%); }
+        body.dark-mode .history-preview-bubble { opacity: 0.25; }
+
+        body.immersive-mode .app-container {
+            display: block;
+            position: relative;
+        }
+
+        body.immersive-mode .app-header, 
+        body.immersive-mode #history-screen .app-header,
+        body.immersive-mode #settings-screen .app-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            border-bottom: none;
+        }
+        body.immersive-mode .chat-input-area {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            border-top: none;
+        }
+        body.immersive-mode #chat-screen .main-content {
+            height: 100%;
+
+            padding-top: calc(var(--header-height, 50px) + 15px);
+            padding-bottom: calc(var(--footer-height, 60px) + 16px); 
+            box-sizing: border-box;
+        }
+        body.immersive-mode #history-screen .main-content,
+        body.immersive-mode #settings-screen .main-content {
+            height: 100%;
+            /* ヘッダー高さ + 影被り防止の余白(15px) */
+            padding-top: calc(var(--header-height, 50px) + 15px);
+            padding-bottom: 20px;
+            box-sizing: border-box;
+        }
+        body.immersive-mode #cryscroller-scroll-zone {
+            top: var(--header-height, 50px) !important;
+            height: calc(100% - var(--header-height, 50px) - var(--footer-height, 60px)) !important;
+        }
+
+        #settings-cryscroller-scroll-zone {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: var(--cryscroller-scroll-width);
+            height: calc(100% - 50px);
+            background-color: rgba(0, 0, 0, 0.02);
+            z-index: 90;
+            touch-action: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, background-color 0.2s ease;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body.settings-cryscroller-scroll-enabled #settings-cryscroller-scroll-zone {
+            opacity: var(--cryscroller-scroll-opacity, 0.3);
+            pointer-events: auto;
+            transition: opacity 0.3s ease;
+        }
+        body.settings-cryscroller-scroll-enabled #settings-cryscroller-scroll-zone.is-dragging,
+        body.settings-cryscroller-scroll-enabled #settings-cryscroller-scroll-zone.is-scrolling {
+            opacity: var(--cryscroller-scroll-active-opacity, 1);
+        }
+        @media (hover: hover) {
+            body.settings-cryscroller-scroll-enabled #settings-cryscroller-scroll-zone:hover {
+                opacity: var(--cryscroller-scroll-active-opacity, 1);
+            }
+        }
+        #settings-cryscroller-scroll-handle {
+            position: absolute;
+            right: 2px;
+            width: calc(var(--cryscroller-scroll-width) - 4px);
+            min-height: 40px;
+            background-color: rgba(100, 100, 100, 0.5);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, height 0.1s ease;
+        }
+        #settings-cryscroller-scroll-zone:active #settings-cryscroller-scroll-handle,
+        #settings-cryscroller-scroll-zone:hover #settings-cryscroller-scroll-handle {
+            background-color: rgba(100, 100, 100, 0.7);
+        }
+        body.dark-mode #settings-cryscroller-scroll-zone {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        body.dark-mode #settings-cryscroller-scroll-handle {
+            background-color: rgba(200, 200, 200, 0.4);
+        }
+        body.dark-mode #settings-cryscroller-scroll-zone:active #settings-cryscroller-scroll-handle {
+            background-color: rgba(200, 200, 200, 0.6);
+        }
+        body.settings-cryscroller-scroll-enabled #settings-screen .main-content {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-right: var(--cryscroller-scroll-width) !important;
+        }
+        body.settings-cryscroller-scroll-enabled #settings-screen .main-content::-webkit-scrollbar {
+            display: none;
+        }
+        body.immersive-mode #settings-cryscroller-scroll-zone {
+            top: var(--header-height, 50px) !important;
+            height: calc(100% - var(--header-height, 50px)) !important;
+        }
+
+        #history-cryscroller-scroll-zone {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: var(--cryscroller-scroll-width);
+            height: calc(100% - 50px);
+            background-color: rgba(0, 0, 0, 0.02);
+            z-index: 90;
+            touch-action: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, background-color 0.2s ease;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body.history-cryscroller-scroll-enabled #history-cryscroller-scroll-zone {
+            opacity: var(--cryscroller-scroll-opacity, 0.3);
+            pointer-events: auto;
+            transition: opacity 0.3s ease;
+        }
+        body.history-cryscroller-scroll-enabled #history-cryscroller-scroll-zone.is-dragging,
+        body.history-cryscroller-scroll-enabled #history-cryscroller-scroll-zone.is-scrolling {
+            opacity: var(--cryscroller-scroll-active-opacity, 1);
+        }
+        @media (hover: hover) {
+            body.history-cryscroller-scroll-enabled #history-cryscroller-scroll-zone:hover {
+                opacity: var(--cryscroller-scroll-active-opacity, 1);
+            }
+        }
+        #history-cryscroller-scroll-handle {
+            position: absolute;
+            right: 2px;
+            width: calc(var(--cryscroller-scroll-width) - 4px);
+            min-height: 40px;
+            background-color: rgba(100, 100, 100, 0.5);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, height 0.1s ease;
+        }
+        #history-cryscroller-scroll-zone:active #history-cryscroller-scroll-handle,
+        #history-cryscroller-scroll-zone:hover #history-cryscroller-scroll-handle {
+            background-color: rgba(100, 100, 100, 0.7);
+        }
+        body.dark-mode #history-cryscroller-scroll-zone {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        body.dark-mode #history-cryscroller-scroll-handle {
+            background-color: rgba(200, 200, 200, 0.4);
+        }
+        body.dark-mode #history-cryscroller-scroll-zone:active #history-cryscroller-scroll-handle {
+            background-color: rgba(200, 200, 200, 0.6);
+        }
+        body.history-cryscroller-scroll-enabled #history-screen .main-content {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-right: var(--cryscroller-scroll-width) !important;
+        }
+        body.history-cryscroller-scroll-enabled #history-screen .main-content::-webkit-scrollbar {
+            display: none;
+        }
+        body.immersive-mode #history-cryscroller-scroll-zone {
+            top: var(--header-height, 50px) !important;
+            height: calc(100% - var(--header-height, 50px)) !important;
         }
     </style>
 
@@ -4614,6 +4990,9 @@ body.pastel-yellow-mode .api-key-help-icon {
                 </div>
                 <div id="loading-indicator" class="loading-indicator hidden" aria-live="polite">応答中</div>
             </main>
+            <div id="cryscroller-scroll-zone">
+                <div id="cryscroller-scroll-handle"></div>
+            </div>
             <footer class="chat-input-area">
                 <button id="footer-api-provider-toggle-btn" class="footer-action-button api-provider-toggle-btn"
                     title="APIプロバイダー切替"></button>
@@ -4632,6 +5011,9 @@ body.pastel-yellow-mode .api-key-help-icon {
         </div>
 
         <div id="history-screen" class="screen">
+            <div id="history-cryscroller-scroll-zone">
+                <div id="history-cryscroller-scroll-handle"></div>
+            </div>
             <header class="app-header">
                 <button id="back-to-chat-from-history" class="header-button" aria-label="チャットへ戻る">＞</button>
                 <h1 id="history-title">履歴一覧</h1>
@@ -4675,6 +5057,9 @@ body.pastel-yellow-mode .api-key-help-icon {
         </div>
 
         <div id="settings-screen" class="screen">
+            <div id="settings-cryscroller-scroll-zone">
+                <div id="settings-cryscroller-scroll-handle"></div>
+            </div>
             <header class="app-header">
                 <button id="back-to-chat-from-settings" class="header-button" aria-label="チャットへ戻る">＜</button>
                 <h1>設定</h1>
@@ -4788,20 +5173,15 @@ body.pastel-yellow-mode .api-key-help-icon {
                         <label for="gemini-model-name">モデル名:</label>
                         <select id="gemini-model-name" aria-label="モデル名">
                             <optgroup label="無料">
-                                <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-                                <option value="gemini-flash-latest-04-17">gemini-flash-latest-04-17</option>
-                                <option value="gemini-flash-latest-05-20">gemini-flash-latest-05-20</option>
-                                <option value="gemini-2.5-flash-lite-preview-06-17">gemini-2.5-flash-lite-preview-06-17
-                                </option>
+                                <option value="gemini-2.0-flash">gemini-2.0-flash</option
                                 <option value="gemini-2.5-flash">gemini-2.5-flash</option>
                                 <option value="gemini-flash-latest">gemini-flash-latest</option>
                             </optgroup>
                             <optgroup label="有料">
-                                <option value="gemini-2.5-pro-preview-05-06">gemini-2.5-pro-preview-05-06</option>
-                                <option value="gemini-2.5-pro-preview-06-05">gemini-2.5-pro-preview-06-05</option>
                                 <option value="gemini-2.5-pro">gemini-2.5-pro</option>
                                 <option value="gemini-3-flash-preview">gemini-3-flash-preview</option>
                                 <option value="gemini-3-pro-preview">gemini-3-pro-preview</option>
+                                <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview</option>
                             </optgroup>
                             <optgroup label="ユーザー指定" id="gemini-user-defined-models-group">
                             </optgroup>
@@ -4819,7 +5199,8 @@ body.pastel-yellow-mode .api-key-help-icon {
                         DeepSeek API 設定</summary>
                     <div style="margin-top:15px;">
                         <label for="deepseek-api-key">DeepSeek APIキー:</label>
-<input type="password" id="deepseek-api-key" placeholder="DeepSeek APIキーを入力" aria-label="DeepSeek APIキー">
+                        <input type="password" id="deepseek-api-key" placeholder="DeepSeek APIキーを入力"
+                            aria-label="DeepSeek APIキー">
                         <details id="deepseek-multi-api-keys-section" style="margin-top: 10px;">
                             <summary
                                 style="font-size: 14px; color: var(--text-link); padding-bottom: 5px; margin-bottom: 10px; display: list-item; list-style: revert; cursor: pointer; font-weight: normal;">
@@ -4900,9 +5281,11 @@ body.pastel-yellow-mode .api-key-help-icon {
                         </details>
                         <label for="claude-model-name">モデル名:</label>
                         <select id="claude-model-name" aria-label="Claudeモデル名">
-                            <optgroup label="Claude 4 ∼ 4.5">
+                            <optgroup label="Claude 4 ∼ 4.6">
+                                 <option value="claude-opus-4-6">Claude Opus 4.6</option>
                                  <option value="claude-opus-4-5-20251101">Claude Opus 4.5</option>
-                                 <option value="claude-opus-4-1-20250805">Claude Opus 4.1</option>
+                                 <option value="claude-opus-4-1-20250805">Claude Opus 4.1</option> 
+                                <option value="claude-sonnet-4-6">Claude Sonnet 4.6</option>    
                                 <option value="claude-sonnet-4-5-20250929">Claude Sonnet 4.5</option>                           
                                 <option value="claude-opus-4-20250514">Claude 4 Opus</option>
                                 <option value="claude-sonnet-4-20250514">Claude 4 Sonnet</option>
@@ -6200,23 +6583,43 @@ body.pastel-yellow-mode .api-key-help-icon {
                             </div>
                         </div>
                 </details>
-                <div class="settings-group" id="settings-group-image">
-                    <h3>イメージ画像</h3>
-                    <label>チャット画面の背景画像:</label>
+                                <details class="settings-group" id="settings-group-image">
+                    <summary
+                        style="font-size: 16px; color: var(--text-link); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 5px; margin-bottom: 15px; display: list-item; list-style: revert; cursor:pointer; font-weight: bold;">
+                        イメージ画像</summary>
+                    <div style="margin-top:15px;">
+
+                    <label style="margin-top: 15px;">履歴パネル:</label>
                     <div class="image-upload-controls">
-                        <input type="file" id="background-image-input"
-                            accept="image/jpeg, image/png, image/gif, image/webp" class="hidden">
-                        <button id="upload-background-btn" class="settings-action-button"
-                            type="button">画像を選択...</button>
-                        <img id="background-thumbnail" src="" alt="背景画像プレビュー" class="background-thumbnail hidden">
-                        <button id="delete-background-btn" class="settings-delete-button hidden"
-                            type="button">画像を削除</button>
+                        <input type="file" id="history-bg-input" accept="image/jpeg, image/png, image/gif, image/webp" class="hidden">
+                        <button id="upload-history-bg-btn" class="settings-action-button" type="button">画像を選択...</button>
+                        <img id="history-bg-thumbnail" src="" alt="背景画像プレビュー" class="background-thumbnail hidden">
+                        <button id="delete-history-bg-btn" class="settings-delete-button hidden" type="button">画像を削除</button>
                     </div>
+
+                    <label>チャット画面:</label>
+                    <div class="image-upload-controls">
+                        <input type="file" id="background-image-input" accept="image/jpeg, image/png, image/gif, image/webp" class="hidden">
+                        <button id="upload-background-btn" class="settings-action-button" type="button">画像を選択...</button>
+                        <img id="background-thumbnail" src="" alt="背景画像プレビュー" class="background-thumbnail hidden">
+                        <button id="delete-background-btn" class="settings-delete-button hidden" type="button">画像を削除</button>
+                    </div>
+                    
+                    <label style="margin-top: 15px;">設定パネル:</label>
+                    <div class="image-upload-controls">
+                        <input type="file" id="settings-bg-input" accept="image/jpeg, image/png, image/gif, image/webp" class="hidden">
+                        <button id="upload-settings-bg-btn" class="settings-action-button" type="button">画像を選択...</button>
+                        <img id="settings-bg-thumbnail" src="" alt="背景画像プレビュー" class="background-thumbnail hidden">
+                        <button id="delete-settings-bg-btn" class="settings-delete-button hidden" type="button">画像を削除</button>
+                    </div>
+
                     <p style="font-size: 11px; color: var(--text-secondary); margin-top: 8px;">
                         ※ 画像はブラウザ内のデータベースに保存されます。gifも可<br>
                         ※ 可読性のため画像の上に半透明のレイヤーを表示。
                     </p>
-                </div>
+                    </div>
+                </details>
+
 
                 <details class="settings-group" id="settings-group-icons">
                     <summary
@@ -6427,6 +6830,36 @@ body.pastel-yellow-mode .api-key-help-icon {
                                                 ※ 表示領域を最大化します。画面が小型の端末向け。
                                             </p>
                                             <label class="checkbox-label">
+                                                <input type="checkbox" id="enable-cryscroller-scroll-toggle">
+                                                画面右側にスクロールバーを表示する
+                                            </label>
+                                            <label class="checkbox-label" style="margin-left: 20px; font-size: 12px;">
+                                                <input type="checkbox" id="enable-settings-cryscroller-scroll-toggle">
+                                                設定パネルにも表示する
+                                            </label>
+                                            <label class="checkbox-label" style="margin-left: 20px; font-size: 12px;">
+                                                <input type="checkbox" id="enable-history-cryscroller-scroll-toggle">
+                                                履歴パネルにも表示する
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" id="enable-immersive-scrolling-toggle">
+                                                メッセージをヘッダー/フッターの裏まで表示する
+                                            </label>
+                                            <label class="checkbox-label" style="margin-left: 20px; font-size: 12px;">
+                                                <input type="checkbox" id="enable-dynamic-scroll-marker-color-toggle">
+                                                マーカーの色を文章量に応じて変化させる
+                                            </label>
+                                            <p style="font-size: 11px; color: var(--text-secondary); margin-top: -5px; margin-bottom: 5px;">
+                                                ※ 右端をドラッグして高速スクロールできるゾーンを追加します。
+                                            </p>
+                                            <div class="font-slider-container" style="margin-left: 20px; margin-bottom: 15px;">
+                                                <label for="cryscroller-scroll-width-input">スクロールバーの幅 (px):</label>
+                                                <div class="input-slider-wrapper">
+                                                    <input type="number" id="cryscroller-scroll-width-input" min="10" max="150" step="1" placeholder="例: 30" aria-label="スクロールバーの幅">
+                                                    <input type="range" id="cryscroller-scroll-width-input-slider" min="10" max="150" step="1">
+                                                </div>
+                                            </div>
+                                            <label class="checkbox-label">
                                                 <input type="checkbox" id="extend-ai-bubble-width-toggle">
                                                 AI応答バブルの横幅を拡張する
                                             </label>
@@ -6591,6 +7024,15 @@ body.pastel-yellow-mode .api-key-help-icon {
                                             ファクター: 履歴画面のボタン</summary>
                                         <div
                                             style="padding-left: 15px; margin-top: 10px; border-left: 1px solid var(--border-secondary); padding-top: 5px;">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" id="show-history-preview-bubble-toggle">
+                                                履歴リストの背景に会話内容をうっすら表示する
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" id="striped-history-list-toggle">
+                                                履歴リストを縞模様（ストライプ）にする
+                                            </label>
+                                            <hr style="margin: 5px 0; border-top: 1px solid var(--border-tertiary);">
                                             <label class="checkbox-label">
                                                 <input type="checkbox" id="show-bulk-history-actions-toggle">
                                                 履歴画面に「全出力」「全取込」ボタンを表示する
@@ -6926,6 +7368,22 @@ body.pastel-yellow-mode .api-key-help-icon {
                         </div>
 
                         <div class="opacity-slider-container">
+                            <label for="cryscroller-scroll-opacity">スクロールバーの透明度 (待機時) (0.0-1.0):</label>
+                            <div class="input-slider-wrapper">
+                                <input type="number" id="cryscroller-scroll-opacity" min="0" max="1" step="0.05" placeholder="例: 0.3" aria-label="スクロールバーの透明度">
+                                <input type="range" id="cryscroller-scroll-opacity-slider" min="0" max="1" step="0.05">
+                                <label class="opacity-disable-label"><input type="checkbox" class="opacity-disable-checkbox" data-target-id="cryscroller-scroll-opacity"> ON</label>
+                            </div>
+                        </div>
+                        <div class="opacity-slider-container">
+                            <label for="cryscroller-scroll-active-opacity">スクロールバーの透明度 (操作時) (0.0-1.0):</label>
+                            <div class="input-slider-wrapper">
+                                <input type="number" id="cryscroller-scroll-active-opacity" min="0" max="1" step="0.05" placeholder="例: 1.0" aria-label="スクロールバーの操作時透明度">
+                                <input type="range" id="cryscroller-scroll-active-opacity-slider" min="0" max="1" step="0.05">
+                                <label class="opacity-disable-label"><input type="checkbox" class="opacity-disable-checkbox" data-target-id="cryscroller-scroll-active-opacity"> ON</label>
+                            </div>
+                        </div>
+                        <div class="opacity-slider-container">
                             <label for="thought-summary-opacity" style="margin-top:10px;">思考プロセス背景の透明度 (0.0-1.0):</label>
                             <div class="input-slider-wrapper">
                                 <input type="number" id="thought-summary-opacity" min="0" max="1" step="0.05" placeholder="例: 0.85" aria-label="思考プロセス背景の透明度">
@@ -7215,6 +7673,16 @@ body.pastel-yellow-mode .api-key-help-icon {
                             <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
                                 <button id="debug-check-all-btn" class="settings-action-button" style="font-size: 12px; flex-grow: 1;">全ての項目のチェックボックスをオンにする</button>
                                 <button id="debug-uncheck-all-btn" class="settings-action-button" style="font-size: 12px; flex-grow: 1;">全ての項目のチェックボックスをオフにする</button>
+                                <button id="debug-expand-all-btn" class="settings-action-button" style="font-size: 12px; flex-grow: 1;">項目を全展開</button>
+                                <button id="debug-collapse-all-btn" class="settings-action-button" style="font-size: 12px; flex-grow: 1;">項目を全閉じる</button>
+                            </div>
+                            <div class="font-slider-container" style="margin-top: 15px; border-top: 1px dashed var(--border-secondary); padding-top: 10px;">
+                                <label for="cryscroller-observer-delay">スクロールバー描画遅延 (ms):</label>
+                                <div class="input-slider-wrapper">
+                                    <input type="number" id="cryscroller-observer-delay" min="50" max="2000" step="50" placeholder="500">
+                                    <input type="range" id="cryscroller-observer-delay-slider" min="50" max="2000" step="50">
+                                </div>
+                                <p style="font-size: 11px; color: var(--text-secondary);">※ ストリーミング中の描画更新頻度。値が大きいほど軽量ですが、マーカーの追従がカクつきます。</p>
                             </div>
                         </details>
                     </details>
@@ -7392,7 +7860,7 @@ const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
         const LIGHT_MODE_HEADER_COLOR = '#4a90e2';
         const LIGHT_MODE_PRIMARY_COLOR = '#ffffff';
 
-        const APP_VERSION = "0.26ti (553a9)";
+        const APP_VERSION = "0.26ti (627)";
         const SWIPE_THRESHOLD = 50;
         const ZOOM_THRESHOLD = 1.01;
         const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -7402,7 +7870,9 @@ const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
         const DEFAULT_MESSAGE_ACTIONS_BACKGROUND_OPACITY = 0.9;
         const DEFAULT_HEADER_FOOTER_OPACITY = 0.35;
         const DEFAULT_CHAT_OVERLAY_OPACITY = 0.7;
-
+        const DEFAULT_CRYSCROLLER_SCROLL_OPACITY = 0.3;
+const DEFAULT_CRYSCROLLER_SCROLL_ACTIVE_OPACITY = 0.7;
+const DEFAULT_CRYSCROLLER_SCROLL_WIDTH = 35;
         const DEFAULT_TOGGLE_BUTTON_TOP_WIDTH = 6;
         const DEFAULT_TOGGLE_BUTTON_TOP_HEIGHT = 40;
         const DEFAULT_TOGGLE_BUTTON_TOP_FONT_SIZE = 12;
@@ -7872,9 +8342,36 @@ elevationHoverOption: document.getElementById('elevation-hover-option'),
             webhookFormatTextRadio: document.getElementById('webhook-format-text'),
             webhooksList: document.getElementById('webhooks-list'),
             addWebhookBtn: document.getElementById('add-webhook-btn'),
-            debugCheckAllBtn: document.getElementById('debug-check-all-btn'),
+                        debugCheckAllBtn: document.getElementById('debug-check-all-btn'),
             debugUncheckAllBtn: document.getElementById('debug-uncheck-all-btn'),
+            debugExpandAllBtn: document.getElementById('debug-expand-all-btn'),
+            debugCollapseAllBtn: document.getElementById('debug-collapse-all-btn'),
+            cryscrollerScrollZone: document.getElementById('cryscroller-scroll-zone'),
+
+            cryscrollerScrollHandle: document.getElementById('cryscroller-scroll-handle'),
+            enableCryscrollerScrollToggle: document.getElementById('enable-cryscroller-scroll-toggle'),
+            enableImmersiveScrollingToggle: document.getElementById('enable-immersive-scrolling-toggle'),
+            enableDynamicScrollMarkerColorToggle: document.getElementById('enable-dynamic-scroll-marker-color-toggle'),
+            cryscrollerScrollWidthInput: document.getElementById('cryscroller-scroll-width-input'),
+            showHistoryPreviewBubbleToggle: document.getElementById('show-history-preview-bubble-toggle'),
+            stripedHistoryListToggle: document.getElementById('striped-history-list-toggle'),
+            cryscrollerObserverDelayInput: document.getElementById('cryscroller-observer-delay'),
+            settingsCryscrollerScrollZone: document.getElementById('settings-cryscroller-scroll-zone'),
+            settingsCryscrollerScrollHandle: document.getElementById('settings-cryscroller-scroll-handle'),
+            enableSettingsCryscrollerScrollToggle: document.getElementById('enable-settings-cryscroller-scroll-toggle'),
+            historyCryscrollerScrollZone: document.getElementById('history-cryscroller-scroll-zone'),
+            historyCryscrollerScrollHandle: document.getElementById('history-cryscroller-scroll-handle'),
+                        enableHistoryCryscrollerScrollToggle: document.getElementById('enable-history-cryscroller-scroll-toggle'),
+            historyBgInput: document.getElementById('history-bg-input'),
+            uploadHistoryBgBtn: document.getElementById('upload-history-bg-btn'),
+            historyBgThumbnail: document.getElementById('history-bg-thumbnail'),
+            deleteHistoryBgBtn: document.getElementById('delete-history-bg-btn'),
+            settingsBgInput: document.getElementById('settings-bg-input'),
+            uploadSettingsBgBtn: document.getElementById('upload-settings-bg-btn'),
+            settingsBgThumbnail: document.getElementById('settings-bg-thumbnail'),
+            deleteSettingsBgBtn: document.getElementById('delete-settings-bg-btn'),
         };
+
 
         const state = {
             db: null,
@@ -8024,10 +8521,14 @@ deepSeekModelName: DEFAULT_DEEPSEEK_MODEL,
 footerTapScrollToBottom: false,
                 autoScrollOnNewMessage: DEFAULT_AUTO_SCROLL_ON_NEW_MESSAGE,
                 autoScrollOnThought: false,
-                historySortOrder: 'updatedAt',
+                                                                                historySortOrder: 'updatedAt',
                 theme: 'light',
                 backgroundImageBlob: null,
+                historyBackgroundImageBlob: null,
+                settingsBackgroundImageBlob: null,
                 fontFamily: '',
+
+
                 messageBodyFontSize: DEFAULT_MESSAGE_BODY_FONT_SIZE,
                 codeBlockFontSize: DEFAULT_CODE_BLOCK_FONT_SIZE,
                 thoughtSummaryFontSize: DEFAULT_THOUGHT_SUMMARY_FONT_SIZE,
@@ -8129,6 +8630,8 @@ enableMessageActionsBackgroundOpacity: true,
 enableToggleButtonTopOpacity: true,
 enableThoughtSummaryOpacity: true,
 enableElevation: true,
+enableCryscrollerScrollOpacity: true,
+                enableCryscrollerScrollActiveOpacity: true,
                 enableElevationHover: false,
                 showSettingsScrollToTopButton: false,
                 showSettingsScrollToBottomButton: true,
@@ -8175,10 +8678,23 @@ enableElevation: true,
                 webhooks: [],
                 disableDeleteApiKeyConfirmation: true,
                 removeDuplicateApiKeys: true,
-            },
+                enableCryscrollerScroll: false,
+                enableImmersiveScrolling: true,
+                enableDynamicScrollMarkerColor: true,
+                                cryscrollerScrollWidth: 30,
+                showHistoryPreviewBubble: false,
+                stripedHistoryList: true,
+                cryscrollerObserverDelay: 500,
+                enableSettingsCryscrollerScroll: true,
+                enableHistoryCryscrollerScroll: true,
+
+                        },
             backgroundImageUrl: null,
+            historyBackgroundImageUrl: null,
+            settingsBackgroundImageUrl: null,
             userIconUrl: null,
             aiIconUrl: null,
+
             isSending: false,
             responseTimerId: null,
             responseStartTime: 0,
@@ -8284,36 +8800,49 @@ enableElevation: true,
             }
         }
 
-        const dbUtils = {
-            openDB() {
-                return new Promise((resolve, reject) => {
-                    if (state.db) {
-                        resolve(state.db);
-                        return;
+const dbUtils = {
+            _initPromise: null,
+
+            async openDB() {
+                if (state.db) {
+                    try {
+                        const tx = state.db.transaction([SETTINGS_STORE], 'readonly');
+                        tx.abort();
+                        return state.db;
+                    } catch (e) {
+                        state.db = null;
                     }
+                }
+
+                if (this._initPromise) return this._initPromise;
+
+                this._initPromise = new Promise((resolve, reject) => {
                     const request = indexedDB.open(DB_NAME, DB_VERSION);
-                    request.onerror = (event) => reject(`IndexedDBエラー: ${event.target.error}`);
+
+                    request.onerror = (event) => {
+                        this._initPromise = null;
+                        reject(`IndexedDBエラー: ${event.target.error}`);
+                    };
+
                     request.onsuccess = (event) => {
                         state.db = event.target.result;
                         state.db.onclose = () => {
                             state.db = null;
                         };
                         state.db.onversionchange = () => {
-                            if (state.db) {
-                                state.db.close();
-                                state.db = null;
-                            }
+                            if (state.db) { state.db.close(); state.db = null; }
                             uiUtils.showCustomAlert("アプリの新しいバージョンが利用可能です。データを保護するため、ページをリロードしてください。")
                                 .then(() => window.location.reload());
                         };
                         state.db.onerror = (event) => {
                             console.error(`IndexedDBの予期せぬエラー: ${event.target.error}`);
                         };
+                        this._initPromise = null;
                         resolve(state.db);
                     };
+
                     request.onupgradeneeded = (event) => {
                         const db = event.target.result;
-                        const transaction = event.target.transaction;
                         if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
                             db.createObjectStore(SETTINGS_STORE, { keyPath: 'key' });
                         }
@@ -8321,9 +8850,7 @@ enableElevation: true,
                         if (!db.objectStoreNames.contains(CHATS_STORE)) {
                             chatStore = db.createObjectStore(CHATS_STORE, { keyPath: 'id', autoIncrement: true });
                         } else {
-                            if (transaction) {
-                                try { chatStore = transaction.objectStore(CHATS_STORE); } catch (e) { return; }
-                            }
+                            chatStore = event.target.transaction.objectStore(CHATS_STORE);
                         }
                         if (chatStore && !chatStore.indexNames.contains(CHAT_UPDATEDAT_INDEX)) {
                             chatStore.createIndex(CHAT_UPDATEDAT_INDEX, 'updatedAt', { unique: false });
@@ -8333,12 +8860,20 @@ enableElevation: true,
                         }
                     };
                 });
+                return this._initPromise;
             },
+
             _getStore(storeName, mode = 'readonly') {
                 if (!state.db) throw new Error("データベースが開かれていません");
-                const transaction = state.db.transaction([storeName], mode);
-                return transaction.objectStore(storeName);
+                try {
+                    const transaction = state.db.transaction([storeName], mode);
+                    return transaction.objectStore(storeName);
+                } catch (e) {
+                    state.db = null;
+                    throw new Error("データベース接続エラーが発生しました。もう一度操作してください。");
+                }
             },
+
             async saveSetting(key, value) {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
@@ -8348,313 +8883,144 @@ enableElevation: true,
                         request.onsuccess = () => resolve();
                         request.onerror = (event) => reject(`設定 ${key} の保存エラー: ${event.target.error}`);
                     } catch (error) {
-                        reject(`設定 ${key} 保存のためのストアアクセスエラー: ${error}`);
+                        reject(error);
                     }
                 });
             },
+
             async loadSettings() {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
-                    const store = this._getStore(SETTINGS_STORE);
-                    const request = store.getAll();
-                    request.onsuccess = (event) => {
-                        const settingsArray = event.target.result;
-                        const loadedSettings = {};
-                        settingsArray.forEach(item => {
-                            loadedSettings[item.key] = item.value;
-                        });
-                        const defaultSettings = { ...state.settings };
-                        state.settings = { ...defaultSettings };
+                    try {
+                        const store = this._getStore(SETTINGS_STORE);
+                        const request = store.getAll();
+                        request.onsuccess = (event) => {
+                            const settingsArray = event.target.result;
+                            const loadedSettings = {};
+                            settingsArray.forEach(item => { loadedSettings[item.key] = item.value; });
 
-                        if (loadedSettings.hasOwnProperty('darkMode') && !loadedSettings.hasOwnProperty('theme')) {
-                            state.settings.theme = loadedSettings.darkMode === true ? 'dark' : 'light';
-                        }
+                            const defaultSettings = { ...state.settings };
+                            state.settings = { ...defaultSettings };
 
-                        const oldGlobalParams = ['temperature', 'maxTokens', 'topP', 'presencePenalty', 'frequencyPenalty', 'systemPrompt', 'enableSystemPromptDefault'];
-                        const oldGlobalAdvanced = ['streamingOutput', 'streamingSpeed', 'dummyUser', 'enableDummyUser', 'dummyModel', 'enableDummyModel', 'concatDummyModel'];
-                        const providerPrefixes = ['gemini', 'deepSeek', 'claude', 'openai', 'xai', 'llmaggregator'];
+                            if (loadedSettings.hasOwnProperty('darkMode') && !loadedSettings.hasOwnProperty('theme')) {
+                                state.settings.theme = loadedSettings.darkMode === true ? 'dark' : 'light';
+                            }
 
-                        oldGlobalParams.forEach(param => {
-                            if (loadedSettings.hasOwnProperty(param)) {
-                                providerPrefixes.forEach(prefix => {
-                                    const newKey = prefix + param.charAt(0).toUpperCase() + param.slice(1);
-                                    if (state.settings.hasOwnProperty(newKey) && !loadedSettings.hasOwnProperty(newKey)) {
-                                        state.settings[newKey] = loadedSettings[param];
-                                    }
+                            const oldGlobalParams = ['temperature', 'maxTokens', 'topP', 'presencePenalty', 'frequencyPenalty', 'systemPrompt', 'enableSystemPromptDefault'];
+                            const oldGlobalAdvanced = ['streamingOutput', 'streamingSpeed', 'dummyUser', 'enableDummyUser', 'dummyModel', 'enableDummyModel', 'concatDummyModel'];
+                            const providerPrefixes = ['gemini', 'deepSeek', 'claude', 'openai', 'xai', 'llmaggregator'];
+
+                            oldGlobalParams.forEach(param => {
+                                if (loadedSettings.hasOwnProperty(param)) {
+                                    providerPrefixes.forEach(prefix => {
+                                        const newKey = prefix + param.charAt(0).toUpperCase() + param.slice(1);
+                                        if (state.settings.hasOwnProperty(newKey) && !loadedSettings.hasOwnProperty(newKey)) {
+                                            state.settings[newKey] = loadedSettings[param];
+                                        }
+                                    });
+                                }
+                            });
+                            oldGlobalAdvanced.forEach(advParam => {
+                                if (loadedSettings.hasOwnProperty(advParam)) {
+                                    providerPrefixes.forEach(prefix => {
+                                        const newKey = prefix + advParam.charAt(0).toUpperCase() + advParam.slice(1);
+                                        if (state.settings.hasOwnProperty(newKey) && !loadedSettings.hasOwnProperty(newKey)) {
+                                            state.settings[newKey] = loadedSettings[advParam];
+                                        }
+                                    });
+                                }
+                            });
+
+                            if (loadedSettings.hasOwnProperty('includeThoughts') && !loadedSettings.hasOwnProperty('geminiIncludeThoughts')) state.settings.geminiIncludeThoughts = loadedSettings.includeThoughts;
+                            if (loadedSettings.hasOwnProperty('expandThoughtsByDefault') && !loadedSettings.hasOwnProperty('geminiExpandThoughtsByDefault')) state.settings.geminiExpandThoughtsByDefault = loadedSettings.expandThoughtsByDefault;
+                            if (loadedSettings.hasOwnProperty('pseudoStreaming') && !loadedSettings.hasOwnProperty('geminiPseudoStreaming')) state.settings.geminiPseudoStreaming = loadedSettings.pseudoStreaming;
+                            if (loadedSettings.hasOwnProperty('enableGrounding') && !loadedSettings.hasOwnProperty('geminiEnableGrounding')) state.settings.geminiEnableGrounding = loadedSettings.enableGrounding;
+                            if (loadedSettings.hasOwnProperty('includeDeepSeekThoughts') && !loadedSettings.hasOwnProperty('deepSeekIncludeDeepSeekThoughts')) state.settings.deepSeekIncludeDeepSeekThoughts = loadedSettings.includeDeepSeekThoughts;
+                            if (loadedSettings.hasOwnProperty('expandDeepSeekThoughtsByDefault') && !loadedSettings.hasOwnProperty('deepSeekExpandThoughtsByDefault')) state.settings.deepSeekExpandThoughtsByDefault = loadedSettings.expandDeepSeekThoughtsByDefault;
+
+                            let backends = loadedSettings.llmaggregatorBackends || [];
+                            if (backends.length === 0 && loadedSettings.llmAggregatorApiBackend) {
+                                backends.push({
+                                    id: `migrated-backend-${Date.now()}`,
+                                    label: 'デフォルトURL',
+                                    url: loadedSettings.llmAggregatorApiBackend,
+                                    isActive: true,
+                                    apiKeys: [],
+                                    activeApiKeyIndex: -1
                                 });
                             }
-                        });
-                        oldGlobalAdvanced.forEach(advParam => {
-                            if (loadedSettings.hasOwnProperty(advParam)) {
-                                providerPrefixes.forEach(prefix => {
-                                    const newKey = prefix + advParam.charAt(0).toUpperCase() + advParam.slice(1);
-                                    if (state.settings.hasOwnProperty(newKey) && !loadedSettings.hasOwnProperty(newKey)) {
-                                        state.settings[newKey] = loadedSettings[advParam];
-                                    }
-                                });
-                            }
-                        });
-                        if (loadedSettings.hasOwnProperty('includeThoughts') && !loadedSettings.hasOwnProperty('geminiIncludeThoughts') && state.settings.hasOwnProperty('geminiIncludeThoughts')) {
-                            state.settings.geminiIncludeThoughts = loadedSettings.includeThoughts;
-                        }
-                        if (loadedSettings.hasOwnProperty('expandThoughtsByDefault') && !loadedSettings.hasOwnProperty('geminiExpandThoughtsByDefault') && state.settings.hasOwnProperty('geminiExpandThoughtsByDefault')) {
-                            state.settings.geminiExpandThoughtsByDefault = loadedSettings.expandThoughtsByDefault;
-                        }
-                        if (loadedSettings.hasOwnProperty('pseudoStreaming') && !loadedSettings.hasOwnProperty('geminiPseudoStreaming') && state.settings.hasOwnProperty('geminiPseudoStreaming')) {
-                            state.settings.geminiPseudoStreaming = loadedSettings.pseudoStreaming;
-                        }
-                        if (loadedSettings.hasOwnProperty('enableGrounding') && !loadedSettings.hasOwnProperty('geminiEnableGrounding') && state.settings.hasOwnProperty('geminiEnableGrounding')) {
-                            state.settings.geminiEnableGrounding = loadedSettings.enableGrounding;
-                        }
-                        if (loadedSettings.hasOwnProperty('includeDeepSeekThoughts') && !loadedSettings.hasOwnProperty('deepSeekIncludeDeepSeekThoughts') && state.settings.hasOwnProperty('deepSeekIncludeDeepSeekThoughts')) {
-                            state.settings.deepSeekIncludeDeepSeekThoughts = loadedSettings.includeDeepSeekThoughts;
-                        }
-                        if (loadedSettings.hasOwnProperty('expandDeepSeekThoughtsByDefault') && !loadedSettings.hasOwnProperty('deepSeekExpandThoughtsByDefault') && state.settings.hasOwnProperty('deepSeekExpandThoughtsByDefault')) {
-                            state.settings.deepSeekExpandThoughtsByDefault = loadedSettings.expandDeepSeekThoughtsByDefault;
-                        }
-                        let backends = loadedSettings.llmaggregatorBackends || [];
-
-                    if (backends.length === 0 && loadedSettings.llmAggregatorApiBackend) {
-                        backends.push({
-                            id: `migrated-backend-${Date.now()}`,
-                            label: 'デフォルトURL',
-                            url: loadedSettings.llmAggregatorApiBackend,
-                            isActive: true,
-                            apiKeys: [],
-                            activeApiKeyIndex: -1
-                        });
-                    }
-
-                    if (backends.length > 0) {
-                        const firstBackend = backends[0];
-                        if ((!firstBackend.apiKeys || firstBackend.apiKeys.length === 0) && loadedSettings.llmAggregatorApiKey) {
-                            firstBackend.apiKeys = [{
-                                id: `rescued-key-${Date.now()}`,
-                                label: 'キー 1',
-                                value: loadedSettings.llmAggregatorApiKey,
-                                isActive: true
-                            }];
-                            firstBackend.activeApiKeyIndex = 0;
-                        }
-                    }
-
-                    state.settings.llmaggregatorBackends = backends;
-                    state.settings.llmaggregatorActiveBackendIndex = (backends.length > 0) ? 0 : -1;
-
-                    if (loadedSettings.llmaggregatorApiKeys) delete loadedSettings.llmaggregatorApiKeys;
-                    if (loadedSettings.llmaggregatorActiveApiKeyIndex) delete loadedSettings.llmaggregatorActiveApiKeyIndex;
-
-                    if (loadedSettings.webhookUrl && !loadedSettings.webhooks) {
-                            loadedSettings.webhooks = [{
-                                id: 'migrated-' + Date.now(),
-                                label: '以前の設定',
-                                url: loadedSettings.webhookUrl,
-                                enabled: loadedSettings.enableWebhookNotification,
-                                format: loadedSettings.webhookFormat || 'json'
-                            }];
-                            delete loadedSettings.webhookUrl;
-                            delete loadedSettings.webhookFormat;
-                        }
-                        for (const key in loadedSettings) {
-                            if (key === 'darkMode') continue;
-                            if (key === 'memoWidth') continue;
-                            if (key === 'showCollapseButtons') continue;
-
-                            if (key in defaultSettings) {
-                                const loadedValue = loadedSettings[key];
-                                const defaultValue = defaultSettings[key];
-
-                                if (key === 'backgroundImageBlob' || key === 'userIconBlob' || key === 'aiIconBlob') {
-                                    if (loadedValue instanceof Blob) {
-                                        state.settings[key] = loadedValue;
-                                    } else {
-                                        state.settings[key] = null;
-                                    }
-} else if (key === 'theme') {
-                                    if (['light', 'dark', 'pastel-pink', 'pastel-blue', 'pastel-yellow', 'pastel-purple', 'pastel-rainbow', 'turf'].includes(loadedValue)) {
-                                        state.settings[key] = loadedValue;
-                                    } else {
-                                        state.settings[key] = defaultValue;
-                                    }
-                                } else if (key === 'apiProvider' || key === 'twinEngineProvider') {
-                                    if (['gemini', 'deepseek', 'claude', 'openai', 'xai', 'llmaggregator', 'dummy'].includes(loadedValue)) {
-                                        state.settings[key] = loadedValue;
-                                    } else {
-                                        state.settings[key] = defaultValue;
-                                    }
-                                } else if (typeof defaultValue === 'boolean') {
-                                    state.settings[key] = loadedValue === true;
-                                } else if (key === 'toggleButtonTopFontSize' || key === 'toggleButtonBottomFontSize' || key === 'toggleButtonTopWidth' || key === 'toggleButtonTopHeight') {
-                                    let num = parseInt(loadedValue, 10);
-                                    if (isNaN(num)) {
-                                        state.settings[key] = defaultValue;
-                                    } else {
-                                        if (key === 'toggleButtonTopFontSize' && (num < 1 || num > 50)) num = defaultValue;
-                                        if (key === 'toggleButtonBottomFontSize' && (num < 1 || num > 34)) num = defaultValue;
-                                        if ((key === 'toggleButtonTopWidth' || key === 'toggleButtonTopHeight') && (num < 1 || num > 100)) num = defaultValue;
-                                        state.settings[key] = num;
-                                    }
-                                } else if (key === 'toggleButtonTopTextCollapse' || key === 'toggleButtonTopTextExpand' ||
-                                    key === 'toggleButtonBottomTextCollapse' || key === 'toggleButtonBottomTextExpand') {
-                                    state.settings[key] = typeof loadedValue === 'string' && loadedValue.trim() !== '' ? loadedValue : defaultValue;
-                                } else if (key === 'apiProviderCycle' && typeof loadedValue === 'object' && loadedValue !== null) {
-                                    state.settings.apiProviderCycle.gemini = loadedValue.gemini === true;
-                                    state.settings.apiProviderCycle.deepseek = loadedValue.deepseek === true;
-                                    state.settings.apiProviderCycle.claude = loadedValue.claude === true;
-                                    state.settings.apiProviderCycle.openai = loadedValue.openai === true;
-                                    state.settings.apiProviderCycle.xai = loadedValue.xai === true;
-                                    state.settings.apiProviderCycle.llmaggregator = loadedValue.llmaggregator === true;
-                                } else if (key === 'proofreadingApiConfigs' && Array.isArray(loadedValue)) {
-                                    state.settings.proofreadingApiConfigs = loadedValue;
-                                } else if (key === 'activeProofreadingConfigId' && typeof loadedValue === 'string') {
-                                    state.settings.activeProofreadingConfigId = loadedValue;
-                                } else if (typeof defaultValue === 'number' || defaultValue === null) {
-                                    let num;
-                                    if (key.toLowerCase().includes('temperature') || key.toLowerCase().includes('topp') || key.toLowerCase().includes('penalty') ||
-                                        key.toLowerCase().includes('opacity') || key.toLowerCase().includes('fontsize') || key.toLowerCase().includes('offsety') ||
-                                        key.toLowerCase().includes('iconsize')) {
-                                        num = parseFloat(loadedValue);
-                                    } else {
-                                        num = parseInt(loadedValue, 10);
-                                    }
-                                    if (isNaN(num)) {
-                                        if ((key.toLowerCase().includes('temperature') || key.toLowerCase().includes('maxtokens') || key.toLowerCase().includes('topk') || key.toLowerCase().includes('topp') ||
-                                            key.toLowerCase().includes('penalty') || key.toLowerCase().includes('budget') ||
-                                            key.toLowerCase().includes('opacity') || key.toLowerCase().includes('fontsize') || key.toLowerCase().includes('iconsize') ||
-                                            key.includes('Scale') ||
-                                            key === 'diceMinValue' || key === 'diceMaxValue'
-                                        ) && (loadedValue === null || loadedValue === '')) {
-                                            state.settings[key] = null;
-                                        } else {
-                                            state.settings[key] = defaultValue;
-                                        }
-                                    } else {
-                                        if (key.toLowerCase().includes('temperature') || key.toLowerCase().includes('topp') || key.toLowerCase().includes('penalty') ||
-                                            key.toLowerCase().includes('opacity') || key.toLowerCase().includes('fontsize') || key.toLowerCase().includes('offsety') ||
-                                            key.toLowerCase().includes('iconsize') || key.includes('Scale')) {
-                                            num = parseFloat(loadedValue);
-                                        }
-                                        if (key.toLowerCase().includes('temperature') && (num < 0 || num > 2)) num = defaultValue;
-                                        if (key.toLowerCase().includes('maxtokens') && num < 1) num = defaultValue;
-                                        if (key.toLowerCase().includes('topk') && num < 1) num = defaultValue;
-                                        if (key.toLowerCase().includes('topp') && (num < 0 || num > 1)) num = defaultValue;
-                                        if (key.toLowerCase().includes('streamingspeed') && num < 0) num = defaultValue;
-                                        if (key.toLowerCase().includes('penalty') && (num < -2.0 || num >= 2.0)) num = defaultValue;
-                                        if (key.toLowerCase().includes('budget') && (num < 0 || !Number.isInteger(num))) num = defaultValue;
-                                        if (key.toLowerCase().includes('opacity') && (num < 0 || num > 1)) num = defaultValue;
-                                        if (key === 'messageIconSize' && (num < 1 || num > 300)) num = defaultValue;
-                                        if (key === 'messageIconOffsetY' && (num < -200 || num > 200)) num = defaultValue;
-                                        if (key === 'iconNameFontSize' && (num < 1 || num > 46)) num = defaultValue;
-                                        if (key === 'iconNameOffsetY' && (num < -200 || num > 200)) num = defaultValue;
-                                        if ((key === 'messageBodyFontSize' || key === 'codeBlockFontSize' || key === 'thoughtSummaryFontSize') && (num < 1 || num > 100)) num = defaultValue;
-                                        if (key === 'diceMinValue' && num < 0) num = defaultValue;
-                                        if (key === 'diceMaxValue' && num < 0) num = defaultValue;
-                                        state.settings[key] = num;
-                                    }
-                                } else if (typeof defaultValue === 'string') {
-                                    state.settings[key] = typeof loadedValue === 'string' ? loadedValue : defaultValue;
-                                } else {
-                                    state.settings[key] = loadedValue;
+                            if (backends.length > 0) {
+                                const firstBackend = backends[0];
+                                if ((!firstBackend.apiKeys || firstBackend.apiKeys.length === 0) && loadedSettings.llmAggregatorApiKey) {
+                                    firstBackend.apiKeys = [{
+                                        id: `rescued-key-${Date.now()}`,
+                                        label: 'キー 1',
+                                        value: loadedSettings.llmAggregatorApiKey,
+                                        isActive: true
+                                    }];
+                                    firstBackend.activeApiKeyIndex = 0;
                                 }
                             }
-                        }
-                        if (state.settings.diceMinValue !== null && state.settings.diceMaxValue !== null && state.settings.diceMinValue > state.settings.diceMaxValue) {
-                            state.settings.diceMaxValue = state.settings.diceMinValue;
-                        }
-                        if (!['light', 'dark', 'pastel-pink', 'pastel-blue', 'pastel-yellow', 'pastel-purple', 'pastel-rainbow', 'turf'].includes(state.settings.theme)) { // ← ここに 'turf' を追加
-                            state.settings.theme = window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                        }
-                        if (state.settings.thoughtSummaryOpacity === undefined || state.settings.thoughtSummaryOpacity === null || isNaN(parseFloat(state.settings.thoughtSummaryOpacity))) {
-                            state.settings.thoughtSummaryOpacity = DEFAULT_THOUGHT_SUMMARY_OPACITY;
-                        }
-                        if (typeof loadedSettings.settingsUIDetailsOpenStates === 'object' && loadedSettings.settingsUIDetailsOpenStates !== null) {
-                            state.settings.settingsUIDetailsOpenStates = loadedSettings.settingsUIDetailsOpenStates;
-                            
-                            if (state.settings.autoCloseOtherSettings) {
-                    const otherSettingsGroup = document.getElementById('settings-group-other');
-                    if (otherSettingsGroup) {
-                        const detailsElements = otherSettingsGroup.querySelectorAll('details');
-                        detailsElements.forEach(el => {
-                            if (el.id) {
-                                state.settings.settingsUIDetailsOpenStates[el.id] = false;
-                            }
-                        });
-                    }
-                }
-                        } else {
-                            state.settings.settingsUIDetailsOpenStates = {
-                                'gemini-settings-group': true,
-                                'gemini-params-group': true,
-                                'gemini-advanced-group': true,
-                                'deepseek-settings-group': true,
+                            state.settings.llmaggregatorBackends = backends;
+                            state.settings.llmaggregatorActiveBackendIndex = (backends.length > 0) ? 0 : -1;
 
-                                'deepseek-params-group': true,
-                                'deepseek-advanced-group': true,
-                                'claude-settings-group': true,
-                                'claude-params-group': true,
-                                'claude-advanced-group': true,
-                                'openai-settings-group': true,
-                                'openai-params-group': true,
-                                'openai-advanced-group': true,
-                                'xai-settings-group': true,
-                                'xai-params-group': true,
-                                'xai-advanced-group': true,
-                                'llmaggregator-settings-group': true,
-                                'llmaggregator-params-group': true,
-                                'llmaggregator-advanced-group': true,
-                            };
-                        }
-
-                        if ((!loadedSettings.twinEngineApiConfigs || loadedSettings.twinEngineApiConfigs.length === 0) && loadedSettings.twinEngineProvider) {
-                            const provider = loadedSettings.twinEngineProvider;
-                            let apiKey = '';
-                            let modelName = '';
-
-                            switch (provider) {
-                                case 'gemini':
-                                    apiKey = loadedSettings.twinEngineGeminiApiKey || '';
-                                    modelName = loadedSettings.twinEngineGeminiModelName || DEFAULT_MODEL;
-                                    break;
-                                case 'deepseek':
-                                    apiKey = loadedSettings.twinEngineDeepseekApiKey || '';
-                                    modelName = loadedSettings.twinEngineDeepseekModelName || DEFAULT_DEEPSEEK_MODEL;
-                                    break;
-                                case 'claude':
-                                    apiKey = loadedSettings.twinEngineClaudeApiKey || '';
-                                    modelName = loadedSettings.twinEngineClaudeModelName || DEFAULT_CLAUDE_MODEL;
-                                    break;
-                                case 'openai':
-                                    apiKey = loadedSettings.twinEngineOpenaiApiKey || '';
-                                    modelName = loadedSettings.twinEngineOpenaiModelName || DEFAULT_OPENAI_MODEL;
-                                    break;
-                                case 'xai':
-                                    apiKey = loadedSettings.twinEngineXaiApiKey || '';
-                                    modelName = loadedSettings.twinEngineXaiModelName || DEFAULT_XAI_MODEL;
-                                    break;
-                                case 'llmaggregator':
-                                    apiKey = loadedSettings.twinEngineLlmaggregatorApiKey || '';
-                                    modelName = loadedSettings.twinEngineLlmaggregatorModelName || DEFAULT_LLMAGGREGATOR_MODEL;
-                                    break;
+                            if (loadedSettings.webhookUrl && !loadedSettings.webhooks) {
+                                loadedSettings.webhooks = [{
+                                    id: 'migrated-' + Date.now(),
+                                    label: '以前の設定',
+                                    url: loadedSettings.webhookUrl,
+                                    enabled: loadedSettings.enableWebhookNotification,
+                                    format: loadedSettings.webhookFormat || 'json'
+                                }];
                             }
 
-                            if (provider !== 'dummy') {
-                                const oldConfig = {
-                                    id: `migrated-${Date.now()}`,
-                                    label: `移行した設定 (${provider})`,
-                                    provider: provider,
-                                    apiKey: apiKey,
-                                    modelName: modelName,
-                                };
-                                state.settings.twinEngineApiConfigs = [oldConfig];
-                                state.settings.twinEngineActiveConfigId = oldConfig.id;
-                            }
-                        } else if (loadedSettings.twinEngineApiConfigs) {
-                            state.settings.twinEngineApiConfigs = loadedSettings.twinEngineApiConfigs;
-                            state.settings.twinEngineActiveConfigId = loadedSettings.twinEngineActiveConfigId;
-                        }
+                            for (const key in loadedSettings) {
+                                if (key === 'darkMode' || key === 'memoWidth' || key === 'showCollapseButtons') continue;
+                                if (key in defaultSettings) {
+                                    const loadedValue = loadedSettings[key];
+                                    const defaultValue = defaultSettings[key];
 
-                        if (loadedSettings.hasOwnProperty('proofreadingModelName')) {
-                            if (!state.settings.proofreadingApiConfigs || state.settings.proofreadingApiConfigs.length === 0) {
+                                                                                                            if (['backgroundImageBlob', 'userIconBlob', 'aiIconBlob', 'historyBackgroundImageBlob', 'settingsBackgroundImageBlob'].includes(key)) {
+                                        state.settings[key] = (loadedValue instanceof Blob) ? loadedValue : null;
+                                    } else if (typeof defaultValue === 'boolean') {
+
+
+                                        state.settings[key] = loadedValue === true;
+                                    } else if (typeof defaultValue === 'number' || defaultValue === null) {
+                                        let num = parseFloat(loadedValue);
+                                        if (isNaN(num)) {
+                                            state.settings[key] = defaultValue;
+                                        } else {
+                                            state.settings[key] = num;
+                                        }
+                                    } else {
+                                        state.settings[key] = loadedValue;
+                                    }
+                                }
+                            }
+
+                            if ((!loadedSettings.twinEngineApiConfigs || loadedSettings.twinEngineApiConfigs.length === 0) && loadedSettings.twinEngineProvider) {
+                                const provider = loadedSettings.twinEngineProvider;
+                                if (provider !== 'dummy') {
+                                    let apiKey = '', modelName = '';
+                                    if (provider === 'gemini') { apiKey = loadedSettings.twinEngineGeminiApiKey; modelName = loadedSettings.twinEngineGeminiModelName; }
+                                    else if (provider === 'deepseek') { apiKey = loadedSettings.twinEngineDeepseekApiKey; modelName = loadedSettings.twinEngineDeepseekModelName; }
+                                    const oldConfig = {
+                                        id: `migrated-${Date.now()}`,
+                                        label: `移行した設定 (${provider})`,
+                                        provider: provider,
+                                        apiKey: apiKey || '',
+                                        modelName: modelName || '',
+                                    };
+                                    state.settings.twinEngineApiConfigs = [oldConfig];
+                                    state.settings.twinEngineActiveConfigId = oldConfig.id;
+                                }
+                            } else if (loadedSettings.twinEngineApiConfigs) {
+                                state.settings.twinEngineApiConfigs = loadedSettings.twinEngineApiConfigs;
+                                state.settings.twinEngineActiveConfigId = loadedSettings.twinEngineActiveConfigId;
+                            }
+
+                            if (loadedSettings.hasOwnProperty('proofreadingModelName') && (!state.settings.proofreadingApiConfigs || state.settings.proofreadingApiConfigs.length === 0)) {
                                 const oldConfig = {
                                     id: `migrated-proofreading-${Date.now()}`,
                                     label: '（移行された設定）',
@@ -8667,209 +9033,220 @@ enableElevation: true,
                                 state.settings.proofreadingApiConfigs = [oldConfig];
                                 state.settings.activeProofreadingConfigId = oldConfig.id;
                             }
-                            delete state.settings.proofreadingModelName;
-                            delete state.settings.proofreadingSystemInstruction;
-                        }
 
-                        resolve(state.settings);
-                    };
-                    request.onerror = (event) => reject(`設定読み込みエラー: ${event.target.error}`);
+                            resolve(state.settings);
+                        };
+                        request.onerror = (event) => reject(`設定読み込みエラー: ${event.target.error}`);
+                    } catch (error) {
+                        reject(error);
+                    }
                 });
             },
+
             async saveChat(optionalTitle = null) {
                 await this.openDB();
                 if ((!state.currentMessages || state.currentMessages.length === 0)) {
                     return Promise.resolve(state.currentChatId);
                 }
                 return new Promise((resolve, reject) => {
-                    const store = this._getStore(CHATS_STORE, 'readwrite');
-                    const now = Date.now();
-                    const messagesToSave = state.currentMessages.map(msg => ({
-                        role: msg.role, content: msg.content, timestamp: msg.timestamp,
-                        thoughtSummary: msg.thoughtSummary || null,
-                        deepSeekThoughtSummary: msg.deepSeekThoughtSummary || null,
-                        xaiThoughtSummary: msg.xaiThoughtSummary || null,
-                        generatedByApiProvider: msg.generatedByApiProvider || null,
-                        ...(msg.finishReason && { finishReason: msg.finishReason }),
-                        ...(msg.safetyRatings && { safetyRatings: msg.safetyRatings }),
-                        ...(msg.error && { error: msg.error }),
-                        ...(msg.isCascaded !== undefined && { isCascaded: msg.isCascaded }),
-                        ...(msg.isSelected !== undefined && { isSelected: msg.isSelected }),
-                        ...(msg.siblingGroupId !== undefined && { siblingGroupId: msg.siblingGroupId }),
-                        ...(msg.groundingMetadata && { groundingMetadata: msg.groundingMetadata }),
-                        ...(msg.attachments && msg.attachments.length > 0 && { attachments: msg.attachments }),
-                        ...(msg.usageMetadata && { usageMetadata: msg.usageMetadata }),
-                        ...(msg.thoughtSummaryOpen !== undefined && { thoughtSummaryOpen: msg.thoughtSummaryOpen }),
-                    }));
-                    const determineTitleAndSave = (existingChatData = null) => {
-                        let title;
-                        if (optionalTitle !== null) {
-                            title = optionalTitle;
-                        } else if (existingChatData && existingChatData.title) {
-                            title = existingChatData.title;
-                        } else {
-                            const firstUserMessage = state.currentMessages.find(m => m.role === 'user');
-                            title = firstUserMessage ? firstUserMessage.content.substring(0, 50) : "無題のチャット";
-                        }
-                        const chatIdForOperation = existingChatData ? existingChatData.id : state.currentChatId;
-                        const chatData = {
-                            messages: messagesToSave,
-                            updatedAt: now, createdAt: existingChatData ? existingChatData.createdAt : now,
-                            title: title,
-                        };
-                        if (state.settings.persistMessageCollapseState) {
-                            chatData.collapsedStates = Object.fromEntries(state.messageCollapsedStates);
-                        } else if (existingChatData && existingChatData.collapsedStates) {
-                            chatData.collapsedStates = undefined;
-                        }
+                    try {
+                        const store = this._getStore(CHATS_STORE, 'readwrite');
+                        const now = Date.now();
 
-                        if (chatIdForOperation) {
-                            chatData.id = chatIdForOperation;
-                        }
-                        const request = store.put(chatData);
-                        request.onsuccess = (event) => {
-                            const savedId = event.target.result;
-                            if (!state.currentChatId && savedId) {
-                                state.currentChatId = savedId;
+                        const messagesToSave = state.currentMessages.map(msg => ({
+                            role: msg.role, content: msg.content, timestamp: msg.timestamp,
+                            thoughtSummary: msg.thoughtSummary || null,
+                            deepSeekThoughtSummary: msg.deepSeekThoughtSummary || null,
+                            xaiThoughtSummary: msg.xaiThoughtSummary || null,
+                            generatedByApiProvider: msg.generatedByApiProvider || null,
+                            finishReason: msg.finishReason, safetyRatings: msg.safetyRatings, error: msg.error,
+                            isCascaded: msg.isCascaded, isSelected: msg.isSelected, siblingGroupId: msg.siblingGroupId,
+                            groundingMetadata: msg.groundingMetadata, attachments: msg.attachments,
+                            usageMetadata: msg.usageMetadata, thoughtSummaryOpen: msg.thoughtSummaryOpen
+                        }));
+
+                        const executeSave = (chatIdToUse, existingData) => {
+                            let title = optionalTitle;
+                            if (title === null) {
+                                if (existingData && existingData.title) title = existingData.title;
+                                else {
+                                    const firstUserMessage = state.currentMessages.find(m => m.role === 'user');
+                                    title = firstUserMessage ? firstUserMessage.content.substring(0, 50) : "無題のチャット";
+                                }
                             }
-                            if ((state.currentChatId || savedId) === (chatIdForOperation || savedId)) {
-                                uiUtils.updateChatTitle(chatData.title);
+
+                            const chatData = {
+                                messages: messagesToSave,
+                                updatedAt: now,
+                                createdAt: existingData ? existingData.createdAt : now,
+                                title: title,
+                            };
+
+                            if (state.settings.persistMessageCollapseState) {
+                                chatData.collapsedStates = Object.fromEntries(state.messageCollapsedStates);
                             }
-                            resolve(state.currentChatId || savedId);
+
+                            if (chatIdToUse) {
+                                chatData.id = chatIdToUse;
+                            }
+
+                            const putRequest = store.put(chatData);
+                            putRequest.onsuccess = (event) => {
+                                const savedId = event.target.result;
+                                if (!state.currentChatId && savedId) {
+                                    state.currentChatId = savedId;
+                                }
+                                if ((state.currentChatId || savedId) === (chatIdToUse || savedId)) {
+                                    uiUtils.updateChatTitle(chatData.title);
+                                }
+                                resolve(state.currentChatId || savedId);
+                            };
+                            putRequest.onerror = (e) => reject(`チャット保存putエラー: ${e.target.error}`);
                         };
-                        request.onerror = (event) => reject(`チャット保存putエラー: ${event.target.error.name} - ${event.target.error.message}`);
-                    };
-                    if (state.currentChatId) {
-                        const getRequest = store.get(state.currentChatId);
-                        getRequest.onsuccess = (event) => {
-                            const existingChat = event.target.result;
-                            if (!existingChat) {
+
+                        if (state.currentChatId) {
+                            const getRequest = store.get(state.currentChatId);
+                            getRequest.onsuccess = (e) => {
+                                const existing = e.target.result;
+                                if (!existing) {
+                                    state.currentChatId = null;
+                                    executeSave(null, null);
+                                } else {
+                                    executeSave(state.currentChatId, existing);
+                                }
+                            };
+                            getRequest.onerror = () => {
                                 state.currentChatId = null;
-                                determineTitleAndSave(null);
-                            } else {
-                                determineTitleAndSave(existingChat);
-                            }
-                        };
-                        getRequest.onerror = (event) => {
-                            state.currentChatId = null;
-                            determineTitleAndSave(null);
-                        };
-                    } else {
-                        determineTitleAndSave(null);
+                                executeSave(null, null);
+                            };
+                        } else {
+                            executeSave(null, null);
+                        }
+                    } catch (error) {
+                        reject(error);
                     }
-                    store.transaction.onerror = (event) => reject(`チャット保存トランザクション失敗: ${event.target.error.name} - ${event.target.error.message}`);
                 });
             },
+
             async updateChatTitleDb(id, newTitle) {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
-                    const store = this._getStore(CHATS_STORE, 'readwrite');
-                    const getRequest = store.get(id);
-                    getRequest.onsuccess = (event) => {
-                        const chatData = event.target.result;
-                        if (chatData) {
-                            chatData.title = newTitle;
-                            chatData.updatedAt = Date.now();
-                            const putRequest = store.put(chatData);
-                            putRequest.onerror = (event) => reject(`タイトル更新エラー: ${event.target.error}`);
-                        } else {
-                            reject(`チャットが見つかりません: ${id}`);
-                        }
-                    };
-                    getRequest.onerror = (event) => reject(`タイトル更新用チャット取得エラー: ${event.target.error}`);
-                    store.transaction.onerror = (event) => reject(`タイトル更新トランザクション失敗: ${event.target.error}`);
+                    try {
+                        const store = this._getStore(CHATS_STORE, 'readwrite');
+                        const getRequest = store.get(id);
+                        getRequest.onsuccess = (event) => {
+                            const chatData = event.target.result;
+                            if (chatData) {
+                                chatData.title = newTitle;
+                                chatData.updatedAt = Date.now();
+                                const putRequest = store.put(chatData);
+                                putRequest.onsuccess = () => resolve();
+                                putRequest.onerror = (e) => reject(`タイトル更新putエラー: ${e.target.error}`);
+                            } else {
+                                reject(`チャットが見つかりません: ${id}`);
+                            }
+                        };
+                        getRequest.onerror = (e) => reject(`タイトル更新取得エラー: ${e.target.error}`);
+                    } catch (error) {
+                        reject(error);
+                    }
                 });
             },
+
             async getChat(id) {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
-                    const store = this._getStore(CHATS_STORE);
-                    const request = store.get(id);
-                    request.onsuccess = (event) => resolve(event.target.result);
-                    request.onerror = (event) => reject(`チャット ${id} 取得エラー: ${event.target.error}`);
+                    try {
+                        const store = this._getStore(CHATS_STORE);
+                        const request = store.get(id);
+                        request.onsuccess = (event) => resolve(event.target.result);
+                        request.onerror = (event) => reject(`チャット取得エラー: ${event.target.error}`);
+                    } catch (error) {
+                        reject(error);
+                    }
                 });
             },
+
             async getAllChats(sortBy = 'updatedAt') {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
-                    const store = this._getStore(CHATS_STORE);
-                    const indexName = sortBy === 'createdAt' ? CHAT_CREATEDAT_INDEX : CHAT_UPDATEDAT_INDEX;
-                    if (!store.indexNames.contains(indexName)) {
-                        const getAllRequest = store.getAll();
-                        getAllRequest.onsuccess = (event) => resolve(event.target.result.reverse());
-                        getAllRequest.onerror = (event) => reject(`全チャット取得エラー(フォールバック): ${event.target.error}`);
-                        return;
-                    }
-                    const index = store.index(indexName);
-                    const request = index.openCursor(null, 'prev');
-                    const chats = [];
-                    request.onsuccess = (event) => {
-                        const cursor = event.target.result;
-                        if (cursor) {
-                            chats.push(cursor.value);
-                            cursor.continue();
-                        } else {
-                            resolve(chats);
+                    try {
+                        const store = this._getStore(CHATS_STORE);
+                        const indexName = sortBy === 'createdAt' ? CHAT_CREATEDAT_INDEX : CHAT_UPDATEDAT_INDEX;
+
+                        if (!store.indexNames.contains(indexName)) {
+                            const getAllRequest = store.getAll();
+                            getAllRequest.onsuccess = (event) => resolve(event.target.result.reverse());
+                            getAllRequest.onerror = (e) => reject(e.target.error);
+                            return;
                         }
-                    };
-                    request.onerror = (event) => reject(`全チャット取得エラー (${sortBy}順): ${event.target.error}`);
+
+                        const index = store.index(indexName);
+                        const request = index.openCursor(null, 'prev');
+                        const chats = [];
+                        request.onsuccess = (event) => {
+                            const cursor = event.target.result;
+                            if (cursor) {
+                                chats.push(cursor.value);
+                                cursor.continue();
+                            } else {
+                                resolve(chats);
+                            }
+                        };
+                        request.onerror = (event) => reject(`一覧取得エラー: ${event.target.error}`);
+                    } catch (error) {
+                        reject(error);
+                    }
                 });
             },
+
             async deleteChat(id) {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
-                    const store = this._getStore(CHATS_STORE, 'readwrite');
-                    const request = store.delete(id);
-                    request.onsuccess = () => resolve();
-                    request.onerror = (event) => reject(`チャット ${id} 削除エラー: ${event.target.error}`);
+                    try {
+                        const store = this._getStore(CHATS_STORE, 'readwrite');
+                        const request = store.delete(id);
+                        request.onsuccess = () => resolve();
+                        request.onerror = (event) => reject(`チャット削除エラー: ${event.target.error}`);
+                    } catch (error) {
+                        reject(error);
+                    }
                 });
             },
+
             async clearAllData() {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
-                    const transaction = state.db.transaction([SETTINGS_STORE, CHATS_STORE], 'readwrite');
-                    let storesCleared = 0;
-                    const totalStores = 2;
+                    try {
+                        const transaction = state.db.transaction([SETTINGS_STORE, CHATS_STORE], 'readwrite');
+                        const settingsStore = transaction.objectStore(SETTINGS_STORE);
+                        const chatsStore = transaction.objectStore(CHATS_STORE);
 
-                    const onComplete = () => {
-                        if (++storesCleared === totalStores) {
-                            resolve();
-                        }
-                    };
-                    const onError = (storeName, event) => reject(`${storeName} クリアエラー: ${event.target.error}`);
+                        transaction.oncomplete = () => resolve();
+                        transaction.onerror = (e) => reject(`データ全消去エラー: ${e.target.error}`);
 
-                    const settingsStore = transaction.objectStore(SETTINGS_STORE);
-                    const chatsStore = transaction.objectStore(CHATS_STORE);
-
-                    const clearSettingsReq = settingsStore.clear();
-                    const clearChatsReq = chatsStore.clear();
-
-                    clearSettingsReq.onsuccess = onComplete;
-                    clearSettingsReq.onerror = (e) => onError(SETTINGS_STORE, e);
-                    clearChatsReq.onsuccess = onComplete;
-                    clearChatsReq.onerror = (e) => onError(CHATS_STORE, e);
-                    transaction.onerror = (event) => reject(`データクリアトランザクション失敗: ${event.target.error}`);
+                        settingsStore.clear();
+                        chatsStore.clear();
+                    } catch (error) {
+                        reject(error);
+                    }
                 });
             },
+
             async clearAllChatsStore() {
                 await this.openDB();
                 return new Promise((resolve, reject) => {
-                    const transaction = state.db.transaction([CHATS_STORE], 'readwrite');
-                    const chatsStore = transaction.objectStore(CHATS_STORE);
-                    const clearChatsReq = chatsStore.clear();
-
-                    clearChatsReq.onsuccess = () => resolve();
-                    clearChatsReq.onerror = (e) => reject(`CHATS_STORE クリアエラー: ${e.target.error}`);
-                    transaction.onerror = (event) => reject(`チャット履歴クリアトランザクション失敗: ${event.target.error}`);
+                    try {
+                        const store = this._getStore(CHATS_STORE, 'readwrite');
+                        const request = store.clear();
+                        request.onsuccess = () => resolve();
+                        request.onerror = (e) => reject(`履歴全消去エラー: ${e.target.error}`);
+                    } catch (error) {
+                        reject(error);
+                    }
                 });
             }
         };
-        // ▼▼▼ ここから追加 ▼▼▼
-        /**
-         * カタカナをひらがなに変換する
-         * @param {string} str - 変換元の文字列
-         * @returns {string} 変換後の文字列
-         */
         function katakanaToHiragana(str) {
             if (typeof str !== 'string') return '';
             return str.replace(/[\u30a1-\u30f6]/g, function (match) {
@@ -8877,11 +9254,6 @@ enableElevation: true,
             });
         }
 
-        /**
-          * ローマ字をカタカナに変換する（簡易版・大文字対応）
-         * @param {string} str - 変換元の文字列
-         * @returns {string} 変換後の文字列
-         */
         function romajiToKatakana(str) {
             if (typeof str !== 'string') return '';
             const romajiMap = {
@@ -9233,56 +9605,69 @@ enableElevation: true,
                 });
                 return cleanHtml;
             },
-            renderChatMessages(maintainScroll = false) {
+renderChatMessages(maintainScroll = false) {
                 const mainContent = elements.chatScreen.querySelector('.main-content');
                 const oldScrollTop = maintainScroll ? mainContent.scrollTop : null;
-                const oldScrollHeight = maintainScroll ? mainContent.scrollHeight : null;
 
+                // 編集中のメッセージがあればキャンセル処理
                 if (state.editingMessageIndex !== null) {
                     const messageElement = elements.messageContainer.querySelector(`.message[data-index="${state.editingMessageIndex}"]`);
                     if (messageElement) appLogic.cancelEditMessage(state.editingMessageIndex, messageElement);
                     else state.editingMessageIndex = null;
                 }
 
+                // ★ここが修正ポイント：既存の内容を一度すべて消去してリセットします（元の仕様）
                 elements.messageContainer.innerHTML = '';
+
                 let currentSiblingGroupId = null;
                 let siblingsInGroup = [];
                 let siblingIndex = 0;
 
+                const fragment = document.createDocumentFragment();
+
+
                 for (let i = 0; i < state.currentMessages.length; i++) {
                     const msg = state.currentMessages[i];
+                    let cascadeInfo = null;
+
                     if (msg.role === 'model' && msg.isCascaded && msg.siblingGroupId) {
                         if (msg.siblingGroupId !== currentSiblingGroupId) {
                             currentSiblingGroupId = msg.siblingGroupId;
                             siblingsInGroup = state.currentMessages.filter(m => m.role === 'model' && m.isCascaded && m.siblingGroupId === currentSiblingGroupId);
-                            siblingIndex = 0;
                         }
                         const currentIndexInGroup = siblingsInGroup.findIndex(m => m === msg);
                         if (currentIndexInGroup !== -1) {
                             siblingIndex = currentIndexInGroup + 1;
                         }
-
-                        if (msg.isSelected) {
-                            this.appendMessage(msg.role, msg.content, i, false, {
-                                currentIndex: siblingIndex,
-                                total: siblingsInGroup.length,
-                                siblingGroupId: currentSiblingGroupId
-                            }, msg.attachments);
-                        }
+                        cascadeInfo = {
+                            currentIndex: siblingIndex,
+                            total: siblingsInGroup.length,
+                            siblingGroupId: currentSiblingGroupId
+                        };
                     } else {
                         currentSiblingGroupId = null;
-                        siblingsInGroup = [];
-                        this.appendMessage(msg.role, msg.content, i, false, null, msg.attachments);
+                    }
+
+
+                    if (msg.role === 'model' && msg.isCascaded && msg.siblingGroupId) {
+                        if (msg.isSelected) {
+                            this.appendMessage(msg.role, msg.content, i, false, cascadeInfo, msg.attachments, fragment);
+                        }
+                    } else {
+                        this.appendMessage(msg.role, msg.content, i, false, null, msg.attachments, fragment);
                     }
                 }
-if (maintainScroll && oldScrollTop !== null) {
-                requestAnimationFrame(() => {
 
-                    mainContent.scrollTop = oldScrollTop;
-                });
-            }
+                elements.messageContainer.appendChild(fragment);
+
+
+                if (maintainScroll && oldScrollTop !== null) {
+                    requestAnimationFrame(() => {
+                        mainContent.scrollTop = oldScrollTop;
+                    });
+                }
             },
-            appendMessage(role, content, index, isStreamingPlaceholder = false, cascadeInfo = null, attachments = null) {
+appendMessage(role, content, index, isStreamingPlaceholder = false, cascadeInfo = null, attachments = null) {
                 const messageDiv = document.createElement('div');
                 messageDiv.classList.add('message', role);
                 messageDiv.dataset.index = index;
@@ -9515,12 +9900,12 @@ if (maintainScroll && oldScrollTop !== null) {
                 } else {
                     try {
                         if (role === 'model' && !isStreamingPlaceholder && typeof marked !== 'undefined') {
-                            const safeHtml = this._sanitizeAndParseMarkdown(content || '');
+                            const safeHtml = uiUtils._sanitizeAndParseMarkdown(content || '');
                             contentDiv.innerHTML = safeHtml;
-                            this.processInteractivePlaceholders(contentDiv);
-                            this.processInteractiveTitles(contentDiv);
-                            this.addCopyButtonsToCodeBlocks(contentDiv, false);
-                            this.addImageClickListeners(contentDiv);
+                            uiUtils.processInteractivePlaceholders(contentDiv);
+                            uiUtils.processInteractiveTitles(contentDiv);
+                            uiUtils.addCopyButtonsToCodeBlocks(contentDiv, false);
+                            uiUtils.addImageClickListeners(contentDiv);
                         } else if (role === 'user') {
                             const pre = document.createElement('pre'); pre.textContent = content; contentDiv.appendChild(pre);
                         } else if (role === 'error') {
@@ -9542,7 +9927,7 @@ if (maintainScroll && oldScrollTop !== null) {
                     citationDetailsDiv.id = `streaming-citations-${index}`;
                 }
                 messageDiv.appendChild(citationDetailsDiv);
-                this.renderCitations(messageData, citationDetailsDiv);
+                uiUtils.renderCitations(messageData, citationDetailsDiv);
 
                 const editArea = document.createElement('div');
                 editArea.classList.add('message-edit-area', 'hidden');
@@ -9557,7 +9942,6 @@ if (maintainScroll && oldScrollTop !== null) {
                     prevButton.title = '前の応答';
                     prevButton.classList.add('cascade-prev-btn');
                     prevButton.disabled = cascadeInfo.currentIndex <= 1;
-                    prevButton.onclick = () => appLogic.navigateCascade(index, 'prev');
                     cascadeControlsDiv.appendChild(prevButton);
 
                     const indicatorSpan = document.createElement('span');
@@ -9570,14 +9954,12 @@ if (maintainScroll && oldScrollTop !== null) {
                     nextButton.title = '次の応答';
                     nextButton.classList.add('cascade-next-btn');
                     nextButton.disabled = cascadeInfo.currentIndex >= cascadeInfo.total;
-                    nextButton.onclick = () => appLogic.navigateCascade(index, 'next');
                     cascadeControlsDiv.appendChild(nextButton);
 
                     const deleteCascadeButton = document.createElement('button');
                     deleteCascadeButton.textContent = '✕';
                     deleteCascadeButton.title = 'この応答を削除';
                     deleteCascadeButton.classList.add('cascade-delete-btn');
-                    deleteCascadeButton.onclick = () => appLogic.confirmDeleteCascadeResponse(index);
                     cascadeControlsDiv.appendChild(deleteCascadeButton);
 
                     messageDiv.appendChild(cascadeControlsDiv);
@@ -9605,22 +9987,16 @@ if (maintainScroll && oldScrollTop !== null) {
 
                     const editButton = document.createElement('button');
                     editButton.textContent = '編集'; editButton.title = 'メッセージを編集'; editButton.classList.add('js-edit-btn');
-                    editButton.onclick = () => appLogic.startEditMessage(index, messageDiv);
                     actionsDiv.appendChild(editButton);
 
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = '削除'; deleteButton.title = 'この会話ターンを削除'; deleteButton.classList.add('js-delete-btn');
-                    deleteButton.onclick = () => appLogic.deleteMessage(index);
                     actionsDiv.appendChild(deleteButton);
 
                     const copyButton = document.createElement('button');
                     copyButton.textContent = 'コピー';
                     copyButton.title = 'テキストをコピー';
                     copyButton.classList.add('js-copy-btn');
-                    copyButton.onclick = (event) => {
-                        event.stopPropagation();
-                        appLogic.copyMessageText(index, copyButton);
-                    };
                     actionsDiv.appendChild(copyButton);
 
                     if (role === 'user' || role === 'model') {
@@ -9628,10 +10004,6 @@ if (maintainScroll && oldScrollTop !== null) {
                         retryButton.textContent = 'リトライ';
                         retryButton.title = 'このメッセージから再生成';
                         retryButton.classList.add('js-retry-btn');
-                        retryButton.onclick = () => {
-                            const userIndexForRetry = (role === 'model' && index > 0) ? appLogic.findPreviousUserIndex(index) : index;
-                            if (userIndexForRetry !== -1) appLogic.retryFromMessage(userIndexForRetry);
-                        };
                         actionsDiv.appendChild(retryButton);
                     }
 
@@ -10270,6 +10642,26 @@ const getCurrentMermaidTheme = () => {
                             li.classList.remove('js-history-item-template');
                             li.dataset.chatId = chat.id;
 
+                            if (state.settings.showHistoryPreviewBubble && chat.messages && chat.messages.length > 0) {
+                                const lastMsg = chat.messages[chat.messages.length - 1];
+                                if (lastMsg && (lastMsg.role === 'user' || lastMsg.role === 'model')) {
+                                    const previewLayer = document.createElement('div');
+                                    previewLayer.classList.add('history-item-preview-layer', lastMsg.role === 'user' ? 'align-right' : 'align-left');
+                                    const bubble = document.createElement('div');
+                                    bubble.classList.add('history-preview-bubble');
+                                    let previewText = lastMsg.content;
+                                    if (!previewText && lastMsg.attachments && lastMsg.attachments.length > 0) {
+                                        previewText = `[添付ファイル: ${lastMsg.attachments[0].name} 他]`;
+                                    } else if (!previewText) {
+                                        previewText = "(空のメッセージ)";
+                                    }
+                                    if (previewText.length > 300) previewText = previewText.substring(0, 300) + "...";
+                                    bubble.textContent = previewText;
+                                    previewLayer.appendChild(bubble);
+                                    li.insertBefore(previewLayer, li.firstChild);
+                                }
+                            }
+
                             const titleText = chat.title || `履歴 ${chat.id}`;
                             const titleEl = li.querySelector('.history-item-title');
                             titleEl.textContent = titleText;
@@ -10335,18 +10727,42 @@ const getCurrentMermaidTheme = () => {
                     state.aiIconUrl = null;
                 }
             },
-            updateBackgroundSettingsUI() {
-                if (!elements.backgroundThumbnail || !elements.deleteBackgroundBtn) return;
-                if (state.backgroundImageUrl) {
-                    elements.backgroundThumbnail.src = state.backgroundImageUrl;
-                    elements.backgroundThumbnail.classList.remove('hidden');
-                    elements.deleteBackgroundBtn.classList.remove('hidden');
-                } else {
-                    elements.backgroundThumbnail.src = '';
-                    elements.backgroundThumbnail.classList.add('hidden');
-                    elements.deleteBackgroundBtn.classList.add('hidden');
+                        updateBackgroundSettingsUI() {
+                if (elements.backgroundThumbnail && elements.deleteBackgroundBtn) {
+                    if (state.backgroundImageUrl) {
+                        elements.backgroundThumbnail.src = state.backgroundImageUrl;
+                        elements.backgroundThumbnail.classList.remove('hidden');
+                        elements.deleteBackgroundBtn.classList.remove('hidden');
+                    } else {
+                        elements.backgroundThumbnail.src = '';
+                        elements.backgroundThumbnail.classList.add('hidden');
+                        elements.deleteBackgroundBtn.classList.add('hidden');
+                    }
+                }
+                if (elements.historyBgThumbnail && elements.deleteHistoryBgBtn) {
+                    if (state.historyBackgroundImageUrl) {
+                        elements.historyBgThumbnail.src = state.historyBackgroundImageUrl;
+                        elements.historyBgThumbnail.classList.remove('hidden');
+                        elements.deleteHistoryBgBtn.classList.remove('hidden');
+                    } else {
+                        elements.historyBgThumbnail.src = '';
+                        elements.historyBgThumbnail.classList.add('hidden');
+                        elements.deleteHistoryBgBtn.classList.add('hidden');
+                    }
+                }
+                if (elements.settingsBgThumbnail && elements.deleteSettingsBgBtn) {
+                    if (state.settingsBackgroundImageUrl) {
+                        elements.settingsBgThumbnail.src = state.settingsBackgroundImageUrl;
+                        elements.settingsBgThumbnail.classList.remove('hidden');
+                        elements.deleteSettingsBgBtn.classList.remove('hidden');
+                    } else {
+                        elements.settingsBgThumbnail.src = '';
+                        elements.settingsBgThumbnail.classList.add('hidden');
+                        elements.deleteSettingsBgBtn.classList.add('hidden');
+                    }
                 }
             },
+
             updateIconSettingsUI() {
                 if (state.userIconUrl) {
                     elements.userIconThumbnail.src = state.userIconUrl;
@@ -10475,6 +10891,9 @@ const getCurrentMermaidTheme = () => {
                 );
                 document.documentElement.style.setProperty('--thought-summary-opacity',
                     state.settings.enableThoughtSummaryOpacity ? state.settings.thoughtSummaryOpacity : 1
+                );
+                document.documentElement.style.setProperty('--cryscroller-scroll-active-opacity',
+                    state.settings.enableCryscrollerScrollActiveOpacity ? state.settings.cryscrollerScrollActiveOpacity : DEFAULT_CRYSCROLLER_SCROLL_ACTIVE_OPACITY
                 );
 
                 let headerColor, secondaryColor, userMessageColor, modelMessageColor, overlayBaseColor, tertiaryColorRgbStr;
@@ -10914,6 +11333,28 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                 elements.swipeNavigationToggle.checked = state.settings.enableSwipeNavigation;
                 elements.preventZoomToggle.checked = state.settings.preventZoom;
                 elements.minimizeHeaderFooterToggle.checked = state.settings.minimizeHeaderFooter;
+                if (state.settings.enableCryscrollerScroll === undefined) {
+                    state.settings.enableCryscrollerScroll = false;
+                }
+                elements.enableCryscrollerScrollToggle.checked = state.settings.enableCryscrollerScroll;
+                document.body.classList.toggle('cryscroller-scroll-enabled', state.settings.enableCryscrollerScroll);
+                
+                elements.enableSettingsCryscrollerScrollToggle.checked = state.settings.enableSettingsCryscrollerScroll;
+                document.body.classList.toggle('settings-cryscroller-scroll-enabled', state.settings.enableSettingsCryscrollerScroll);
+                if (state.settings.enableSettingsCryscrollerScroll) { window.dispatchEvent(new Event('resize')); }
+
+                elements.enableHistoryCryscrollerScrollToggle.checked = state.settings.enableHistoryCryscrollerScroll;
+                document.body.classList.toggle('history-cryscroller-scroll-enabled', state.settings.enableHistoryCryscrollerScroll);
+                if (state.settings.enableHistoryCryscrollerScroll) { window.dispatchEvent(new Event('resize')); }
+
+                elements.enableImmersiveScrollingToggle.checked = state.settings.enableImmersiveScrolling;
+                appLogic.updateImmersiveLayout();
+                elements.enableDynamicScrollMarkerColorToggle.checked = state.settings.enableDynamicScrollMarkerColor;
+                
+                const currentScrollWidth = state.settings.cryscrollerScrollWidth || DEFAULT_CRYSCROLLER_SCROLL_WIDTH;
+                elements.cryscrollerScrollWidthInput.value = currentScrollWidth;
+                document.getElementById('cryscroller-scroll-width-input-slider').value = currentScrollWidth;
+                document.documentElement.style.setProperty('--cryscroller-scroll-width', `${currentScrollWidth}px`);
                 elements.extendAiBubbleWidthToggle.checked = state.settings.extendAiBubbleWidth;
                 elements.extendUserBubbleWidthToggle.checked = state.settings.extendUserBubbleWidth;
                                 elements.reduceMessageSpacingToggle.checked = state.settings.reduceMessageSpacing;
@@ -10954,6 +11395,8 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                 elements.messageActionsBackgroundOpacityInput.value = state.settings.messageActionsBackgroundOpacity ?? DEFAULT_MESSAGE_ACTIONS_BACKGROUND_OPACITY;
                 elements.toggleButtonTopOpacityInput.value = state.settings.toggleButtonTopOpacity ?? DEFAULT_TOGGLE_BUTTON_TOP_OPACITY;
                 elements.thoughtSummaryOpacityInput.value = state.settings.thoughtSummaryOpacity ?? DEFAULT_THOUGHT_SUMMARY_OPACITY;
+                document.getElementById('cryscroller-scroll-opacity').value = state.settings.cryscrollerScrollOpacity ?? DEFAULT_CRYSCROLLER_SCROLL_OPACITY;
+                document.getElementById('cryscroller-scroll-active-opacity').value = state.settings.cryscrollerScrollActiveOpacity ?? DEFAULT_CRYSCROLLER_SCROLL_ACTIVE_OPACITY;
     elements.enableElevationToggle.checked = state.settings.enableElevation;
     elements.enableElevationHoverToggle.checked = state.settings.enableElevationHover;
     elements.elevationHoverOption.classList.toggle('hidden', !state.settings.enableElevation);
@@ -11035,8 +11478,7 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                 elements.toggleButtonBottomFontSizeInput.value = state.settings.toggleButtonBottomFontSize ?? DEFAULT_TOGGLE_BUTTON_BOTTOM_FONT_SIZE;
                 elements.toggleButtonBottomTextCollapseInput.value = state.settings.toggleButtonBottomTextCollapse || DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_COLLAPSE;
                 elements.toggleButtonBottomTextExpandInput.value = state.settings.toggleButtonBottomTextExpand || DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_EXPAND;
-                elements.thoughtSummaryOpacityInput.value = state.settings.thoughtSummaryOpacity ?? DEFAULT_THOUGHT_SUMMARY_OPACITY;
-                elements.dummyErrorDebugModeCheckbox.checked = state.settings.dummyErrorDebugMode;
+                document.getElementById('cryscroller-scroll-opacity').value = state.settings.cryscrollerScrollOpacity ?? DEFAULT_CRYSCROLLER_SCROLL_OPACITY;
 
                 document.documentElement.style.setProperty('--message-body-font-size', `${state.settings.messageBodyFontSize || DEFAULT_MESSAGE_BODY_FONT_SIZE}px`);
                 document.documentElement.style.setProperty('--code-block-font-size', `${state.settings.codeBlockFontSize || DEFAULT_CODE_BLOCK_FONT_SIZE}px`);
@@ -11051,6 +11493,10 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                 document.documentElement.style.setProperty('--thought-summary-opacity', state.settings.thoughtSummaryOpacity || DEFAULT_THOUGHT_SUMMARY_OPACITY);
 
                 this.applySettingsUIDetailsOpenStates();
+                if (state.settings.autoCloseOtherSettings) {
+                    const otherDetails = document.getElementById('settings-group-other-details');
+                    if (otherDetails) otherDetails.open = false;
+                }
                 this.updateChatScreenElementVisibility();
                 this.updateHistoryHeaderButtonVisibility();
                 this.updateUserModelOptions();
@@ -11073,7 +11519,7 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                     elements.settingsScreen.classList.toggle('auto-save-mode', state.settings.autoSaveSettings);
 
 
-                // 正しい設定キーを指定してリスナーを登録するヘルパー関数
+
                 const setupModelListener = (textareaElement, settingKey, updateFunction) => {
                     textareaElement.addEventListener('input', () => {
                         state.settings[settingKey] = textareaElement.value;
@@ -11081,14 +11527,14 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                     });
                 };
 
-                // 各プロバイダーごとに正しい設定キーを割り当て
+
                 setupModelListener(elements.geminiAdditionalModelsTextarea, 'additionalModels', uiUtils.updateUserModelOptions);
                 setupModelListener(elements.deepSeekAdditionalModelsTextarea, 'deepSeekAdditionalModels', uiUtils.updateDeepSeekUserModelOptions);
                 setupModelListener(elements.claudeAdditionalModelsTextarea, 'claudeAdditionalModels', uiUtils.updateClaudeUserModelOptions);
                 setupModelListener(elements.openaiAdditionalModelsTextarea, 'openaiAdditionalModels', uiUtils.updateOpenAIUserModelOptions);
                 setupModelListener(elements.xaiAdditionalModelsTextarea, 'xaiAdditionalModels', uiUtils.updateXaiUserModelOptions);
                 setupModelListener(elements.llmAggregatorAdditionalModelsTextarea, 'llmAggregatorAdditionalModels', uiUtils.updateLlmAggregatorUserModelOptions);
-                // --- ここまで ---
+
                 this.updateMemoStackHeightSettingsVisibility();
                 this.updateTwinEngineModeButton();
                 this.updateTwinEngineApiKeyCycleButton();
@@ -11574,7 +12020,12 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                     return;
                 }
 
-                const allScreens = [elements.chatScreen, elements.historyScreen, elements.settingsScreen];
+                // チャット画面へ戻る際、現在最下部にいるかを判定しておく
+                const chatMain = elements.chatScreen.querySelector('.main-content');
+                // 判定を少し緩くして(100px)、キーボード開閉等のズレも許容する
+                const isChatAtBottom = screenName === 'chat' && (chatMain.scrollHeight - chatMain.scrollTop - chatMain.clientHeight < 100);
+
+                                                const allScreens = [elements.chatScreen, elements.historyScreen, elements.settingsScreen];
                 let activeScreen = null;
 
                 if (!fromPopState) {
@@ -11587,7 +12038,9 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
 
                 allScreens.forEach(screen => {
                     screen.classList.remove('active');
+                    screen.classList.remove('dormant');
                     screen.inert = true;
+                    void screen.offsetWidth;
                 });
 
                 if (screenName === 'chat') {
@@ -11620,9 +12073,34 @@ elements.footerTapScrollToBottomToggle.checked = state.settings.footerTapScrollT
                     if (activeScreen) {
                         activeScreen.inert = false;
                         activeScreen.classList.add('active');
+
+                        if (state.settings.enableImmersiveScrolling) {
+                            appLogic.updateImmersiveLayout();
+
+                            if (screenName === 'chat' && isChatAtBottom) {
+                                chatMain.scrollTop = chatMain.scrollHeight;
+                            }
+
+                            setTimeout(() => {
+                                appLogic.updateImmersiveLayout();
+
+                                if (screenName === 'chat' && isChatAtBottom) {
+                                    chatMain.scrollTop = chatMain.scrollHeight;
+                                }
+                            }, 305);
+                        }
                     }
+                    setTimeout(() => {
+                        allScreens.forEach(screen => {
+                            if (!screen.classList.contains('active')) {
+                                screen.classList.add('dormant');
+                            }
+                        });
+                    }, 350);
                 });
                 state.currentScreen = screenName;
+
+
             },
                         setSendingState(sending) {
                 state.isSending = sending;
@@ -12495,6 +12973,18 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                     window.addEventListener('beforeinstallprompt', (event) => { event.preventDefault(); });
                     registerServiceWorker();
 
+                    if (navigator.storage && navigator.storage.persist) {
+                        try {
+                            const isPersisted = await navigator.storage.persisted();
+                            if (!isPersisted) {
+                                await navigator.storage.persist();
+                            }
+                        } catch (e) {
+                            console.warn("Storage persistence request failed:", e);
+                        }
+                    }
+
+
                     await dbUtils.openDB();
                     await dbUtils.loadSettings();
                     if (navigator.storage && navigator.storage.persist) { navigator.storage.persist(); }
@@ -12512,13 +13002,39 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                         try {
                             state.backgroundImageUrl = URL.createObjectURL(state.settings.backgroundImageBlob);
                             document.documentElement.style.setProperty('--chat-background-image', `url(${state.backgroundImageUrl})`);
-                        } catch (e) {
+                                                } catch (e) {
                             document.documentElement.style.setProperty('--chat-background-image', 'none');
                         }
                     } else {
                         document.documentElement.style.setProperty('--chat-background-image', 'none');
                     }
+
+                    if (state.settings.historyBackgroundImageBlob instanceof Blob) {
+                        try {
+                            if (state.historyBackgroundImageUrl) URL.revokeObjectURL(state.historyBackgroundImageUrl);
+                            state.historyBackgroundImageUrl = URL.createObjectURL(state.settings.historyBackgroundImageBlob);
+                            document.documentElement.style.setProperty('--history-background-image', `url(${state.historyBackgroundImageUrl})`);
+                        } catch (e) {
+                            document.documentElement.style.setProperty('--history-background-image', 'none');
+                        }
+                    } else {
+                        document.documentElement.style.setProperty('--history-background-image', 'none');
+                    }
+
+                    if (state.settings.settingsBackgroundImageBlob instanceof Blob) {
+                        try {
+                            if (state.settingsBackgroundImageUrl) URL.revokeObjectURL(state.settingsBackgroundImageUrl);
+                            state.settingsBackgroundImageUrl = URL.createObjectURL(state.settings.settingsBackgroundImageBlob);
+                            document.documentElement.style.setProperty('--settings-background-image', `url(${state.settingsBackgroundImageUrl})`);
+                        } catch (e) {
+                            document.documentElement.style.setProperty('--settings-background-image', 'none');
+                        }
+                    } else {
+                        document.documentElement.style.setProperty('--settings-background-image', 'none');
+                    }
+
                     if (state.settings.userIconBlob instanceof Blob) {
+
                         try { state.userIconUrl = URL.createObjectURL(state.settings.userIconBlob); } catch (e) { }
                     }
                     if (state.settings.aiIconBlob instanceof Blob) {
@@ -12741,10 +13257,31 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 if (elements.debugCheckAllBtn) {
                     elements.debugCheckAllBtn.addEventListener('click', () => this.toggleAllSettingsCheckboxes(true));
                 }
-                if (elements.debugUncheckAllBtn) {
+                                if (elements.debugUncheckAllBtn) {
                     elements.debugUncheckAllBtn.addEventListener('click', () => this.toggleAllSettingsCheckboxes(false));
                 }
+                if (elements.debugExpandAllBtn) {
+                    elements.debugExpandAllBtn.addEventListener('click', () => {
+                        document.querySelectorAll('#settings-screen details').forEach(el => {
+                            el.open = true;
+                            if (el.id) state.settings.settingsUIDetailsOpenStates[el.id] = true;
+                        });
+                    });
+                }
+                if (elements.debugCollapseAllBtn) {
+                    elements.debugCollapseAllBtn.addEventListener('click', () => {
+
+                        const parentDetails = elements.debugCollapseAllBtn.closest('details');
+                        document.querySelectorAll('#settings-screen details').forEach(el => {
+                            if (el !== parentDetails) {
+                                el.open = false;
+                                if (el.id) state.settings.settingsUIDetailsOpenStates[el.id] = false;
+                            }
+                        });
+                    });
+                }
                 document.getElementById('force-recovery-btn').addEventListener('click', async () => {
+
                     const confirmed = await uiUtils.showCustomConfirm(
                         "強制復旧を実行しますか？\n\n" +
                         "この操作により：\n" +
@@ -12827,17 +13364,82 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                     uiUtils.updateTwinEngineModeButton();
                 });
 
+                                const handleBgUpload = async (file, type) => {
+                    if (!file) return;
+                    if (file.size > MAX_FILE_SIZE) {
+                        await uiUtils.showCustomAlert(`ファイルサイズが大きすぎます (${formatFileSize(file.size)})。${formatFileSize(MAX_FILE_SIZE)}以下にしてください。`);
+                        return;
+                    }
+                    const objectUrl = URL.createObjectURL(file);
+                    if (type === 'chat') {
+                        if (state.backgroundImageUrl) URL.revokeObjectURL(state.backgroundImageUrl);
+                        state.backgroundImageUrl = objectUrl;
+                        state.settings.backgroundImageBlob = file;
+                        document.documentElement.style.setProperty('--chat-background-image', `url(${objectUrl})`);
+                        await dbUtils.saveSetting('backgroundImageBlob', file);
+                    } else if (type === 'history') {
+                        if (state.historyBackgroundImageUrl) URL.revokeObjectURL(state.historyBackgroundImageUrl);
+                        state.historyBackgroundImageUrl = objectUrl;
+                        state.settings.historyBackgroundImageBlob = file;
+                        document.documentElement.style.setProperty('--history-background-image', `url(${objectUrl})`);
+                        await dbUtils.saveSetting('historyBackgroundImageBlob', file);
+                    } else if (type === 'settings') {
+                        if (state.settingsBackgroundImageUrl) URL.revokeObjectURL(state.settingsBackgroundImageUrl);
+                        state.settingsBackgroundImageUrl = objectUrl;
+                        state.settings.settingsBackgroundImageBlob = file;
+                        document.documentElement.style.setProperty('--settings-background-image', `url(${objectUrl})`);
+                        await dbUtils.saveSetting('settingsBackgroundImageBlob', file);
+                    }
+                    uiUtils.updateBackgroundSettingsUI();
+                    if (state.settings.autoSaveSettings) this.saveSettings(false);
+                };
+
+                const confirmDeleteBg = async (type) => {
+                    const confirmed = await uiUtils.showCustomConfirm("背景画像を削除しますか？");
+                    if (confirmed) {
+                        if (type === 'chat') {
+                            if (state.backgroundImageUrl) URL.revokeObjectURL(state.backgroundImageUrl);
+                            state.backgroundImageUrl = null;
+                            state.settings.backgroundImageBlob = null;
+                            document.documentElement.style.setProperty('--chat-background-image', 'none');
+                            await dbUtils.saveSetting('backgroundImageBlob', null);
+                        } else if (type === 'history') {
+                            if (state.historyBackgroundImageUrl) URL.revokeObjectURL(state.historyBackgroundImageUrl);
+                            state.historyBackgroundImageUrl = null;
+                            state.settings.historyBackgroundImageBlob = null;
+                            document.documentElement.style.setProperty('--history-background-image', 'none');
+                            await dbUtils.saveSetting('historyBackgroundImageBlob', null);
+                        } else if (type === 'settings') {
+                            if (state.settingsBackgroundImageUrl) URL.revokeObjectURL(state.settingsBackgroundImageUrl);
+                            state.settingsBackgroundImageUrl = null;
+                            state.settings.settingsBackgroundImageBlob = null;
+                            document.documentElement.style.setProperty('--settings-background-image', 'none');
+                            await dbUtils.saveSetting('settingsBackgroundImageBlob', null);
+                        }
+                        uiUtils.updateBackgroundSettingsUI();
+                        if (state.settings.autoSaveSettings) this.saveSettings(false);
+                    }
+                };
+
                 elements.uploadBackgroundBtn.addEventListener('click', () => elements.backgroundImageInput.click());
-                elements.backgroundImageInput.addEventListener('change', (event) => {
-                    const file = event.target.files[0];
-                    if (file) this.handleBackgroundImageUpload(file);
-                    event.target.value = null;
-                });
-                elements.deleteBackgroundBtn.addEventListener('click', () => this.confirmDeleteBackgroundImage());
+                elements.backgroundImageInput.addEventListener('change', (e) => { handleBgUpload(e.target.files[0], 'chat'); e.target.value = null; });
+                elements.deleteBackgroundBtn.addEventListener('click', () => confirmDeleteBg('chat'));
+
+                if (elements.uploadHistoryBgBtn) {
+                    elements.uploadHistoryBgBtn.addEventListener('click', () => elements.historyBgInput.click());
+                    elements.historyBgInput.addEventListener('change', (e) => { handleBgUpload(e.target.files[0], 'history'); e.target.value = null; });
+                    elements.deleteHistoryBgBtn.addEventListener('click', () => confirmDeleteBg('history'));
+                }
+                if (elements.uploadSettingsBgBtn) {
+                    elements.uploadSettingsBgBtn.addEventListener('click', () => elements.settingsBgInput.click());
+                    elements.settingsBgInput.addEventListener('change', (e) => { handleBgUpload(e.target.files[0], 'settings'); e.target.value = null; });
+                    elements.deleteSettingsBgBtn.addEventListener('click', () => confirmDeleteBg('settings'));
+                }
+
 
                 elements.showUserIconToggle.addEventListener('change', () => {
                     state.settings.showUserIcon = elements.showUserIconToggle.checked;
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.uploadUserIconBtn.addEventListener('click', () => elements.userIconInput.click());
                 elements.userIconInput.addEventListener('change', (event) => {
@@ -12848,12 +13450,12 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 elements.deleteUserIconBtn.addEventListener('click', () => this.confirmDeleteIcon('user'));
                 elements.showUserNameToggle.addEventListener('change', () => {
                     state.settings.showUserName = elements.showUserNameToggle.checked;
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
 
                 elements.showAiIconToggle.addEventListener('change', () => {
                     state.settings.showAiIcon = elements.showAiIconToggle.checked;
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.uploadAiIconBtn.addEventListener('click', () => elements.aiIconInput.click());
                 elements.aiIconInput.addEventListener('change', (event) => {
@@ -12864,7 +13466,7 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 elements.deleteAiIconBtn.addEventListener('click', () => this.confirmDeleteIcon('ai'));
                 elements.showAiNameToggle.addEventListener('change', () => {
                     state.settings.showAiName = elements.showAiNameToggle.checked;
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.iconNameFontSizeInput.addEventListener('input', () => {
                     const newSize = parseInt(elements.iconNameFontSizeInput.value, 10);
@@ -12905,42 +13507,42 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 elements.userNameBubbleToggle.addEventListener('change', () => {
                     state.settings.showUserNameBubble = elements.userNameBubbleToggle.checked;
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.userNameBubbleUseThemeColorToggle.addEventListener('change', () => {
                     state.settings.userNameBubbleUseThemeColor = elements.userNameBubbleUseThemeColorToggle.checked;
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.userNameBubbleColorInput.addEventListener('input', () => {
                     state.settings.userNameBubbleColor = elements.userNameBubbleColorInput.value.trim() || DEFAULT_USER_NAME_BUBBLE_COLOR;
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.userNameBubbleOpacityInput.addEventListener('input', () => {
                     state.settings.userNameBubbleOpacity = elements.userNameBubbleOpacityInput.value === '' ? DEFAULT_USER_NAME_BUBBLE_OPACITY : parseFloat(elements.userNameBubbleOpacityInput.value);
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.aiNameBubbleToggle.addEventListener('change', () => {
                     state.settings.showAiNameBubble = elements.aiNameBubbleToggle.checked;
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.aiNameBubbleUseThemeColorToggle.addEventListener('change', () => {
                     state.settings.aiNameBubbleUseThemeColor = elements.aiNameBubbleUseThemeColorToggle.checked;
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.aiNameBubbleColorInput.addEventListener('input', () => {
                     state.settings.aiNameBubbleColor = elements.aiNameBubbleColorInput.value.trim() || DEFAULT_AI_NAME_BUBBLE_COLOR;
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
                 elements.aiNameBubbleOpacityInput.addEventListener('input', () => {
                     state.settings.aiNameBubbleOpacity = elements.aiNameBubbleOpacityInput.value === '' ? DEFAULT_AI_NAME_BUBBLE_OPACITY : parseFloat(elements.aiNameBubbleOpacityInput.value);
                     uiUtils.applySidePanelSettingsToUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 });
 
                 this._setupOpacitySlider('message-bubble-opacity', '--message-bubble-opacity', DEFAULT_MESSAGE_BUBBLE_OPACITY);
@@ -12949,9 +13551,18 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 this._setupOpacitySlider('header-footer-opacity', '--header-footer-opacity', DEFAULT_HEADER_FOOTER_OPACITY);
                 this._setupOpacitySlider('toggle-button-top-opacity', '--message-toggle-button-top-opacity', DEFAULT_TOGGLE_BUTTON_TOP_OPACITY);
                 this._setupOpacitySlider('thought-summary-opacity', '--thought-summary-opacity', DEFAULT_THOUGHT_SUMMARY_OPACITY);
+                this._setupOpacitySlider('cryscroller-scroll-opacity', '--cryscroller-scroll-opacity', DEFAULT_CRYSCROLLER_SCROLL_OPACITY);
+                this._setupOpacitySlider('cryscroller-scroll-active-opacity', '--cryscroller-scroll-active-opacity', DEFAULT_CRYSCROLLER_SCROLL_ACTIVE_OPACITY);
                 this._setupFontSizeSlider('message-body-font-size-input', '--message-body-font-size', DEFAULT_MESSAGE_BODY_FONT_SIZE);
                 this._setupFontSizeSlider('code-block-font-size-input', '--code-block-font-size', DEFAULT_CODE_BLOCK_FONT_SIZE);
                 this._setupFontSizeSlider('thought-summary-font-size', '--thought-summary-font-size', DEFAULT_THOUGHT_SUMMARY_FONT_SIZE);
+                this._setupFontSizeSlider('cryscroller-scroll-width-input', '--cryscroller-scroll-width', DEFAULT_CRYSCROLLER_SCROLL_WIDTH);
+
+                const delayVal = state.settings.cryscrollerObserverDelay || 500;
+                elements.cryscrollerObserverDelayInput.value = delayVal;
+                document.getElementById('cryscroller-observer-delay-slider').value = delayVal;
+                elements.cryscrollerObserverDelayInput.oninput = (e) => document.getElementById('cryscroller-observer-delay-slider').value = e.target.value;
+                document.getElementById('cryscroller-observer-delay-slider').oninput = (e) => elements.cryscrollerObserverDelayInput.value = e.target.value;
                 this._setupUiScaleSlider('chat-ui-scale-input', '--chat-ui-scale', 1.0);
                 this._setupUiScaleSlider('settings-ui-scale-input', '--settings-ui-scale', 1.0);
                 this._setupUiScaleSlider('history-ui-scale-input', '--history-ui-scale', 1.0);
@@ -13046,10 +13657,7 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                     state.settings.showToggleAllContentButton = elements.showToggleAllContentButtonToggle.checked;
                     uiUtils.updateChatScreenElementVisibility();
                 });
-                elements.showBulkHistoryActionsToggle.addEventListener('change', () => {
-                    state.settings.showBulkHistoryActions = elements.showBulkHistoryActionsToggle.checked;
-                    uiUtils.updateHistoryHeaderButtonVisibility();
-                });
+
                 elements.showPasteButtonInFooterToggle.addEventListener('change', () => {
                     state.settings.showPasteButtonInFooter = elements.showPasteButtonInFooterToggle.checked;
                     uiUtils.updateChatScreenElementVisibility();
@@ -13074,6 +13682,31 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                     state.settings.minimizeHeaderFooter = e.target.checked;
                     uiUtils.applyMinimizeUI();
                 });
+                elements.enableCryscrollerScrollToggle.addEventListener('change', (e) => {
+                    state.settings.enableCryscrollerScroll = e.target.checked;
+                    document.body.classList.toggle('cryscroller-scroll-enabled', state.settings.enableCryscrollerScroll);
+                });
+                elements.enableImmersiveScrollingToggle.addEventListener('change', (e) => {
+                    state.settings.enableImmersiveScrolling = e.target.checked;
+                    appLogic.updateImmersiveLayout();
+                });
+                elements.enableDynamicScrollMarkerColorToggle.addEventListener('change', (e) => {
+                    state.settings.enableDynamicScrollMarkerColor = e.target.checked;
+                    window.dispatchEvent(new Event('resize'));
+                });
+                appLogic.initCryscrollerScroll();
+                elements.enableSettingsCryscrollerScrollToggle.addEventListener('change', (e) => {
+                    state.settings.enableSettingsCryscrollerScroll = e.target.checked;
+                    document.body.classList.toggle('settings-cryscroller-scroll-enabled', state.settings.enableSettingsCryscrollerScroll);
+                    window.dispatchEvent(new Event('resize'));
+                });
+                appLogic.initSettingsCryscrollerScroll();
+                elements.enableHistoryCryscrollerScrollToggle.addEventListener('change', (e) => {
+                    state.settings.enableHistoryCryscrollerScroll = e.target.checked;
+                    document.body.classList.toggle('history-cryscroller-scroll-enabled', state.settings.enableHistoryCryscrollerScroll);
+                    window.dispatchEvent(new Event('resize'));
+                });
+                appLogic.initHistoryCryscrollerScroll();
                 elements.extendAiBubbleWidthToggle.addEventListener('change', (e) => {
                     state.settings.extendAiBubbleWidth = e.target.checked;
                     uiUtils.applyAiBubbleWidthSetting();
@@ -13146,6 +13779,17 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 elements.showBulkHistoryActionsToggle.addEventListener('change', () => {
                     state.settings.showBulkHistoryActions = elements.showBulkHistoryActionsToggle.checked;
                     uiUtils.updateHistoryHeaderButtonVisibility();
+                });
+                elements.showHistoryPreviewBubbleToggle.checked = state.settings.showHistoryPreviewBubble;
+                elements.showHistoryPreviewBubbleToggle.addEventListener('change', () => {
+                    state.settings.showHistoryPreviewBubble = elements.showHistoryPreviewBubbleToggle.checked;
+                    uiUtils.renderHistoryList();
+                });
+                elements.stripedHistoryListToggle.checked = state.settings.stripedHistoryList;
+                elements.historyList.classList.toggle('striped', state.settings.stripedHistoryList);
+                elements.stripedHistoryListToggle.addEventListener('change', () => {
+                    state.settings.stripedHistoryList = elements.stripedHistoryListToggle.checked;
+                    elements.historyList.classList.toggle('striped', state.settings.stripedHistoryList);
                 });
                 elements.messageBubbleOpacityInput.addEventListener('input', () => {
                     const opacity = parseFloat(elements.messageBubbleOpacityInput.value);
@@ -13253,10 +13897,48 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 }, true);
 
                 elements.messageContainer.addEventListener('click', (event) => {
-                    const clickedMessage = event.target.closest('.message');
-                    if (event.target.closest('.message-actions button, .message-cascade-controls button, .message-toggle-button, .interactive-title-content, .code-copy-button, a[href="#"], .thought-summary-details summary, .attachment-actions button, .add-more-attachments-btn')) {
+                    const target = event.target;
+                    const button = target.closest('button');
+                    const clickedMessage = target.closest('.message');
+
+                    if (button && clickedMessage) {
+                        const index = parseInt(clickedMessage.dataset.index, 10);
+
+                        if (button.classList.contains('cascade-prev-btn')) {
+                            appLogic.navigateCascade(index, 'prev'); return;
+                        }
+                        if (button.classList.contains('cascade-next-btn')) {
+                            appLogic.navigateCascade(index, 'next'); return;
+                        }
+                        if (button.classList.contains('cascade-delete-btn')) {
+                            appLogic.confirmDeleteCascadeResponse(index); return;
+                        }
+
+                        if (button.classList.contains('message-toggle-button')) {
+                            uiUtils.toggleMessageCollapse(index); return;
+                        }
+
+                        if (button.classList.contains('js-edit-btn')) {
+                            appLogic.startEditMessage(index, clickedMessage); return;
+                        }
+                        if (button.classList.contains('js-delete-btn')) {
+                            appLogic.deleteMessage(index); return;
+                        }
+                        if (button.classList.contains('js-copy-btn')) {
+                            appLogic.copyMessageText(index, button); return;
+                        }
+                        if (button.classList.contains('js-retry-btn')) {
+                            const role = clickedMessage.classList.contains('model') ? 'model' : 'user';
+                            const userIndexForRetry = (role === 'model' && index > 0) ? appLogic.findPreviousUserIndex(index) : index;
+                            if (userIndexForRetry !== -1) appLogic.retryFromMessage(userIndexForRetry);
+                            return;
+                        }
+                    }
+
+                    if (target.closest('.interactive-title-content, .code-copy-button, a[href="#"], .thought-summary-details summary, .attachment-actions button, .add-more-attachments-btn')) {
                         return;
                     }
+
                     if (clickedMessage) {
                         const currentlyShown = elements.messageContainer.querySelector('.message.show-actions');
                         if (currentlyShown && currentlyShown !== clickedMessage) {
@@ -13618,11 +14300,6 @@ helpIcons.forEach(icon => {
                 state.isSwiping = false;
             },
             toggleMemo() {
-                if (state.editingMessageIndex !== null) {
-                    uiUtils.showCustomAlert("メッセージ編集中はメモを開閉できません。");
-                    return;
-                }
-
                 state.isMemoVisible = !state.isMemoVisible;
                 elements.memoArea.classList.toggle('hidden', !state.isMemoVisible);
 
@@ -13713,11 +14390,6 @@ helpIcons.forEach(icon => {
                 }
             },
             toggleClipboardStack() {
-                if (state.editingMessageIndex !== null) {
-                    uiUtils.showCustomAlert("メッセージ編集中はクリップボードスタックを開閉できません。");
-                    return;
-                }
-
                 state.isClipboardStackVisible = !state.isClipboardStackVisible;
                 elements.clipboardStackArea.classList.toggle('hidden', !state.isClipboardStackVisible);
 
@@ -13811,11 +14483,6 @@ helpIcons.forEach(icon => {
                 }
             },
             toggleTwinEngineSummary() {
-                if (state.editingMessageIndex !== null) {
-                    uiUtils.showCustomAlert("メッセージ編集中は要約履歴パネルを開閉できません。");
-                    return;
-                }
-
                 state.isTwinEngineSummaryVisible = !state.isTwinEngineSummaryVisible;
                 elements.twinEngineSummaryArea.classList.toggle('hidden', !state.isTwinEngineSummaryVisible);
 
@@ -14593,6 +15260,10 @@ helpIcons.forEach(icon => {
                 }
             },
             async handleSend(isRetry = false, retryUserMessageIndex = -1, sourceSessionContext = null, isTopLevelCall = true, retryCount = 0) {
+                if (!sourceSessionContext && isTopLevelCall) {
+                    await this.commitAllOpenEdits();
+                }
+
                 const isBackgroundProcess = !!sourceSessionContext;
 
                 let apiKeyToUse, modelNameToUse, selectedApiProvider;
@@ -16271,7 +16942,7 @@ uiUtils.renderChatMessages(shouldMaintainScroll);
                         state.aiIconUrl = URL.createObjectURL(blob);
                     }
                     uiUtils.updateIconSettingsUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 } catch (error) {
                     await uiUtils.showCustomAlert(`${type === 'user' ? 'ユーザー' : 'AI'}アイコンの処理エラー: ${error}`);
                 }
@@ -16297,7 +16968,7 @@ uiUtils.renderChatMessages(shouldMaintainScroll);
                         await dbUtils.saveSetting('aiIconBlob', null);
                     }
                     uiUtils.updateIconSettingsUI();
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
                 } catch (error) {
                     await uiUtils.showCustomAlert(`${type === 'user' ? 'ユーザー' : 'AI'}アイコンの削除エラー: ${error}`);
                 }
@@ -16536,6 +17207,11 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 newSettings.enableSwipeNavigation = elements.swipeNavigationToggle.checked;
                 newSettings.preventZoom = elements.preventZoomToggle.checked;
                 newSettings.minimizeHeaderFooter = document.getElementById('minimize-header-footer-toggle').checked;
+                newSettings.enableCryscrollerScroll = elements.enableCryscrollerScrollToggle.checked;
+                newSettings.enableImmersiveScrolling = elements.enableImmersiveScrollingToggle.checked;
+                newSettings.enableDynamicScrollMarkerColor = elements.enableDynamicScrollMarkerColorToggle.checked;
+                const scrollWidth = parseInt(elements.cryscrollerScrollWidthInput.value, 10);
+                newSettings.cryscrollerScrollWidth = (isNaN(scrollWidth) || scrollWidth < 10) ? DEFAULT_CRYSCROLLER_SCROLL_WIDTH : scrollWidth;
                 newSettings.extendAiBubbleWidth = elements.extendAiBubbleWidthToggle.checked;
                                 newSettings.extendUserBubbleWidth = elements.extendUserBubbleWidthToggle.checked;
                                 newSettings.reduceMessageSpacing = elements.reduceMessageSpacingToggle.checked;
@@ -16554,6 +17230,9 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 newSettings.showScrollToBottomButton = elements.showScrollToBottomButtonToggle.checked;
                 newSettings.showToggleAllContentButton = elements.showToggleAllContentButtonToggle.checked;
                 newSettings.showBulkHistoryActions = elements.showBulkHistoryActionsToggle.checked;
+                newSettings.showHistoryPreviewBubble = elements.showHistoryPreviewBubbleToggle.checked;
+                newSettings.stripedHistoryList = elements.stripedHistoryListToggle.checked;
+                newSettings.cryscrollerObserverDelay = parseInt(elements.cryscrollerObserverDelayInput.value, 10) || 500;
                 newSettings.showPasteButtonInFooter = elements.showPasteButtonInFooterToggle.checked;
                 newSettings.showPasteButtonInEdit = elements.showPasteButtonInEditToggle.checked;
                 newSettings.showDiceButton = elements.showDiceButtonToggle.checked;
@@ -16604,6 +17283,17 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 newSettings.toggleButtonBottomTextCollapse = elements.toggleButtonBottomTextCollapseInput.value.trim() || DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_COLLAPSE;
                 newSettings.toggleButtonBottomTextExpand = elements.toggleButtonBottomTextExpandInput.value.trim() || DEFAULT_TOGGLE_BUTTON_BOTTOM_TEXT_EXPAND;
                 newSettings.thoughtSummaryOpacity = elements.thoughtSummaryOpacityInput.value === '' ? DEFAULT_THOUGHT_SUMMARY_OPACITY : parseFloat(elements.thoughtSummaryOpacityInput.value);
+                
+                const cryscrollerScrollOpacityInput = document.getElementById('cryscroller-scroll-opacity');
+                newSettings.cryscrollerScrollOpacity = cryscrollerScrollOpacityInput.value === '' ? DEFAULT_CRYSCROLLER_SCROLL_OPACITY : parseFloat(cryscrollerScrollOpacityInput.value);
+                newSettings.enableCryscrollerScrollOpacity = document.querySelector('.opacity-disable-checkbox[data-target-id="cryscroller-scroll-opacity"]').checked;
+
+                const cryscrollerScrollActiveOpacityInput = document.getElementById('cryscroller-scroll-active-opacity');
+                newSettings.cryscrollerScrollActiveOpacity = cryscrollerScrollActiveOpacityInput.value === '' ? DEFAULT_CRYSCROLLER_SCROLL_ACTIVE_OPACITY : parseFloat(cryscrollerScrollActiveOpacityInput.value);
+                newSettings.enableCryscrollerScrollActiveOpacity = document.querySelector('.opacity-disable-checkbox[data-target-id="cryscroller-scroll-active-opacity"]').checked;
+
+                newSettings.enableSettingsCryscrollerScroll = elements.enableSettingsCryscrollerScrollToggle.checked;
+                newSettings.enableHistoryCryscrollerScroll = elements.enableHistoryCryscrollerScrollToggle.checked;
                 newSettings.enableElevation = elements.enableElevationToggle.checked;
                 newSettings.enableElevationHover = elements.enableElevationHoverToggle.checked;
                 newSettings.autoCloseOtherSettings = elements.autoCloseOtherSettingsToggle.checked;
@@ -16688,7 +17378,7 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 try {
                     const oldSortOrder = state.settings.historySortOrder;
                     
-                    const { backgroundImageBlob, userIconBlob, aiIconBlob, ...settingsToSave } = newSettings;
+                    const { backgroundImageBlob, historyBackgroundImageBlob, settingsBackgroundImageBlob, userIconBlob, aiIconBlob, ...settingsToSave } = newSettings;
                     
                     const promises = Object.entries(settingsToSave).map(([key, value]) =>
                         dbUtils.saveSetting(key, value)
@@ -16757,13 +17447,30 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 }
             },
 
+            async commitAllOpenEdits() {
+                const editingElements = elements.messageContainer.querySelectorAll('.message.editing');
+                if (editingElements.length === 0) return;
+                let needsDbSave = false;
+                for (const messageElement of editingElements) {
+                    const index = parseInt(messageElement.dataset.index, 10);
+                    const textarea = messageElement.querySelector('.edit-textarea');
+                    if (textarea && state.currentMessages[index]) {
+                        const newContent = textarea.value;
+                        if (state.currentMessages[index].content !== newContent) {
+                            state.currentMessages[index].content = newContent;
+                            uiUtils.updateFinalizedMessageContent(index, newContent);
+                            needsDbSave = true;
+                        }
+                    }
+                    this.finishEditing(messageElement);
+                }
+
+                if (needsDbSave) await dbUtils.saveChat();
+            },
+
             async startEditMessage(index, messageElement) {
                 if (state.isSending) {
                     await uiUtils.showCustomAlert("送信中は編集できません。");
-                    return;
-                }
-                if (state.editingMessageIndex !== null && state.editingMessageIndex !== index) {
-                    await uiUtils.showCustomAlert("他のメッセージを編集中です。");
                     return;
                 }
                 if (state.editingMessageIndex === index) {
@@ -16775,7 +17482,6 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 if (!message) return;
 
                 const rawContent = message.content;
-                state.editingMessageIndex = index;
 
                 const contentDiv = messageElement.querySelector('.message-content');
                 const editArea = messageElement.querySelector('.message-edit-area');
@@ -16890,17 +17596,26 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
 
                 this.uncollapseMessage(index, messageElement);
             },
-            async saveEditMessage(index, messageElement) {
+            async saveEditMessage(originalIndex, messageElement) {
+                // DOM上の位置から最新のインデックスを取得し直す
+                const currentIndex = parseInt(messageElement.dataset.index, 10);
+                // 念のため配列範囲チェック
+                if (isNaN(currentIndex) || !state.currentMessages[currentIndex]) {
+                    // 見つからない場合は強制終了（UIだけ戻す）
+                    this.finishEditing(messageElement);
+                    return;
+                }
+
                 const textarea = messageElement.querySelector('.edit-textarea');
                 if (!textarea) {
-                    this.cancelEditMessage(index, messageElement);
+                    this.cancelEditMessage(currentIndex, messageElement);
                     return;
                 }
                 const newRawContent = textarea.value;
-                const originalMessage = state.currentMessages[index];
+                const originalMessage = state.currentMessages[currentIndex];
 
                 if (newRawContent === originalMessage.content) {
-                    this.cancelEditMessage(index, messageElement);
+                    this.cancelEditMessage(currentIndex, messageElement);
                     return;
                 }
 
@@ -17040,11 +17755,8 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                     editArea.classList.add('hidden');
                     editArea.innerHTML = '';
                 }
+                
 
-                const index = parseInt(messageElement.dataset.index, 10);
-                if (state.editingMessageIndex === index) {
-                    state.editingMessageIndex = null;
-                }
             },
             async copyMessageText(index, buttonElement) {
                 const message = state.currentMessages[index];
@@ -17084,6 +17796,8 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 elements.clipboardStackEditor.scrollTop = elements.clipboardStackEditor.scrollHeight;
             },
             async deleteMessage(index) {
+                await this.commitAllOpenEdits();
+
                 if (state.editingMessageIndex === index) {
                     this.cancelEditMessage(index);
                 }
@@ -17150,7 +17864,7 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                         }
                     });
 
-                    uiUtils.renderChatMessages(true);
+                    uiUtils.renderChatMessages(true, true);
 
                     const newFirstUserMsgIndex = state.currentMessages.findIndex(m => m.role === 'user');
                     let requiresTitleUpdate = indicesToDelete.includes(originalFirstUserMsgIndex);
@@ -17187,10 +17901,8 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 return -1;
             },
             async retryFromMessage(index) {
-                if (state.editingMessageIndex !== null) {
-                    await uiUtils.showCustomAlert("編集中はリトライできません。");
-                    return;
-                }
+                await this.commitAllOpenEdits();
+
                 if (state.isSending) {
                     await uiUtils.showCustomAlert("送信中です。");
                     return;
@@ -17310,6 +18022,8 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 return siblings;
             },
             async navigateCascade(currentIndex, direction) {
+                await this.commitAllOpenEdits();
+
                 const currentMsg = state.currentMessages[currentIndex];
                 if (!currentMsg || !currentMsg.isCascaded || !currentMsg.siblingGroupId) return;
 
@@ -17334,7 +18048,7 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                     newlySelectedMessage.isSelected = true;
                     const newlySelectedIndex = siblingsWithIndices[targetSiblingIndexInGroup].originalIndex;
 
-                    uiUtils.renderChatMessages();
+                    uiUtils.renderChatMessages(true, true);
 
                     requestAnimationFrame(() => {
                         const newlySelectedElement = elements.messageContainer.querySelector(`.message[data-index="${newlySelectedIndex}"]`);
@@ -17355,11 +18069,12 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 }
             },
             async confirmDeleteCascadeResponse(indexToDelete) {
+                await this.commitAllOpenEdits();
+
                 const msgToDelete = state.currentMessages[indexToDelete];
                 if (!msgToDelete || msgToDelete.role !== 'model' || !msgToDelete.isCascaded || !msgToDelete.siblingGroupId) {
                     return;
                 }
-                if (state.editingMessageIndex !== null) { await uiUtils.showCustomAlert("編集中は削除できません。"); return; }
                 if (state.isSending) { await uiUtils.showCustomAlert("送信中は削除できません。"); return; }
 
                 const siblings = this.getCascadedSiblings(indexToDelete, true);
@@ -17626,10 +18341,6 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
             toggleAllMessagesVisibility() {
                 if (state.isSending) {
                     uiUtils.showCustomAlert("送信中は操作できません。");
-                    return;
-                }
-                if (state.editingMessageIndex !== null) {
-                    uiUtils.showCustomAlert("メッセージ編集中は操作できません。");
                     return;
                 }
 
@@ -18124,6 +18835,419 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                 okBtn.onclick = () => dialog.close();
 
                 dialog.showModal();
+            },
+initCryscrollerScroll() {
+                const mainContent = elements.chatScreen.querySelector('.main-content');
+                const zone = elements.cryscrollerScrollZone;
+                const handle = elements.cryscrollerScrollHandle;
+
+                const updateMarkers = () => {
+                    if (!state.settings.enableCryscrollerScroll) return;
+                    
+                    zone.querySelectorAll('.scroll-marker').forEach(el => el.remove());
+
+                    const messages = elements.messageContainer.querySelectorAll('.message');
+                    const contentHeight = mainContent.scrollHeight;
+                    const zoneHeight = zone.clientHeight;
+
+                    if (contentHeight === 0 || zoneHeight === 0) return;
+
+                    const TURF_USER_RGB = "102, 215, 19";
+                    const TURF_MODEL_RGB = "253, 110, 163";
+                    const MAX_INTENSITY_LENGTH = 1000;
+
+                    messages.forEach(msg => {
+                        const marker = document.createElement('div');
+                        marker.classList.add('scroll-marker');
+                        
+                        let isUser = false;
+                        let isModel = false;
+
+                        if (msg.classList.contains('user')) {
+                            marker.classList.add('user');
+                            isUser = true;
+                        } else if (msg.classList.contains('model')) {
+                            marker.classList.add('model');
+                            isModel = true;
+                        } else {
+                            return;
+                        }
+
+                        const relativeTop = (msg.offsetTop / contentHeight) * zoneHeight;
+                        marker.style.top = `${relativeTop}px`;
+
+                        if (state.settings.enableDynamicScrollMarkerColor) {
+                            const index = parseInt(msg.dataset.index, 10);
+                            const messageData = state.currentMessages[index];
+                            const contentText = messageData ? (messageData.content || "") : msg.innerText;
+                            const textLength = contentText.length;
+
+                            if (textLength > 0) {
+                                const intensity = Math.min(1, textLength / MAX_INTENSITY_LENGTH);
+                                const alpha = 0.3 + (0.7 * intensity);
+
+                                if (isUser) {
+                                    marker.style.backgroundColor = `rgba(${TURF_USER_RGB}, ${alpha})`;
+                                } else if (isModel) {
+                                    marker.style.backgroundColor = `rgba(${TURF_MODEL_RGB}, ${alpha})`;
+                                }
+                            } else {
+                                marker.style.backgroundColor = ""; 
+                            }
+                        }
+
+                        const onMarkerClick = (e) => {
+                            e.stopPropagation(); 
+                            e.preventDefault();
+                            mainContent.scrollTop = msg.offsetTop - 10;
+                        };
+
+                        marker.addEventListener('click', onMarkerClick);
+
+                        zone.appendChild(marker);
+                    });
+                };
+
+                const updateHandle = () => {
+                    if (!state.settings.enableCryscrollerScroll) return;
+
+                    if (!document.body.classList.contains('immersive-mode')) {
+                        zone.style.top = `${mainContent.offsetTop}px`;
+                        zone.style.height = `${mainContent.offsetHeight}px`;
+                    } else {
+                        zone.style.removeProperty('top');
+                        zone.style.removeProperty('height');
+                    }
+
+                    const contentHeight = mainContent.scrollHeight;
+                    const viewHeight = mainContent.clientHeight;
+                    const zoneHeight = zone.clientHeight;
+                    const scrollTop = mainContent.scrollTop;
+
+                    if (contentHeight <= viewHeight) {
+                        handle.style.display = 'none';
+                        zone.querySelectorAll('.scroll-marker').forEach(el => el.style.display = 'none');
+                        return;
+                    }
+                    handle.style.display = 'block';
+                    zone.querySelectorAll('.scroll-marker').forEach(el => el.style.display = 'block');
+
+                    let handleHeight = (viewHeight / contentHeight) * zoneHeight;
+                    handleHeight = Math.max(handleHeight, 40);
+                    
+                    const maxScrollTop = contentHeight - viewHeight;
+                    const maxHandleTop = zoneHeight - handleHeight;
+                    
+                    let handleTop = 0;
+                    if (maxScrollTop > 0) {
+                        handleTop = (scrollTop / maxScrollTop) * maxHandleTop;
+                    }
+
+                    handle.style.height = `${handleHeight}px`;
+                    handle.style.transform = `translateY(${handleTop}px)`;
+                };
+
+                const updateAll = () => {
+                    updateHandle();
+                    updateMarkers();
+                };
+
+                let scrollTimeout;
+                const onScroll = () => {
+                    updateHandle();
+                    zone.classList.add('is-scrolling');
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        zone.classList.remove('is-scrolling');
+                    }, 000);
+                };
+                mainContent.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', updateAll);
+                
+                let observerTimeout;
+                const observer = new MutationObserver(() => {
+                    if (observerTimeout) return;
+                    observerTimeout = setTimeout(() => {
+                        updateAll();
+                        observerTimeout = null;
+                    }, state.isSending ? (state.settings.cryscrollerObserverDelay || 500) : 50);
+                });
+                observer.observe(elements.messageContainer, { childList: true, subtree: true, attributes: true });
+
+                let isDragging = false;
+
+                const scrollByZone = (clientY) => {
+                    const rect = zone.getBoundingClientRect();
+                    const relativeY = clientY - rect.top;
+                    const zoneHeight = zone.clientHeight;
+                    
+                    const contentHeight = mainContent.scrollHeight;
+                    const viewHeight = mainContent.clientHeight;
+                    
+                    const percentage = Math.min(Math.max(relativeY / zoneHeight, 0), 1);
+                    const targetScrollTop = percentage * (contentHeight - viewHeight);
+                    
+                    mainContent.scrollTop = targetScrollTop;
+                };
+
+                const startDrag = (e) => {
+                    if (!state.settings.enableCryscrollerScroll) return;
+                    isDragging = true;
+                    zone.classList.add('is-dragging');
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    scrollByZone(clientY);
+                    e.preventDefault();
+                };
+
+                const doDrag = (e) => {
+                    if (!isDragging) return;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    scrollByZone(clientY);
+                    e.preventDefault();
+                };
+
+                const endDrag = () => {
+                    isDragging = false;
+                    zone.classList.remove('is-dragging');
+                };
+
+                zone.addEventListener('touchstart', startDrag, { passive: false });
+                zone.addEventListener('touchmove', doDrag, { passive: false });
+                zone.addEventListener('touchend', endDrag);
+                
+                zone.addEventListener('mousedown', startDrag);
+                document.addEventListener('mousemove', doDrag);
+                document.addEventListener('mouseup', endDrag);
+
+                setTimeout(updateAll, 100);
+            },
+            initSettingsCryscrollerScroll() {
+                const mainContent = elements.settingsScreen.querySelector('.main-content');
+                const zone = elements.settingsCryscrollerScrollZone;
+                const handle = elements.settingsCryscrollerScrollHandle;
+                const updateHandle = () => {
+                    if (!state.settings.enableSettingsCryscrollerScroll) return;
+                    if (!document.body.classList.contains('immersive-mode')) {
+                        const headerHeight = elements.settingsScreen.querySelector('.app-header').offsetHeight;
+                        zone.style.top = `${headerHeight}px`;
+                        zone.style.height = `calc(100% - ${headerHeight}px)`;
+                    } else {
+                        zone.style.removeProperty('top');
+                        zone.style.removeProperty('height');
+                    }
+                    const contentHeight = mainContent.scrollHeight;
+                    const viewHeight = mainContent.clientHeight;
+                    const zoneHeight = zone.clientHeight;
+                    const scrollTop = mainContent.scrollTop;
+                    if (contentHeight <= viewHeight) {
+                        handle.style.display = 'none';
+                        return;
+                    }
+                    handle.style.display = 'block';
+                    let handleHeight = (viewHeight / contentHeight) * zoneHeight;
+                    handleHeight = Math.max(handleHeight, 40);
+                    const maxScrollTop = contentHeight - viewHeight;
+                    const maxHandleTop = zoneHeight - handleHeight;
+                    let handleTop = 0;
+                    if (maxScrollTop > 0) {
+                        handleTop = (scrollTop / maxScrollTop) * maxHandleTop;
+                    }
+                    handle.style.height = `${handleHeight}px`;
+                    handle.style.transform = `translateY(${handleTop}px)`;
+                };
+                let scrollTimeout;
+                const onScroll = () => {
+                    updateHandle();
+                    zone.classList.add('is-scrolling');
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        zone.classList.remove('is-scrolling');
+                    }, 000);
+                };
+                mainContent.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', updateHandle);
+                let observerTimeout;
+                const observer = new MutationObserver(() => {
+                    if (observerTimeout) return;
+                    observerTimeout = setTimeout(() => {
+                        updateHandle();
+                        observerTimeout = null;
+                    }, 100);
+                });
+                observer.observe(mainContent, { childList: true, subtree: true, attributes: true });
+                let isDragging = false;
+                const scrollByZone = (clientY) => {
+                    const rect = zone.getBoundingClientRect();
+                    const relativeY = clientY - rect.top;
+                    const zoneHeight = zone.clientHeight;
+                    const contentHeight = mainContent.scrollHeight;
+                    const viewHeight = mainContent.clientHeight;
+                    const percentage = Math.min(Math.max(relativeY / zoneHeight, 0), 1);
+                    const targetScrollTop = percentage * (contentHeight - viewHeight);
+                    mainContent.scrollTop = targetScrollTop;
+                };
+                const startDrag = (e) => {
+                    if (!state.settings.enableSettingsCryscrollerScroll) return;
+                    isDragging = true;
+                    zone.classList.add('is-dragging');
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    scrollByZone(clientY);
+                    e.preventDefault();
+                };
+                const doDrag = (e) => {
+                    if (!isDragging) return;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    scrollByZone(clientY);
+                    e.preventDefault();
+                };
+                const endDrag = () => {
+                    isDragging = false;
+                    zone.classList.remove('is-dragging');
+                };
+                zone.addEventListener('touchstart', startDrag, { passive: false });
+                zone.addEventListener('touchmove', doDrag, { passive: false });
+                zone.addEventListener('touchend', endDrag);
+                zone.addEventListener('mousedown', startDrag);
+                document.addEventListener('mousemove', doDrag);
+                document.addEventListener('mouseup', endDrag);
+                setTimeout(updateHandle, 500);
+            },
+
+            initHistoryCryscrollerScroll() {
+                const mainContent = elements.historyScreen.querySelector('.main-content');
+                const zone = elements.historyCryscrollerScrollZone;
+                const handle = elements.historyCryscrollerScrollHandle;
+                const updateHandle = () => {
+                    if (!state.settings.enableHistoryCryscrollerScroll) return;
+                    if (!document.body.classList.contains('immersive-mode')) {
+                        const headerHeight = elements.historyScreen.querySelector('.app-header').offsetHeight;
+                        zone.style.top = `${headerHeight}px`;
+                        zone.style.height = `calc(100% - ${headerHeight}px)`;
+                    } else {
+                        zone.style.removeProperty('top');
+                        zone.style.removeProperty('height');
+                    }
+                    const contentHeight = mainContent.scrollHeight;
+                    const viewHeight = mainContent.clientHeight;
+                    const zoneHeight = zone.clientHeight;
+                    const scrollTop = mainContent.scrollTop;
+                    if (contentHeight <= viewHeight) {
+                        handle.style.display = 'none';
+                        return;
+                    }
+                    handle.style.display = 'block';
+                    let handleHeight = (viewHeight / contentHeight) * zoneHeight;
+                    handleHeight = Math.max(handleHeight, 40);
+                    const maxScrollTop = contentHeight - viewHeight;
+                    const maxHandleTop = zoneHeight - handleHeight;
+                    let handleTop = 0;
+                    if (maxScrollTop > 0) {
+                        handleTop = (scrollTop / maxScrollTop) * maxHandleTop;
+                    }
+                    handle.style.height = `${handleHeight}px`;
+                    handle.style.transform = `translateY(${handleTop}px)`;
+                };
+                let scrollTimeout;
+                const onScroll = () => {
+                    updateHandle();
+                    zone.classList.add('is-scrolling');
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        zone.classList.remove('is-scrolling');
+                    }, 000);
+                };
+                mainContent.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', updateHandle);
+                let observerTimeout;
+                const observer = new MutationObserver(() => {
+                    if (observerTimeout) return;
+                    observerTimeout = setTimeout(() => {
+                        updateHandle();
+                        observerTimeout = null;
+                    }, 100);
+                });
+                observer.observe(mainContent, { childList: true, subtree: true, attributes: true });
+                let isDragging = false;
+                const scrollByZone = (clientY) => {
+                    const rect = zone.getBoundingClientRect();
+                    const relativeY = clientY - rect.top;
+                    const zoneHeight = zone.clientHeight;
+                    const contentHeight = mainContent.scrollHeight;
+                    const viewHeight = mainContent.clientHeight;
+                    const percentage = Math.min(Math.max(relativeY / zoneHeight, 0), 1);
+                    const targetScrollTop = percentage * (contentHeight - viewHeight);
+                    mainContent.scrollTop = targetScrollTop;
+                };
+                const startDrag = (e) => {
+                    if (!state.settings.enableHistoryCryscrollerScroll) return;
+                    isDragging = true;
+                    zone.classList.add('is-dragging');
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    scrollByZone(clientY);
+                    e.preventDefault();
+                };
+                const doDrag = (e) => {
+                    if (!isDragging) return;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    scrollByZone(clientY);
+                    e.preventDefault();
+                };
+                const endDrag = () => {
+                    isDragging = false;
+                    zone.classList.remove('is-dragging');
+                };
+                zone.addEventListener('touchstart', startDrag, { passive: false });
+                zone.addEventListener('touchmove', doDrag, { passive: false });
+                zone.addEventListener('touchend', endDrag);
+                zone.addEventListener('mousedown', startDrag);
+                document.addEventListener('mousemove', doDrag);
+                document.addEventListener('mouseup', endDrag);
+                setTimeout(updateHandle, 500);
+            },
+            updateImmersiveLayout() {
+                if (!state.settings.enableImmersiveScrolling) {
+                    document.body.classList.remove('immersive-mode');
+                    if (elements.cryscrollerScrollZone) {
+                        elements.cryscrollerScrollZone.style.removeProperty('top');
+                        elements.cryscrollerScrollZone.style.removeProperty('height');
+                    }
+                    if (this.layoutObserver) {
+                        this.layoutObserver.disconnect();
+                        this.layoutObserver = null;
+                    }
+                    return;
+                }
+
+                document.body.classList.add('immersive-mode');
+
+                const updateHeights = () => {
+                    const activeScreen = document.querySelector('.screen.active');
+                    const isChatScreen = activeScreen && activeScreen.id === 'chat-screen';
+                    
+                    const header = activeScreen ? activeScreen.querySelector('.app-header') : null;
+                    const footer = document.querySelector('.chat-input-area');
+
+                    const headerHeight = header ? header.offsetHeight : 50;
+                    const footerHeight = (isChatScreen && footer) ? footer.offsetHeight : 0;
+                    
+                    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+                    document.documentElement.style.setProperty('--footer-height', `${footerHeight}px`);
+                    
+                    if (state.settings.enableCryscrollerScroll) {
+                        window.dispatchEvent(new Event('resize')); 
+                    }
+                };
+
+                if (!this.layoutObserver) {
+                    this.layoutObserver = new ResizeObserver(() => {
+                        requestAnimationFrame(updateHeights);
+                    });
+                    document.querySelectorAll('.app-header').forEach(el => this.layoutObserver.observe(el));
+                    const footer = document.querySelector('.chat-input-area');
+                    if (footer) this.layoutObserver.observe(footer);
+                }
+                
+                updateHeights();
             },
         };
         const webhookUtils = {
@@ -18661,16 +19785,11 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     ? generationConfig.topP
                     : state.settings.claudeTopP;
 
-                if (tempValue === null && topPValue === null) {
-                }
-                else if (tempValue !== null) {
+                if (tempValue !== null) {
                     requestBody.temperature = tempValue;
                 }
-                else if (topPValue !== null) {
+                if (topPValue !== null) {
                     requestBody.top_p = topPValue;
-                }
-                else {
-                    requestBody.temperature = tempValue;
                 }
 
                 const topKValue = (generationConfig.topK !== undefined && generationConfig.topK !== null)
