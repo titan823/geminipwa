@@ -18381,7 +18381,7 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                     (selectedApiProvider === 'claude' && !state.settings.claudeApiKey) ||
                     (selectedApiProvider === 'openai' && !state.settings.openaiApiKey) ||
                     (selectedApiProvider === 'xai' && !state.settings.xaiApiKey) ||
-                    (selectedApiProvider === 'llmaggregator' && !state.settings.llmAggregatorApiKey)
+                    (selectedApiProvider === 'llmaggregator' && !multiBackendUtils.getActiveApiKeyForBackend(multiBackendUtils.getActiveBackend()))
                 ) {
                     await uiUtils.showCustomAlert("選択中のAPIプロバイダーのAPIキーが設定されていません。");
                     uiUtils.showScreen('settings');
@@ -18412,8 +18412,10 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
 
                     let apiKeyForB, modelNameForB;
                     const providerForSettingsB = state.settings.apiProvider;
-
-                    if (state.settings.showMultiApiKeys) {
+                    if (providerForSettingsB === 'llmaggregator') {
+                        const activeBackend = multiBackendUtils.getActiveBackend();
+                        apiKeyForB = multiBackendUtils.getActiveApiKeyForBackend(activeBackend);
+                    } else if (state.settings.showMultiApiKeys) {
                         apiKeyForB = multiApiKeyUtils.getActiveApiKey(providerForSettingsB);
                     } else {
                         switch (providerForSettingsB) {
@@ -18422,7 +18424,6 @@ newSettings.footerTapScrollToBottom = elements.footerTapScrollToBottomToggle.che
                             case 'claude': apiKeyForB = state.settings.claudeApiKey; break;
                             case 'openai': apiKeyForB = state.settings.openaiApiKey; break;
                             case 'xai': apiKeyForB = state.settings.xaiApiKey; break;
-                            case 'llmaggregator': apiKeyForB = state.settings.llmAggregatorApiKey; break;
                         }
                     }
 
