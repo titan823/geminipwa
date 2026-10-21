@@ -19841,6 +19841,7 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     max_tokens: generationConfig.maxOutputTokens || state.settings.claudeMaxTokens || DEFAULT_CLAUDE_MAX_TOKENS
                 };
                 if (anthropicRequest.system) requestBody.system = anthropicRequest.system;
+                const modernClaude = /^claude-(?:fable|opus|sonnet|haiku|mythos)-(?:[5-9](?:-|$)|4-[7-9](?:-|$))/i.test(model);
                 let tempValue = (generationConfig.temperature !== undefined && generationConfig.temperature !== null)
                     ? generationConfig.temperature
                     : state.settings.claudeTemperature;
@@ -19849,10 +19850,10 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     ? generationConfig.topP
                     : state.settings.claudeTopP;
 
-                if (tempValue !== null) {
+                if (!modernClaude && tempValue !== null) {
                     requestBody.temperature = tempValue;
                 }
-                if (topPValue !== null) {
+                if (!modernClaude && topPValue !== null) {
                     requestBody.top_p = topPValue;
                 }
 
@@ -19860,14 +19861,18 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     ? generationConfig.topK
                     : state.settings.claudeTopK;
 
-                if (topKValue !== null) {
+                if (!modernClaude && topKValue !== null) {
                     requestBody.top_k = topKValue;
                 }
                 if (state.settings.claudeIncludeThoughts) {
-                    requestBody.thinking = { "type": "enabled" };
-                    const budget = state.settings.claudeThinkingBudget;
-                    if (budget !== null && Number.isInteger(budget) && budget >= 1024) {
-                        requestBody.thinking.budget_tokens = budget;
+                    if (modernClaude) {
+                        requestBody.thinking = { type: 'adaptive' };
+                    } else {
+                        requestBody.thinking = { type: 'enabled' };
+                        const budget = state.settings.claudeThinkingBudget;
+                        if (budget !== null && Number.isInteger(budget) && budget >= 1024) {
+                            requestBody.thinking.budget_tokens = budget;
+                        }
                     }
                 }
 
@@ -20074,11 +20079,16 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     messages: oaMessages,
                     stream: useStreaming,
                 };
-                if (generationConfig.temperature != null) body.temperature = generationConfig.temperature;
-                if (generationConfig.maxOutputTokens != null) body.max_tokens = generationConfig.maxOutputTokens;
-                if (generationConfig.topP != null) body.top_p = generationConfig.topP;
-                if (generationConfig.presencePenalty != null) body.presence_penalty = generationConfig.presencePenalty;
-                if (generationConfig.frequencyPenalty != null) body.frequency_penalty = generationConfig.frequencyPenalty;
+                const isGpt6Model = /^gpt-6(?:\.1)?(?:-|$)/i.test(model);
+                if (generationConfig.maxOutputTokens != null) {
+                    body[isGpt6Model ? 'max_completion_tokens' : 'max_tokens'] = generationConfig.maxOutputTokens;
+                }
+                if (!isGpt6Model) {
+                    if (generationConfig.temperature != null) body.temperature = generationConfig.temperature;
+                    if (generationConfig.topP != null) body.top_p = generationConfig.topP;
+                    if (generationConfig.presencePenalty != null) body.presence_penalty = generationConfig.presencePenalty;
+                    if (generationConfig.frequencyPenalty != null) body.frequency_penalty = generationConfig.frequencyPenalty;
+                }
 
                 return body;
             },
