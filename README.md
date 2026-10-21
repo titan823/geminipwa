@@ -142,6 +142,11 @@ kinkan04 氏の PWA（<https://github.com/kinkan04/Gemini-PWA-Mk-II>）の校正
 - ※ DeepSeek が提供する API はすべて有料です。
 - ※「DeepSeek API エンドポイント機能」は形式的な実装であり、デバッグしておりません（デバッグ環境がないため）。
 ## ■ 更新履歴
+### 2026/10/22
+- PWA のバージョン表記を `0.26ti (627b4)` に更新。Gemini、DeepSeek、Claude、ChatGPT（OpenAI）、Grok（xAI）、LLM Aggregator のモデルオプションを更新しました。従来の選択欄の構成やユーザー指定モデル機能は維持しています。
+- Claude（Anthropic API）のプロンプトキャッシュを明示的に指定する処理を導入しました。システムプロンプトと会話履歴に `cache_control: { type: "ephemeral" }` を付与し、キャッシュからの読み込みが発生した場合はトークン数とヒット率を表示します。
+- Claude の新世代モデルにおける Thinking の指定方法、および GPT-6 系で使用する API リクエストパラメータを調整しました。
+
 ### 2026/08/04
 -  モデルカード更新、微調整
 ### 2026/02/20
