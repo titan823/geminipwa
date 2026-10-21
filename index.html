@@ -7818,6 +7818,44 @@ const DEFAULT_DEEPSEEK_MODEL = 'deepseek-v4-flash';
         const CLAUDE_API_BASE_URL = 'https://api.anthropic.com/v1/messages';
         const OPENAI_API_BASE_URL = 'https://api.openai.com/v1/chat/completions';
         const XAI_API_BASE_URL = 'https://api.x.ai/v1/chat/completions';
+        // Claude prompt caching (ported from titanexp beta).
+        const claudePromptCache = {
+        applyAnthropicCacheControl(requestBody) {
+          const mark = { type: "ephemeral" };
+
+          if (typeof requestBody.system === "string" && requestBody.system) {
+            requestBody.system = [
+              { type: "text", text: requestBody.system, cache_control: mark },
+            ];
+          } else if (Array.isArray(requestBody.system)) {
+            const lastSys = requestBody.system[requestBody.system.length - 1];
+            if (lastSys) lastSys.cache_control = mark;
+          }
+
+          const msgs = requestBody.messages;
+          if (Array.isArray(msgs) && msgs.length > 0) {
+            const lastContent = msgs[msgs.length - 1]?.content;
+            if (Array.isArray(lastContent) && lastContent.length > 0) {
+              lastContent[lastContent.length - 1].cache_control = mark;
+            }
+          }
+          return requestBody;
+        },
+
+        // 各社バラバラのusage表記から「キャッシュヒットした入力トークン数」を取り出す。
+        readCachedTokens(provider, usage) {
+          if (!usage) return null;
+          const n =
+            provider === "claude"
+              ? usage.cache_read_input_tokens
+              : provider === "gemini"
+                ? usage.cachedContentTokenCount
+                : (usage.prompt_cache_hit_tokens ??
+                  usage.prompt_tokens_details?.cached_tokens);
+          return typeof n === "number" && n > 0 ? n : null;
+        },
+        };
+
         const DUPLICATE_SUFFIX = ' (コピー)';
         const IMPORT_PREFIX = '(取込) ';
 
@@ -10042,6 +10080,22 @@ appendMessage(role, content, index, isStreamingPlaceholder = false, cascadeInfo 
                         tokenSpan.textContent = `${formattedCandidates} / ${formattedTotal}`;
                         tokenSpan.title = `Candidate Tokens / Total Tokens`;
                         actionsDiv.appendChild(tokenSpan);
+
+                        // Display Claude cache hits alongside token usage.
+                        if (messageApiProvider === 'claude' &&
+                            typeof usage.cachedTokenCount === 'number' &&
+                            usage.cachedTokenCount > 0) {
+                            const inputTokens = Math.max(0, finalTotalTokenCount - usage.candidatesTokenCount);
+                            const cachedTokens = usage.cachedTokenCount;
+                            const rate = inputTokens > 0
+                                ? ' (' + (Math.round(cachedTokens / inputTokens * 1000) / 10) + '%)'
+                                : '';
+                            const cacheSpan = document.createElement('span');
+                            cacheSpan.classList.add('token-count-display');
+                            cacheSpan.textContent = '⚡ ' + cachedTokens.toLocaleString('en-US') + rate;
+                            cacheSpan.title = 'Claude Prompt Cache: ' + cachedTokens.toLocaleString('en-US') + ' reused input tokens';
+                            actionsDiv.appendChild(cacheSpan);
+                        }
                     }
                     messageDiv.appendChild(actionsDiv);
                 }
@@ -16332,7 +16386,14 @@ helpIcons.forEach(icon => {
                                 finalThoughtSummary = finalThoughtSummary.trim();
                             }
                             finalMetadata = { finishReason: data.stop_reason || 'stop' };
-                            if (data.usage) finalUsage = { candidatesTokenCount: data.usage.output_tokens, totalTokenCount: data.usage.input_tokens + data.usage.output_tokens };
+                            if (data.usage) finalUsage = {
+                                candidatesTokenCount: data.usage.output_tokens,
+                                totalTokenCount: (data.usage.input_tokens || 0) +
+                                    (data.usage.cache_read_input_tokens || 0) +
+                                    (data.usage.cache_creation_input_tokens || 0) +
+                                    (data.usage.output_tokens || 0),
+                                cachedTokenCount: claudePromptCache.readCachedTokens('claude', data.usage)
+                            };
                             if (!rawContentFromApi && data.stop_reason === 'end_turn') rawContentFromApi = "(応答が空です)";
                         } else if (selectedApiProvider === 'openai' || selectedApiProvider === 'xai') {
                             if (data.choices && data.choices.length > 0) {
@@ -19795,6 +19856,9 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     }
                 }
 
+                // Explicitly mark the reusable Anthropic cache breakpoints.
+                claudePromptCache.applyAnthropicCacheControl(requestBody);
+
                 try {
                     const response = await fetch(baseUrl, {
                         method: 'POST',
@@ -19913,10 +19977,14 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                                                 output_tokens: chunk["amazon-bedrock-invocationMetrics"].outputTokenCount
                                             };
                                         } else if (chunk.usage) {
-                                            finalUsage = chunk.usage;
+                                            finalUsage = { ...(finalUsage || {}), ...chunk.usage };
                                         }
+                                    } else if (chunk.type === 'message_start' && chunk.message?.usage) {
+                                        // message_start contains input and cache accounting.
+                                        finalUsage = { ...(finalUsage || {}), ...chunk.message.usage };
                                     } else if (chunk.type === 'message_delta' && chunk.usage) {
-                                        finalUsage = chunk.usage;
+                                        // Merge output while preserving input/cache counts.
+                                        finalUsage = { ...(finalUsage || {}), ...chunk.usage };
                                     }
                                 } catch (e) {
                                 }
@@ -19930,7 +19998,11 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                         safetyRatings: null,
                         usageMetadata: finalUsage ? {
                             candidatesTokenCount: finalUsage.output_tokens,
-                            totalTokenCount: finalUsage.input_tokens + finalUsage.output_tokens
+                            totalTokenCount: (finalUsage.input_tokens || 0) +
+                                (finalUsage.cache_read_input_tokens || 0) +
+                                (finalUsage.cache_creation_input_tokens || 0) +
+                                (finalUsage.output_tokens || 0),
+                            cachedTokenCount: claudePromptCache.readCachedTokens('claude', finalUsage)
                         } : null
                     };
                 } catch (error) {
