@@ -5177,23 +5177,18 @@ font-size: 1.142em !important;
                   id="gemini-user-defined-models-group"
                 ></optgroup>
                 <optgroup label="現行">
-                  <option value="gemini-3.1-pro-preview">
-                    Gemini 3.1 Pro Preview
-                  </option>
-                  <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                  <option value="gemini-4-argon">Gemini 4 Argon</option>
+                  <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
                   <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
-                  <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
-                  <option value="gemini-3.5-flash-lite">
-                    Gemini 3.5 Flash-Lite
-                  </option>
+                  <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
+                </optgroup>
                 <optgroup label="旧">
-                  <option value="gemini-3-flash-preview">
-                    Gemini 3 Flash Preview
-                  </option>
+                  <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
+                  <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                  <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
+                  <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
                   <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
                   <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
-                </optgroup>
-                </optgroup>
                 </optgroup>
               </select>
                         <details style="margin-top: 10px;">
@@ -5242,10 +5237,11 @@ font-size: 1.142em !important;
                   id="deepseek-user-defined-models-group"
                 ></optgroup>
                             <optgroup label="現行">
-  <option value="deepseek-v4-flash">DeepSeek V4 Flash</option>
+  <option value="deepseek-flash">DeepSeek V4.1 Flash</option>
   <option value="deepseek-v4-pro">DeepSeek V4 Pro</option>
 </optgroup>
 <optgroup label="旧">
+  <option value="deepseek-v4-flash">DeepSeek V4 Flash</option>
                                 <option value="deepseek-chat">deepseek-chat</option>
                                 <option value="deepseek-coder">deepseek-coder</option>
                                 <option value="deepseek-reasoner">deepseek-reasoner</option>
@@ -5299,11 +5295,17 @@ font-size: 1.142em !important;
                         <select id="claude-model-name" aria-label="Claudeモデル名">
                             <optgroup label="ユーザー指定" id="claude-user-defined-models-group">
                             </optgroup>
+                                        <optgroup label="Claude 5.5">
+                  <option value="claude-fable-5-1">Claude Fable 5.1</option>
+                  <option value="claude-opus-5-5">Claude Opus 5.5</option>
+                  <option value="claude-sonnet-5-5">Claude Sonnet 5.5</option>
+                  <option value="claude-haiku-5-5">Claude Haiku 5.5</option>
+                </optgroup>
                                         <optgroup label="Claude 5">
                   <option value="claude-fable-5">Claude Fable 5</option>
                   <option value="claude-opus-5">Claude Opus 5</option>
                   <option value="claude-sonnet-5">Claude Sonnet 5</option>
-                  </option>
+                </optgroup>
                             <optgroup label="Claude 4 ∼ 4.8">
                   <option value="claude-opus-4-8">Claude Opus 4.8</option>
                   <option value="claude-opus-4-7">Claude Opus 4.7</option>
@@ -5359,6 +5361,12 @@ font-size: 1.142em !important;
   label="ユーザー指定"
   id="openai-user-defined-models-group"
 ></optgroup>
+                <optgroup label="GPT-6">
+                  <option value="gpt-6-astra">GPT-6 Astra</option>
+                  <option value="gpt-6.1-sol">GPT-6.1 Sol</option>
+                  <option value="gpt-6-sol">GPT-6 Sol</option>
+                  <option value="gpt-6-luna">GPT-6 Luna</option>
+                </optgroup>
                 <optgroup label="GPT-5.6">
                   <option value="gpt-5.6-sol">GPT-5.6 Sol</option>
                   <option value="gpt-5.6-terra">GPT-5.6 Terra</option>
@@ -5367,6 +5375,7 @@ font-size: 1.142em !important;
                             <optgroup label="GPT-4.1">
                                 <option value="gpt-4.1">gpt-4.1</option>
                                 <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+                            </optgroup>
                             <optgroup label="GPT-4o & Mini">
                                 <option value="gpt-4o">gpt-4o (2024-05-13)</option>
                                 <option value="gpt-4o-2024-08-06">gpt-4o-2024-08-06</option>
@@ -5434,6 +5443,7 @@ font-size: 1.142em !important;
                             <optgroup label="ユーザー指定" id="xai-user-defined-models-group">
                             </optgroup>
                             <optgroup label="Grok">
+                  <option value="grok-4.7">Grok 4.7</option>
                   <option value="grok-4.5">Grok 4.5</option>
                   <option value="grok-4.3">Grok 4.3</option>
                                 <option value="grok-4.20-0309-reasoning">grok-4.20-0309-reasoning</option>
@@ -5490,6 +5500,11 @@ font-size: 1.142em !important;
                         <select id="llmaggregator-model-name" aria-label="LLM Aggregator モデル名">
     <optgroup label="ユーザー指定" id="llmaggregator-user-defined-models-group"></optgroup>
     <optgroup label="OpenRouterサンプル">
+        <option value="google/gemini-4-argon">google/gemini-4-argon</option>
+        <option value="anthropic/claude-opus-5.5">anthropic/claude-opus-5.5</option>
+        <option value="openai/gpt-6.1-sol">openai/gpt-6.1-sol</option>
+        <option value="x-ai/grok-4.7">x-ai/grok-4.7</option>
+        <option value="deepseek/deepseek-v4.1-flash">deepseek/deepseek-v4.1-flash</option>
         <option value="moonshotai/kimi-k3">moonshotai/kimi-k3</option>
         <option value="openai/gpt-5.6-luna-pro">openai/gpt-5.6-luna-pro</option>
         <option value="deepseek/deepseek-v4-pro">deepseek/deepseek-v4-pro</option>
@@ -7818,6 +7833,44 @@ const DEFAULT_DEEPSEEK_MODEL = 'deepseek-v4-flash';
         const CLAUDE_API_BASE_URL = 'https://api.anthropic.com/v1/messages';
         const OPENAI_API_BASE_URL = 'https://api.openai.com/v1/chat/completions';
         const XAI_API_BASE_URL = 'https://api.x.ai/v1/chat/completions';
+        // Claude prompt caching (ported from titanexp beta).
+        const claudePromptCache = {
+        applyAnthropicCacheControl(requestBody) {
+          const mark = { type: "ephemeral" };
+
+          if (typeof requestBody.system === "string" && requestBody.system) {
+            requestBody.system = [
+              { type: "text", text: requestBody.system, cache_control: mark },
+            ];
+          } else if (Array.isArray(requestBody.system)) {
+            const lastSys = requestBody.system[requestBody.system.length - 1];
+            if (lastSys) lastSys.cache_control = mark;
+          }
+
+          const msgs = requestBody.messages;
+          if (Array.isArray(msgs) && msgs.length > 0) {
+            const lastContent = msgs[msgs.length - 1]?.content;
+            if (Array.isArray(lastContent) && lastContent.length > 0) {
+              lastContent[lastContent.length - 1].cache_control = mark;
+            }
+          }
+          return requestBody;
+        },
+
+        // 各社バラバラのusage表記から「キャッシュヒットした入力トークン数」を取り出す。
+        readCachedTokens(provider, usage) {
+          if (!usage) return null;
+          const n =
+            provider === "claude"
+              ? usage.cache_read_input_tokens
+              : provider === "gemini"
+                ? usage.cachedContentTokenCount
+                : (usage.prompt_cache_hit_tokens ??
+                  usage.prompt_tokens_details?.cached_tokens);
+          return typeof n === "number" && n > 0 ? n : null;
+        },
+        };
+
         const DUPLICATE_SUFFIX = ' (コピー)';
         const IMPORT_PREFIX = '(取込) ';
 
@@ -7877,7 +7930,7 @@ const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
         const LIGHT_MODE_HEADER_COLOR = '#4a90e2';
         const LIGHT_MODE_PRIMARY_COLOR = '#ffffff';
 
-        const APP_VERSION = "0.26ti (627b3)";
+        const APP_VERSION = "0.26ti (627b4)";
         const SWIPE_THRESHOLD = 50;
         const ZOOM_THRESHOLD = 1.01;
         const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -10042,6 +10095,22 @@ appendMessage(role, content, index, isStreamingPlaceholder = false, cascadeInfo 
                         tokenSpan.textContent = `${formattedCandidates} / ${formattedTotal}`;
                         tokenSpan.title = `Candidate Tokens / Total Tokens`;
                         actionsDiv.appendChild(tokenSpan);
+
+                        // Display Claude cache hits alongside token usage.
+                        if (messageApiProvider === 'claude' &&
+                            typeof usage.cachedTokenCount === 'number' &&
+                            usage.cachedTokenCount > 0) {
+                            const inputTokens = Math.max(0, finalTotalTokenCount - usage.candidatesTokenCount);
+                            const cachedTokens = usage.cachedTokenCount;
+                            const rate = inputTokens > 0
+                                ? ' (' + (Math.round(cachedTokens / inputTokens * 1000) / 10) + '%)'
+                                : '';
+                            const cacheSpan = document.createElement('span');
+                            cacheSpan.classList.add('token-count-display');
+                            cacheSpan.textContent = '⚡ ' + cachedTokens.toLocaleString('en-US') + rate;
+                            cacheSpan.title = 'Claude Prompt Cache: ' + cachedTokens.toLocaleString('en-US') + ' reused input tokens';
+                            actionsDiv.appendChild(cacheSpan);
+                        }
                     }
                     messageDiv.appendChild(actionsDiv);
                 }
@@ -16332,7 +16401,14 @@ helpIcons.forEach(icon => {
                                 finalThoughtSummary = finalThoughtSummary.trim();
                             }
                             finalMetadata = { finishReason: data.stop_reason || 'stop' };
-                            if (data.usage) finalUsage = { candidatesTokenCount: data.usage.output_tokens, totalTokenCount: data.usage.input_tokens + data.usage.output_tokens };
+                            if (data.usage) finalUsage = {
+                                candidatesTokenCount: data.usage.output_tokens,
+                                totalTokenCount: (data.usage.input_tokens || 0) +
+                                    (data.usage.cache_read_input_tokens || 0) +
+                                    (data.usage.cache_creation_input_tokens || 0) +
+                                    (data.usage.output_tokens || 0),
+                                cachedTokenCount: claudePromptCache.readCachedTokens('claude', data.usage)
+                            };
                             if (!rawContentFromApi && data.stop_reason === 'end_turn') rawContentFromApi = "(応答が空です)";
                         } else if (selectedApiProvider === 'openai' || selectedApiProvider === 'xai') {
                             if (data.choices && data.choices.length > 0) {
@@ -19795,6 +19871,9 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     }
                 }
 
+                // Explicitly mark the reusable Anthropic cache breakpoints.
+                claudePromptCache.applyAnthropicCacheControl(requestBody);
+
                 try {
                     const response = await fetch(baseUrl, {
                         method: 'POST',
@@ -19913,10 +19992,14 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                                                 output_tokens: chunk["amazon-bedrock-invocationMetrics"].outputTokenCount
                                             };
                                         } else if (chunk.usage) {
-                                            finalUsage = chunk.usage;
+                                            finalUsage = { ...(finalUsage || {}), ...chunk.usage };
                                         }
+                                    } else if (chunk.type === 'message_start' && chunk.message?.usage) {
+                                        // message_start contains input and cache accounting.
+                                        finalUsage = { ...(finalUsage || {}), ...chunk.message.usage };
                                     } else if (chunk.type === 'message_delta' && chunk.usage) {
-                                        finalUsage = chunk.usage;
+                                        // Merge output while preserving input/cache counts.
+                                        finalUsage = { ...(finalUsage || {}), ...chunk.usage };
                                     }
                                 } catch (e) {
                                 }
@@ -19930,7 +20013,11 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                         safetyRatings: null,
                         usageMetadata: finalUsage ? {
                             candidatesTokenCount: finalUsage.output_tokens,
-                            totalTokenCount: finalUsage.input_tokens + finalUsage.output_tokens
+                            totalTokenCount: (finalUsage.input_tokens || 0) +
+                                (finalUsage.cache_read_input_tokens || 0) +
+                                (finalUsage.cache_creation_input_tokens || 0) +
+                                (finalUsage.output_tokens || 0),
+                            cachedTokenCount: claudePromptCache.readCachedTokens('claude', finalUsage)
                         } : null
                     };
                 } catch (error) {
