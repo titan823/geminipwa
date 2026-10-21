@@ -5177,23 +5177,18 @@ font-size: 1.142em !important;
                   id="gemini-user-defined-models-group"
                 ></optgroup>
                 <optgroup label="現行">
-                  <option value="gemini-3.1-pro-preview">
-                    Gemini 3.1 Pro Preview
-                  </option>
-                  <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                  <option value="gemini-4-argon">Gemini 4 Argon</option>
+                  <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
                   <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
-                  <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
-                  <option value="gemini-3.5-flash-lite">
-                    Gemini 3.5 Flash-Lite
-                  </option>
+                  <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
+                </optgroup>
                 <optgroup label="旧">
-                  <option value="gemini-3-flash-preview">
-                    Gemini 3 Flash Preview
-                  </option>
+                  <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
+                  <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                  <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
+                  <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
                   <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
                   <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
-                </optgroup>
-                </optgroup>
                 </optgroup>
               </select>
                         <details style="margin-top: 10px;">
@@ -5242,10 +5237,11 @@ font-size: 1.142em !important;
                   id="deepseek-user-defined-models-group"
                 ></optgroup>
                             <optgroup label="現行">
-  <option value="deepseek-v4-flash">DeepSeek V4 Flash</option>
-  <option value="deepseek-v4-pro">DeepSeek V4 Pro</option>
+  <option value="deepseek-flash">DeepSeek V4.1 Flash</option>
 </optgroup>
 <optgroup label="旧">
+  <option value="deepseek-v4-flash">DeepSeek V4 Flash</option>
+  <option value="deepseek-v4-pro">DeepSeek V4 Pro</option>
                                 <option value="deepseek-chat">deepseek-chat</option>
                                 <option value="deepseek-coder">deepseek-coder</option>
                                 <option value="deepseek-reasoner">deepseek-reasoner</option>
@@ -5299,11 +5295,17 @@ font-size: 1.142em !important;
                         <select id="claude-model-name" aria-label="Claudeモデル名">
                             <optgroup label="ユーザー指定" id="claude-user-defined-models-group">
                             </optgroup>
+                                        <optgroup label="Claude 5.5">
+                  <option value="claude-fable-5-1">Claude Fable 5.1</option>
+                  <option value="claude-opus-5-5">Claude Opus 5.5</option>
+                  <option value="claude-sonnet-5-5">Claude Sonnet 5.5</option>
+                  <option value="claude-haiku-5-5">Claude Haiku 5.5</option>
+                </optgroup>
                                         <optgroup label="Claude 5">
                   <option value="claude-fable-5">Claude Fable 5</option>
                   <option value="claude-opus-5">Claude Opus 5</option>
                   <option value="claude-sonnet-5">Claude Sonnet 5</option>
-                  </option>
+                </optgroup>
                             <optgroup label="Claude 4 ∼ 4.8">
                   <option value="claude-opus-4-8">Claude Opus 4.8</option>
                   <option value="claude-opus-4-7">Claude Opus 4.7</option>
@@ -5359,6 +5361,12 @@ font-size: 1.142em !important;
   label="ユーザー指定"
   id="openai-user-defined-models-group"
 ></optgroup>
+                <optgroup label="GPT-6">
+                  <option value="gpt-6-astra">GPT-6 Astra</option>
+                  <option value="gpt-6.1-sol">GPT-6.1 Sol</option>
+                  <option value="gpt-6-sol">GPT-6 Sol</option>
+                  <option value="gpt-6-luna">GPT-6 Luna</option>
+                </optgroup>
                 <optgroup label="GPT-5.6">
                   <option value="gpt-5.6-sol">GPT-5.6 Sol</option>
                   <option value="gpt-5.6-terra">GPT-5.6 Terra</option>
@@ -5367,6 +5375,7 @@ font-size: 1.142em !important;
                             <optgroup label="GPT-4.1">
                                 <option value="gpt-4.1">gpt-4.1</option>
                                 <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+                            </optgroup>
                             <optgroup label="GPT-4o & Mini">
                                 <option value="gpt-4o">gpt-4o (2024-05-13)</option>
                                 <option value="gpt-4o-2024-08-06">gpt-4o-2024-08-06</option>
@@ -5434,6 +5443,7 @@ font-size: 1.142em !important;
                             <optgroup label="ユーザー指定" id="xai-user-defined-models-group">
                             </optgroup>
                             <optgroup label="Grok">
+                  <option value="grok-4.7">Grok 4.7</option>
                   <option value="grok-4.5">Grok 4.5</option>
                   <option value="grok-4.3">Grok 4.3</option>
                                 <option value="grok-4.20-0309-reasoning">grok-4.20-0309-reasoning</option>
@@ -5490,6 +5500,11 @@ font-size: 1.142em !important;
                         <select id="llmaggregator-model-name" aria-label="LLM Aggregator モデル名">
     <optgroup label="ユーザー指定" id="llmaggregator-user-defined-models-group"></optgroup>
     <optgroup label="OpenRouterサンプル">
+        <option value="google/gemini-4-argon">google/gemini-4-argon</option>
+        <option value="anthropic/claude-opus-5.5">anthropic/claude-opus-5.5</option>
+        <option value="openai/gpt-6.1-sol">openai/gpt-6.1-sol</option>
+        <option value="x-ai/grok-4.7">x-ai/grok-4.7</option>
+        <option value="deepseek/deepseek-v4.1-flash">deepseek/deepseek-v4.1-flash</option>
         <option value="moonshotai/kimi-k3">moonshotai/kimi-k3</option>
         <option value="openai/gpt-5.6-luna-pro">openai/gpt-5.6-luna-pro</option>
         <option value="deepseek/deepseek-v4-pro">deepseek/deepseek-v4-pro</option>
@@ -7915,7 +7930,7 @@ const PASTEL_RAINBOW_THEME_COLOR = '#ffadad';
         const LIGHT_MODE_HEADER_COLOR = '#4a90e2';
         const LIGHT_MODE_PRIMARY_COLOR = '#ffffff';
 
-        const APP_VERSION = "0.26ti (627b3)";
+        const APP_VERSION = "0.26ti (627b4)";
         const SWIPE_THRESHOLD = 50;
         const ZOOM_THRESHOLD = 1.01;
         const MAX_FILE_SIZE = 10 * 1024 * 1024;
