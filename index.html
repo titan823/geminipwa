@@ -2849,6 +2849,16 @@ body.turf-mode {
             z-index: 1;
         }
 
+        /* Keep native text selection available in iOS/Android chat messages. */
+        @media (hover: none), (pointer: coarse) {
+            #chat-screen .message-content,
+            #chat-screen .thought-summary-content {
+                -webkit-user-select: text;
+                user-select: text;
+                -webkit-touch-callout: default;
+            }
+        }
+
         .message-content>*:first-child {
             margin-top: 0;
         }
@@ -14069,6 +14079,9 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                         return;
                     }
 
+                    // Do not change bubble layout during native text selection.
+                    if (window.getSelection()?.isCollapsed === false) return;
+
                     if (clickedMessage) {
                         const currentlyShown = elements.messageContainer.querySelector('.message.show-actions');
                         if (currentlyShown && currentlyShown !== clickedMessage) {
@@ -14351,12 +14364,11 @@ helpIcons.forEach(icon => {
             },
                                                 handleTouchStart(event) {
                 if (!state.settings.enableSwipeNavigation) return;
-                if (window.getSelection().toString().length > 0) {
-                    state.touchStartX = 0;
-                    state.touchStartY = 0;
-                    state.isSwiping = false;
-                    return;
-                }
+                this.resetSwipeState();
+                // Text selection is a browser gesture, not page navigation.
+                // Avoid copying the full selection on every touch event.
+                if (window.getSelection()?.isCollapsed === false) return;
+                if (event.target.closest?.('.message-content, .thought-summary-content')) return;
                 if (event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') return;
                 if (event.touches.length > 1 || state.isZoomed) {
                     state.touchStartX = 0;
@@ -14373,7 +14385,8 @@ helpIcons.forEach(icon => {
 
             handleTouchMove(event) {
                 if (!state.settings.enableSwipeNavigation) return;
-                if (window.getSelection().toString().length > 0) {
+                if (window.getSelection()?.isCollapsed === false) {
+                    this.resetSwipeState();
                     return;
                 }
                 if (!state.touchStartX || event.touches.length > 1 || state.isZoomed) {
@@ -14397,6 +14410,10 @@ helpIcons.forEach(icon => {
             },
             handleTouchEnd(event) {
                 if (!state.settings.enableSwipeNavigation) {
+                    this.resetSwipeState();
+                    return;
+                }
+                if (window.getSelection()?.isCollapsed === false) {
                     this.resetSwipeState();
                     return;
                 }
