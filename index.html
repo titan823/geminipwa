@@ -21172,11 +21172,14 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                 const isCriticalError = this.isCriticalError(errorInfo);
 
                 if (this.errorCount >= this.maxErrors || isCriticalError) {
-                    this.triggerForceReload(type, errorInfo, isCritical);
+                    this.triggerForceReload(type, errorInfo, isCriticalError);
                 }
             },
 
             isCriticalError(errorInfo) {
+                const errorMessage = JSON.stringify(errorInfo).toLowerCase();
+                // A version mismatch or a newer compatible DB is not corruption.
+                if (/versionerror|db version \d+ does not have the required stores\/indexes/i.test(errorMessage)) return false;
                 const criticalPatterns = [
                     /Cannot read prop/i,
                     /Cannot access before initialization/i,
@@ -21189,7 +21192,6 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     /Failed to fetch/i,
                     /NetworkError/i
                 ];
-                const errorMessage = JSON.stringify(errorInfo).toLowerCase();
                 return criticalPatterns.some(pattern => pattern.test(errorMessage));
             },
 
