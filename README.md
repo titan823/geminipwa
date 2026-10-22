@@ -60,6 +60,11 @@ kinkan04 氏の PWA（<https://github.com/kinkan04/Gemini-PWA-Mk-II>）の校正
 
 ### 各 API への対応状況
 
+- DeepSeek V4.1 Flash 対応を通常公開版にも導入しました。新規設定の既定モデルは `deepseek-flash` です。旧モデルの選択肢と既存の保存済みモデル設定は維持します。（2026/10/22）
+- DeepSeek 専用の Thinking 設定を OFF／Low／High／Max の4段階にしました。ON の場合は `thinking: {"type":"enabled"}` と `reasoning_effort`、OFF の場合は `thinking: {"type":"disabled"}` を送信し、推論強度は省略します。Include Thoughts は思考内容の表示設定であり、推論のON／OFFとは異なります。
+- DeepSeek V4系列の思考ONでは効果のない `temperature`／`presence_penalty`／`frequency_penalty` の送信を省略します。値そのものは削除せず、思考OFFや旧モデルの互換性を保ちます。
+- `deepseek-flash` では JPEG／PNG／GIF／WebP 画像を `image_url` 形式で送信します。非対応モデルや非対応形式で添付データを黙って破棄せずエラーにします。SSEでは同一イベントの `reasoning_content` と `content` の両方を処理します。
+- 上記は `tests/deepseek_v41_request.test.cjs` によりAPIキー不要のモック通信・リクエスト構築・SSE・互換動作を検証しました。Geminiの既存回帰テストもPASS。実DeepSeek API、Cloudflare Workers中継、実画像・ストリーミング・課金・使用量は未検証です。Search／Fetch APIの自動呼び出しは実装していません。
 - Gemini 4 Argon はThinking Level（Low／Medium／High、既定Medium）に対応しました。3.8 Flashとは個別の設定値として保存し、両モデルで非対応のNONE／MINIMAL／旧Thinking Budgetと末尾ダミーModel事前入力は送信しません。設定値は保持し、Gemini 2.5系のBudget、Argon Flexおよび既存のバージョン表記は維持しています。（2026/10/22）
 - Gemini 3.8 Flash は旧サンプリングパラメータおよび Thinking Budget の送信を行わず、Thinking Level（Low／Medium／High）に対応しました。また、非対応の末尾ダミー Model 事前入力と回答連結を抑止しました。設定値は削除せず保持し、既存モデルの動作を維持しています。（2026/10/22）
 - ⚠️ DeepSeek、Claude（Anthropic API）、Grok（xAI）の API を利用できるようアップデートいたしました。「使用する API プロバイダー」に選択肢として表示されない場合は、「その他設定 → 挙動調整 → API 切替ボタン設定」から選択肢を設定してください。

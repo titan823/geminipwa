@@ -5794,6 +5794,13 @@ font-size: 1.142em !important;
                                 style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); margin-bottom: 10px; list-style: revert;">
                                 思考プロセス</summary>
                             <div id="deepseek-thoughts-param" style="padding-left: 15px;">
+                                <label for="deepseek-thinking-level">Thinking:</label>
+                                <select id="deepseek-thinking-level" aria-label="DeepSeek Thinking">
+                                    <option value="off">OFF</option>
+                                    <option value="low">Low</option>
+                                    <option value="high">High</option>
+                                    <option value="max">Max</option>
+                                </select>
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="deepseek-include-thoughts-toggle">
                                     Include Thoughts
@@ -7877,7 +7884,7 @@ font-size: 1.142em !important;
             { value: 'dummy', text: 'Dummy AI' }
         ];
 const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
-const DEFAULT_DEEPSEEK_MODEL = 'deepseek-v4-flash';
+const DEFAULT_DEEPSEEK_MODEL = 'deepseek-flash';
         const DEFAULT_CLAUDE_MODEL = 'claude-haiku-4-5-20251001';
         const DEFAULT_OPENAI_MODEL = 'gpt-3.5-turbo';
         const DEFAULT_XAI_MODEL = 'grok-4-1-fast-non-reasoning';
@@ -8166,6 +8173,7 @@ deepSeekModelNameSelect: document.getElementById('deepseek-model-name'),
             deepSeekPresencePenaltyInput: document.getElementById('deepseek-presence-penalty'),
             deepSeekFrequencyPenaltyInput: document.getElementById('deepseek-frequency-penalty'),
             deepSeekIncludeThoughtsToggle: document.getElementById('deepseek-include-thoughts-toggle'),
+            deepSeekThinkingLevelSelect: document.getElementById('deepseek-thinking-level'),
             deepSeekExpandThoughtsByDefaultToggle: document.getElementById('deepseek-expand-thoughts-by-default-toggle'),
             deepSeekStreamingOutputCheckbox: document.getElementById('deepseek-streaming-output'),
             deepSeekStreamingSpeedInput: document.getElementById('deepseek-streaming-speed'),
@@ -8587,6 +8595,8 @@ deepSeekModelName: DEFAULT_DEEPSEEK_MODEL,
                 deepSeekPresencePenalty: null,
                 deepSeekFrequencyPenalty: null,
                 deepSeekIncludeDeepSeekThoughts: false,
+                deepSeekThinkingMode: 'enabled',
+                deepSeekReasoningEffort: 'high',
                 deepSeekExpandThoughtsByDefault: false,
                 deepSeekStreamingOutput: false,
                 deepSeekStreamingSpeed: DEFAULT_STREAMING_SPEED,
@@ -11476,6 +11486,12 @@ elements.deepSeekModelNameSelect.value = state.settings.deepSeekModelName || DEF
                 setupParamUI('deepseek-top-p');
                 setupParamUI('deepseek-presence-penalty');
                 setupParamUI('deepseek-frequency-penalty');
+                elements.deepSeekThinkingLevelSelect.value =
+                    state.settings.deepSeekThinkingMode === 'disabled'
+                    ? 'off'
+                    : ['low', 'high', 'max'].includes(state.settings.deepSeekReasoningEffort)
+                      ? state.settings.deepSeekReasoningEffort
+                      : 'high';
                 elements.deepSeekIncludeThoughtsToggle.checked = state.settings.deepSeekIncludeDeepSeekThoughts;
                 elements.deepSeekExpandThoughtsByDefaultToggle.checked = state.settings.deepSeekExpandThoughtsByDefault;
                 elements.deepSeekStreamingOutputCheckbox.checked = state.settings.deepSeekStreamingOutput;
@@ -15716,6 +15732,8 @@ helpIcons.forEach(icon => {
                     contextGeminiPseudoStreaming, contextGeminiEnableGrounding;
 
                 let contextDeepSeekIncludeThoughts;
+                let contextDeepSeekThinkingMode = 'enabled';
+                let contextDeepSeekReasoningEffort = 'high';
 
                 let contextClaudeTopK, contextClaudeIncludeThoughts, contextClaudeThinkingBudget, contextClaudeExpandThoughtsByDefault;
 
@@ -15753,6 +15771,8 @@ helpIcons.forEach(icon => {
                         contextPresencePenalty = sourceSessionContext.presencePenalty ?? state.settings.deepSeekPresencePenalty;
                         contextFrequencyPenalty = sourceSessionContext.frequencyPenalty ?? state.settings.deepSeekFrequencyPenalty;
                         contextDeepSeekIncludeThoughts = sourceSessionContext.includeDeepSeekThoughts ?? state.settings.deepSeekIncludeDeepSeekThoughts;
+                        contextDeepSeekThinkingMode = sourceSessionContext.deepSeekThinkingMode ?? state.settings.deepSeekThinkingMode;
+                        contextDeepSeekReasoningEffort = sourceSessionContext.deepSeekReasoningEffort ?? state.settings.deepSeekReasoningEffort;
                         contextStreamingOutput = sourceSessionContext.streamingOutput ?? state.settings.deepSeekStreamingOutput;
                         contextStreamingSpeed = sourceSessionContext.streamingSpeed ?? state.settings.deepSeekStreamingSpeed;
                         contextDummyUser = sourceSessionContext.dummyUser ?? state.settings.deepSeekDummyUser;
@@ -15846,6 +15866,8 @@ helpIcons.forEach(icon => {
                         contextPresencePenalty = state.settings.deepSeekPresencePenalty;
                         contextFrequencyPenalty = state.settings.deepSeekFrequencyPenalty;
                         contextDeepSeekIncludeThoughts = state.settings.deepSeekIncludeDeepSeekThoughts;
+                        contextDeepSeekThinkingMode = state.settings.deepSeekThinkingMode;
+                        contextDeepSeekReasoningEffort = state.settings.deepSeekReasoningEffort;
                         contextStreamingOutput = state.settings.deepSeekStreamingOutput;
                         contextStreamingSpeed = state.settings.deepSeekStreamingSpeed;
                         contextDummyUser = state.settings.deepSeekDummyUser;
@@ -16212,6 +16234,9 @@ helpIcons.forEach(icon => {
                             commonGenerationConfig.thinkingConfig.budget_tokens = contextClaudeThinkingBudget;
                         }
                     }
+                } else if (selectedApiProvider === 'deepseek') {
+                    commonGenerationConfig.deepSeekThinkingMode = contextDeepSeekThinkingMode;
+                    commonGenerationConfig.deepSeekReasoningEffort = contextDeepSeekReasoningEffort;
                 } else if (selectedApiProvider === 'llmaggregator') {
                     if (contextLlmAggregatorTopK !== null) commonGenerationConfig.topK = contextLlmAggregatorTopK;
                 }
@@ -17358,6 +17383,9 @@ newSettings.deepSeekModelName = elements.deepSeekModelNameSelect.value;
                 newSettings.deepSeekTopP = getParamValue('deepseek-top-p', false, 0, 1);
                 newSettings.deepSeekPresencePenalty = getParamValue('deepseek-presence-penalty', false, -2.0, 2.0);
                 newSettings.deepSeekFrequencyPenalty = getParamValue('deepseek-frequency-penalty', false, -2.0, 2.0);
+                const level = elements.deepSeekThinkingLevelSelect.value;
+                newSettings.deepSeekThinkingMode = level === 'off' ? 'disabled' : 'enabled';
+                newSettings.deepSeekReasoningEffort = level === 'off' ? 'high' : level;
                 newSettings.deepSeekIncludeDeepSeekThoughts = elements.deepSeekIncludeThoughtsToggle.checked;
                 newSettings.deepSeekExpandThoughtsByDefault = elements.deepSeekExpandThoughtsByDefaultToggle.checked;
                 newSettings.deepSeekStreamingOutput = elements.deepSeekStreamingOutputCheckbox.checked;
@@ -19883,20 +19911,34 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
 
                 const endpoint = `${baseUrl.replace(/\/$/, '')}/chat/completions`;
 
+                const supportsDeepSeekVision = provider === 'deepseek' &&
+                    ['deepseek-flash', 'deepseek-v4-flash', 'deepseek-v4-flash-vision-exp'].includes(model);
                 const dsMessages = [];
-                if (systemInstruction && systemInstruction.content) {
-                    dsMessages.push({ role: "system", content: systemInstruction.content });
-                }
+                const systemText = systemInstruction?.content ||
+                    (Array.isArray(systemInstruction?.parts) ? systemInstruction.parts.map(p => p.text).filter(Boolean).join('\n').trim() : '');
+                if (systemText) dsMessages.push({ role: 'system', content: systemText });
 
                 messagesForApi.forEach(msg => {
-                    const contentParts = msg.parts.filter(p => p.text).map(p => p.text.trim());
-                    const fullContent = contentParts.join('\n').trim();
-
-                    if (fullContent) {
-                        dsMessages.push({
-                            role: msg.role === 'model' ? 'assistant' : msg.role,
-                            content: fullContent
-                        });
+                    const textParts = [];
+                    const contentParts = [];
+                    (msg.parts || []).forEach(part => {
+                        if (part.text && part.text.trim()) {
+                            textParts.push(part.text.trim());
+                            contentParts.push({ type: 'text', text: part.text });
+                        } else if (provider === 'deepseek' && part.inlineData?.data) {
+                            const mime = part.inlineData.mimeType?.toLowerCase();
+                            if (!supportsDeepSeekVision || msg.role !== 'user' ||
+                                !['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(mime)) {
+                                throw new Error('このDeepSeekモデルは添付画像・ファイルに対応していません。画像はdeepseek-flashでJPEG/PNG/GIF/WebPを指定してください。');
+                            }
+                            contentParts.push({ type: 'image_url', image_url: { url: `data:${mime};base64,${part.inlineData.data}` } });
+                        }
+                    });
+                    const fullContent = textParts.join('\n').trim();
+                    if (supportsDeepSeekVision && contentParts.some(p => p.type === 'image_url')) {
+                        dsMessages.push({ role: msg.role === 'model' ? 'assistant' : msg.role, content: contentParts });
+                    } else if (fullContent) {
+                        dsMessages.push({ role: msg.role === 'model' ? 'assistant' : msg.role, content: fullContent });
                     }
                 });
 
@@ -19910,6 +19952,21 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                     ...(generationConfig.presencePenalty !== undefined && { presence_penalty: generationConfig.presencePenalty }),
                     ...(generationConfig.frequencyPenalty !== undefined && { frequency_penalty: generationConfig.frequencyPenalty }),
                 };
+
+                if (provider === 'deepseek') {
+                    const mode = generationConfig.deepSeekThinkingMode;
+                    const effort = generationConfig.deepSeekReasoningEffort;
+                    if (mode === 'enabled' || mode === 'disabled') dsRequestBody.thinking = { type: mode };
+                    if (mode !== 'disabled' && ['low', 'high', 'max'].includes(effort)) dsRequestBody.reasoning_effort = effort;
+                    const v4Model = ['deepseek-flash', 'deepseek-v4-flash',
+                        'deepseek-v4-flash-vision-exp', 'deepseek-v4-pro'].includes(model);
+                    // V4 defaults to thinking ON; old/custom model defaults preserve sampling.
+                    if (mode === 'enabled' || (mode !== 'disabled' && v4Model)) {
+                        delete dsRequestBody.temperature;
+                        delete dsRequestBody.presence_penalty;
+                        delete dsRequestBody.frequency_penalty;
+                    }
+                }
 
                 if (provider === 'llmaggregator' && generationConfig.topK !== null) {
                     if (generationConfig.topK !== null) {
@@ -20004,7 +20061,8 @@ async callDeepSeekApi(apiKey, model, messagesForApi, generationConfig, systemIns
                                         if (delta.reasoning_content) {
                                             reasoningTextChunk = delta.reasoning_content;
                                             accumulatedFullReasoningContent += reasoningTextChunk;
-                                        } else if (delta.content) {
+                                        }
+                                        if (delta.content) {
                                             contentTextChunk = delta.content;
                                         }
                                     }
