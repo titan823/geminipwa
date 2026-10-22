@@ -5636,6 +5636,16 @@ font-size: 1.142em !important;
                                         <option value="high">High</option>
                                     </select>
                                 </div>
+                                <div id="gemini-thinking-level-argon-row" hidden>
+                                    <label for="gemini-thinking-level-argon">Thinking Level (Gemini 4 Argon):</label>
+                                    <select id="gemini-thinking-level-argon" aria-label="Gemini 4 Argon Thinking Level">
+                                        <option value="">モデル既定 (medium)</option>
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                    <p style="font-size: 11px; color: var(--text-secondary);">※ Argonは思考OFF・Minimal・Thinking Budgetに非対応です。</p>
+                                </div>
                                 <div id="gemini-thinking-budget-legacy" class="param-grid">
                                     <div class="param-slider-container">
                                         <label for="gemini-thinking-budget">Thinking Budget:</label>
@@ -8122,6 +8132,8 @@ deepSeekModelNameSelect: document.getElementById('deepseek-model-name'),
             geminiThinkingBudgetInput: document.getElementById('gemini-thinking-budget'),
             geminiThinkingLevel38Row: document.getElementById('gemini-thinking-level-38-row'),
             geminiThinkingLevel38Select: document.getElementById('gemini-thinking-level-38'),
+            geminiThinkingLevelArgonRow: document.getElementById('gemini-thinking-level-argon-row'),
+            geminiThinkingLevelArgonSelect: document.getElementById('gemini-thinking-level-argon'),
             geminiThinkingBudgetLegacy: document.getElementById('gemini-thinking-budget-legacy'),
             geminiThinkingBudgetLegacyNote: document.getElementById('gemini-thinking-budget-legacy-note'),
             geminiIncludeThoughtsToggle: document.getElementById('gemini-include-thoughts-toggle'),
@@ -8530,6 +8542,7 @@ elevationHoverOption: document.getElementById('elevation-hover-option'),
                 geminiFrequencyPenalty: null,
                 geminiThinkingBudget: null,
                 geminiThinkingLevel38: '',
+                geminiThinkingLevelArgon: '',
 geminiMaxTokensSliderMax: null,
 geminiTopKSliderMax: null,
 geminiThinkingBudgetSliderMax: null,
@@ -11272,9 +11285,11 @@ document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mo
                 elements.geminiArgonFlexToggle.checked = state.settings.geminiArgonFlex === true;
                 elements.geminiArgonFlexRow.hidden = elements.geminiModelNameSelect.value !== 'gemini-4-argon';
                 elements.geminiThinkingLevel38Row.hidden = elements.geminiModelNameSelect.value !== 'gemini-3.8-flash';
-                elements.geminiThinkingBudgetLegacy.hidden = !elements.geminiThinkingLevel38Row.hidden;
-                elements.geminiThinkingBudgetLegacy.style.display = elements.geminiThinkingLevel38Row.hidden ? '' : 'none';
-                elements.geminiThinkingBudgetLegacyNote.hidden = !elements.geminiThinkingLevel38Row.hidden;
+                elements.geminiThinkingLevelArgonRow.hidden = elements.geminiModelNameSelect.value !== 'gemini-4-argon';
+                const usesThinkingLevel = !elements.geminiThinkingLevel38Row.hidden || !elements.geminiThinkingLevelArgonRow.hidden;
+                elements.geminiThinkingBudgetLegacy.hidden = usesThinkingLevel;
+                elements.geminiThinkingBudgetLegacy.style.display = usesThinkingLevel ? 'none' : '';
+                elements.geminiThinkingBudgetLegacyNote.hidden = usesThinkingLevel;
                 elements.geminiAdditionalModelsTextarea.value = state.settings.additionalModels || '';
 elements.deepSeekApiKeyInput.value = state.settings.deepSeekApiKey || '';
 elements.deepSeekApiEndpointInput.value = state.settings.deepSeekApiEndpoint || '';
@@ -11361,6 +11376,9 @@ elements.deepSeekModelNameSelect.value = state.settings.deepSeekModelName || DEF
                 elements.geminiThinkingLevel38Select.value =
                     ['','low','medium','high'].includes(state.settings.geminiThinkingLevel38)
                         ? state.settings.geminiThinkingLevel38 : '';
+                elements.geminiThinkingLevelArgonSelect.value =
+                    ['','low','medium','high'].includes(state.settings.geminiThinkingLevelArgon)
+                        ? state.settings.geminiThinkingLevelArgon : '';
                 elements.geminiIncludeThoughtsToggle.checked = state.settings.geminiIncludeThoughts;
                 elements.geminiExpandThoughtsByDefaultToggle.checked = state.settings.geminiExpandThoughtsByDefault;
                 elements.geminiStreamingOutputCheckbox.checked = state.settings.geminiStreamingOutput;
@@ -13387,9 +13405,11 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                 elements.geminiModelNameSelect.addEventListener('change', () => {
                     elements.geminiArgonFlexRow.hidden = elements.geminiModelNameSelect.value !== 'gemini-4-argon';
                     elements.geminiThinkingLevel38Row.hidden = elements.geminiModelNameSelect.value !== 'gemini-3.8-flash';
-                    elements.geminiThinkingBudgetLegacy.hidden = !elements.geminiThinkingLevel38Row.hidden;
-                    elements.geminiThinkingBudgetLegacy.style.display = elements.geminiThinkingLevel38Row.hidden ? '' : 'none';
-                    elements.geminiThinkingBudgetLegacyNote.hidden = !elements.geminiThinkingLevel38Row.hidden;
+                    elements.geminiThinkingLevelArgonRow.hidden = elements.geminiModelNameSelect.value !== 'gemini-4-argon';
+                    const usesThinkingLevel = !elements.geminiThinkingLevel38Row.hidden || !elements.geminiThinkingLevelArgonRow.hidden;
+                    elements.geminiThinkingBudgetLegacy.hidden = usesThinkingLevel;
+                    elements.geminiThinkingBudgetLegacy.style.display = usesThinkingLevel ? 'none' : '';
+                    elements.geminiThinkingBudgetLegacyNote.hidden = usesThinkingLevel;
                 });
                 elements.updateAppBtn.addEventListener('click', () => this.updateApp());
                 elements.clearDataBtn.addEventListener('click', () => this.confirmClearAllData());
@@ -15620,7 +15640,7 @@ helpIcons.forEach(icon => {
                     contextDummyUser, contextEnableDummyUser,
                     contextDummyModel, contextEnableDummyModel, contextConcatDummyModel;
 
-                let contextGeminiTopK, contextGeminiThinkingBudget, contextGeminiThinkingLevel38, contextGeminiIncludeThoughts,
+                let contextGeminiTopK, contextGeminiThinkingBudget, contextGeminiThinkingLevel38, contextGeminiThinkingLevelArgon, contextGeminiIncludeThoughts,
                     contextGeminiPseudoStreaming, contextGeminiEnableGrounding;
 
                 let contextDeepSeekIncludeThoughts;
@@ -15642,6 +15662,7 @@ helpIcons.forEach(icon => {
                         contextFrequencyPenalty = sourceSessionContext.frequencyPenalty ?? state.settings.geminiFrequencyPenalty;
                         contextGeminiThinkingBudget = sourceSessionContext.thinkingBudget ?? state.settings.geminiThinkingBudget;
                         contextGeminiThinkingLevel38 = sourceSessionContext.thinkingLevel38 ?? state.settings.geminiThinkingLevel38;
+                        contextGeminiThinkingLevelArgon = sourceSessionContext.thinkingLevelArgon ?? state.settings.geminiThinkingLevelArgon;
 
                         contextGeminiIncludeThoughts = sourceSessionContext.includeThoughts ?? state.settings.geminiIncludeThoughts;
                         contextStreamingOutput = sourceSessionContext.streamingOutput ?? state.settings.geminiStreamingOutput;
@@ -15735,6 +15756,7 @@ helpIcons.forEach(icon => {
                         contextFrequencyPenalty = state.settings.geminiFrequencyPenalty;
                         contextGeminiThinkingBudget = state.settings.geminiThinkingBudget;
                         contextGeminiThinkingLevel38 = state.settings.geminiThinkingLevel38;
+                        contextGeminiThinkingLevelArgon = state.settings.geminiThinkingLevelArgon;
                         contextGeminiIncludeThoughts = state.settings.geminiIncludeThoughts;
                         contextStreamingOutput = state.settings.geminiStreamingOutput;
                         contextStreamingSpeed = state.settings.geminiStreamingSpeed;
@@ -16078,10 +16100,15 @@ helpIcons.forEach(icon => {
                 const dummyUserTextToUse = contextEnableDummyUser && contextDummyUser?.trim() ? contextDummyUser.trim() : null;
                 const dummyModelTextToUse = contextEnableDummyModel && contextDummyModel?.trim() ? contextDummyModel.trim() : null;
                 const isGemini38FlashRequest = selectedApiProvider === 'gemini' && modelNameToUse === 'gemini-3.8-flash';
+                const isGeminiArgonRequest = selectedApiProvider === 'gemini' && modelNameToUse === 'gemini-4-argon';
+                const usesGeminiThinkingLevel = isGemini38FlashRequest || isGeminiArgonRequest;
+                const requestedGeminiThinkingLevel = isGemini38FlashRequest
+                    ? contextGeminiThinkingLevel38
+                    : isGeminiArgonRequest ? contextGeminiThinkingLevelArgon : '';
 
                 if (dummyUserTextToUse) apiMessages.push({ role: 'user', parts: [{ text: dummyUserTextToUse }] });
-                // 3.8 Flash は末尾 model ターンによる事前入力をサポートしない。設定値は保持する。
-                if (dummyModelTextToUse && !isGemini38FlashRequest) apiMessages.push({ role: 'model', parts: [{ text: dummyModelTextToUse }] });
+                // 3.8 Flash / 4 Argon は末尾 model ターンによる事前入力をサポートしない。設定値は保持する。
+                if (dummyModelTextToUse && !usesGeminiThinkingLevel) apiMessages.push({ role: 'model', parts: [{ text: dummyModelTextToUse }] });
 
                 const commonGenerationConfig = {};
                 if (contextTemperature !== null) commonGenerationConfig.temperature = contextTemperature;
@@ -16092,12 +16119,12 @@ helpIcons.forEach(icon => {
 
                 if (selectedApiProvider === 'gemini') {
                     if (contextGeminiTopK !== null) commonGenerationConfig.topK = contextGeminiTopK;
-                    if ((isGemini38FlashRequest && ['low','medium','high'].includes(contextGeminiThinkingLevel38)) ||
-                        (!isGemini38FlashRequest && contextGeminiThinkingBudget !== null) || contextGeminiIncludeThoughts) {
+                    if ((usesGeminiThinkingLevel && ['low','medium','high'].includes(requestedGeminiThinkingLevel)) ||
+                        (!usesGeminiThinkingLevel && contextGeminiThinkingBudget !== null) || contextGeminiIncludeThoughts) {
                         commonGenerationConfig.thinkingConfig = commonGenerationConfig.thinkingConfig || {};
-                        if (isGemini38FlashRequest && ['low','medium','high'].includes(contextGeminiThinkingLevel38)) {
-                            commonGenerationConfig.thinkingConfig.thinkingLevel = contextGeminiThinkingLevel38.toUpperCase();
-                        } else if (!isGemini38FlashRequest && contextGeminiThinkingBudget !== null && Number.isInteger(contextGeminiThinkingBudget) && contextGeminiThinkingBudget >= 0) {
+                        if (usesGeminiThinkingLevel && ['low','medium','high'].includes(requestedGeminiThinkingLevel)) {
+                            commonGenerationConfig.thinkingConfig.thinkingLevel = requestedGeminiThinkingLevel.toUpperCase();
+                        } else if (!usesGeminiThinkingLevel && contextGeminiThinkingBudget !== null && Number.isInteger(contextGeminiThinkingBudget) && contextGeminiThinkingBudget >= 0) {
                             commonGenerationConfig.thinkingConfig.thinkingBudget = contextGeminiThinkingBudget;
                         }
                         if (contextGeminiIncludeThoughts) {
@@ -16158,7 +16185,7 @@ helpIcons.forEach(icon => {
                         throw new Error("不明なAPIプロバイダーが選択されています。");
                     }
 
-                    const dummyModelPrefix = (contextConcatDummyModel && dummyModelTextToUse && !isGemini38FlashRequest) ? dummyModelTextToUse : '';
+                    const dummyModelPrefix = (contextConcatDummyModel && dummyModelTextToUse && !usesGeminiThinkingLevel) ? dummyModelTextToUse : '';
                     if (!isBackgroundProcess) {
                         state.partialStreamContent = dummyModelPrefix;
                         state.partialThoughtStreamContent = '';
@@ -17233,6 +17260,7 @@ uiUtils.renderChatMessages(shouldMaintainScroll);
                 newSettings.geminiFrequencyPenalty = getParamValue('gemini-frequency-penalty', false, -2.0, 2.0);
                 newSettings.geminiThinkingBudget = getParamValue('gemini-thinking-budget', true, 0);
                 newSettings.geminiThinkingLevel38 = elements.geminiThinkingLevel38Select.value;
+                newSettings.geminiThinkingLevelArgon = elements.geminiThinkingLevelArgonSelect.value;
                 newSettings.geminiMaxTokensSliderMax = getSliderMaxValue('gemini-max-tokens');
                 newSettings.geminiTopKSliderMax = getSliderMaxValue('gemini-top-k');
                 newSettings.geminiThinkingBudgetSliderMax = getSliderMaxValue('gemini-thinking-budget');
@@ -19542,7 +19570,7 @@ initCryscrollerScroll() {
                 const endpoint = `${baseUrl}${model}:${endpointMethod}key=${apiKey}`;
 
                 const finalGenerationConfig = { ...generationConfig };
-                if (model !== 'gemini-3.8-flash' &&
+                if (model !== 'gemini-3.8-flash' && model !== 'gemini-4-argon' &&
                     (state.settings.geminiThinkingBudget !== null || state.settings.geminiIncludeThoughts)) {
                     finalGenerationConfig.thinkingConfig = finalGenerationConfig.thinkingConfig || {};
                     if (state.settings.geminiThinkingBudget !== null && Number.isInteger(state.settings.geminiThinkingBudget) && state.settings.geminiThinkingBudget >= 0) {
@@ -19563,7 +19591,7 @@ initCryscrollerScroll() {
                     delete finalGenerationConfig.candidateCount;
                     if (finalGenerationConfig.thinkingConfig) {
                         delete finalGenerationConfig.thinkingConfig.thinkingBudget;
-                        if (model === 'gemini-3.8-flash' &&
+                        if ((model === 'gemini-3.8-flash' || model === 'gemini-4-argon') &&
                             !['LOW','MEDIUM','HIGH'].includes(finalGenerationConfig.thinkingConfig.thinkingLevel)) {
                             delete finalGenerationConfig.thinkingConfig.thinkingLevel;
                         }

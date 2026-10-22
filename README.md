@@ -60,6 +60,7 @@ kinkan04 氏の PWA（<https://github.com/kinkan04/Gemini-PWA-Mk-II>）の校正
 
 ### 各 API への対応状況
 
+- Gemini 4 Argon はThinking Level（Low／Medium／High、既定Medium）に対応しました。3.8 Flashとは個別の設定値として保存し、両モデルで非対応のNONE／MINIMAL／旧Thinking Budgetと末尾ダミーModel事前入力は送信しません。設定値は保持し、Gemini 2.5系のBudget、Argon Flexおよび既存のバージョン表記は維持しています。（2026/10/22）
 - Gemini 3.8 Flash は旧サンプリングパラメータおよび Thinking Budget の送信を行わず、Thinking Level（Low／Medium／High）に対応しました。また、非対応の末尾ダミー Model 事前入力と回答連結を抑止しました。設定値は削除せず保持し、既存モデルの動作を維持しています。（2026/10/22）
 - ⚠️ DeepSeek、Claude（Anthropic API）、Grok（xAI）の API を利用できるようアップデートいたしました。「使用する API プロバイダー」に選択肢として表示されない場合は、「その他設定 → 挙動調整 → API 切替ボタン設定」から選択肢を設定してください。
 - ⚠️ 今後の情勢変化に備え、ChatGPT への対応も試みましたが、現時点では公式サービスのほうが扱いやすい（かなりガードが厳しいという意味で）かと存じます。本件は試験的な実装であり、単にチャットで利用できるようにしただけの簡易的なものです。

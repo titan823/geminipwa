@@ -19,24 +19,26 @@ const messages = new Function(
  "contextDummyUser","contextEnableDummyModel","contextDummyModel",
  "contextTemperature","contextMaxTokens","contextTopP",
  "contextPresencePenalty","contextFrequencyPenalty","contextGeminiTopK",
- "contextGeminiThinkingBudget","contextGeminiThinkingLevel38",
+ "contextGeminiThinkingBudget","contextGeminiThinkingLevel38","contextGeminiThinkingLevelArgon",
  "contextGeminiIncludeThoughts",
  extract("const dummyUserTextToUse =", "let systemInstructionForProvider =") +
  "\nreturn {apiMessages,commonGenerationConfig};"
 );
 function m(model,level,thoughts=false){
  return messages([{role:"user",parts:[{text:"Test"}]}],"gemini",model,
- true,"dummy user",true,"dummy model",0.7,1024,0.9,0,0,40,777,level,thoughts);
+ true,"dummy user",true,"dummy model",0.7,1024,0.9,0,0,40,777,
+ model==="gemini-3.8-flash"?level:"",
+ model==="gemini-4-argon"?level:"",thoughts);
 }
 const req = new Function(
  "model","generationConfig","messagesForApi","systemInstruction",
- "state",extract("const finalGenerationConfig = { ...generationConfig };",
+ "state","serviceTier",extract("const finalGenerationConfig = { ...generationConfig };",
  "const tools = [];",src.indexOf("async callGeminiApi("))+
  "\nreturn requestBody;"
 );
 const state={settings:{geminiThinkingBudget:777,geminiIncludeThoughts:true}};
-function request(model,x) {
- return req(model,x.commonGenerationConfig,x.apiMessages,{parts:[{text:"System"}]},state);
+function request(model,x,serviceTier) {
+ return req(model,x.commonGenerationConfig,x.apiMessages,{parts:[{text:"System"}]},state,serviceTier);
 }
 for(const level of ["low","medium","high"]){
  const input=m("gemini-3.8-flash",level,true);
@@ -53,9 +55,28 @@ for(const level of ["low","medium","high"]){
 const standard=request("gemini-3.8-flash",m("gemini-3.8-flash",""));
 assert.ok(!standard.generationConfig?.thinkingConfig?.thinkingBudget);
 assert.ok(!standard.generationConfig?.thinkingConfig?.thinkingLevel);
+for(const level of ["low","medium","high"]){
+ const input=m("gemini-4-argon",level,true);
+ assert.deepEqual(input.apiMessages.map(x=>x.role),["user","user"]);
+ const body=request("gemini-4-argon",input,"flex");
+ assert.equal(body.service_tier,"flex");
+ assert.deepEqual(body.generationConfig.thinkingConfig,
+  {thinkingLevel:level.toUpperCase(),includeThoughts:true});
+ for(const key of ["temperature","topP","topK","presencePenalty",
+  "frequencyPenalty","candidateCount"]) {
+  assert.ok(!(key in body.generationConfig),key);
+ }
+ assert.equal(body.safetySettings.length,4);
+}
+const argonDefault=request("gemini-4-argon",m("gemini-4-argon",""));
+assert.ok(!argonDefault.generationConfig?.thinkingConfig?.thinkingBudget);
+assert.ok(!argonDefault.generationConfig?.thinkingConfig?.thinkingLevel);
+assert.ok(!("service_tier" in argonDefault));
 const legacy=m("gemini-2.5-pro","low");
 assert.deepEqual(legacy.apiMessages.map(x=>x.role),["user","user","model"]);
 assert.equal(request("gemini-2.5-pro",legacy).generationConfig.thinkingConfig.thinkingBudget,777);
 assert.equal((src.match(/id="gemini-thinking-level-38"/g)||[]).length,1);
-assert.match(src,/contextConcatDummyModel && dummyModelTextToUse && !isGemini38FlashRequest/);
-console.log("PASS Gemini 3.8, 2.5 legacy and inline JavaScript");
+assert.equal((src.match(/id="gemini-thinking-level-argon"/g)||[]).length,1);
+assert.ok(!/id="gemini-thinking-level-argon"[\s\S]{0,250}value="(?:none|minimal)"/i.test(src));
+assert.match(src,/contextConcatDummyModel && dummyModelTextToUse && !usesGeminiThinkingLevel/);
+console.log("PASS Gemini 3.8 / Argon thinking levels, Flex, 2.5 legacy and inline JavaScript");
