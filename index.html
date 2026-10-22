@@ -4892,6 +4892,16 @@ font-size: 1.142em !important;
                 sessionStorage.removeItem(RECOVERY_ATTEMPT_KEY);
             };
 
+            // A schema upgrade waiting for another tab is not a corrupt database.
+            // Do not let the recovery watchdog clear caches or offer to erase data.
+            window.initializationBlocked = function () {
+                clearTimeout(watchdogTimer);
+                console.warn('GeminiPWA: IndexedDB upgrade is waiting for another tab to close.');
+            };
+            window.initializationFailure = function () {
+                clearTimeout(watchdogTimer);
+            };
+
             async function handleInitializationFailure() {
                 recoveryAttempt++;
                 sessionStorage.setItem(RECOVERY_ATTEMPT_KEY, recoveryAttempt);
@@ -8967,48 +8977,107 @@ const dbUtils = {
                 if (this._initPromise) return this._initPromise;
 
                 this._initPromise = new Promise((resolve, reject) => {
-                    const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-                    request.onerror = (event) => {
+                    const fail = (error) => {
                         this._initPromise = null;
-                        reject(`IndexedDBエラー: ${event.target.error}`);
+                        reject(new Error(`IndexedDBエラー: ${error}`));
                     };
-
-                    request.onsuccess = (event) => {
-                        state.db = event.target.result;
-                        state.db.onclose = () => {
-                            state.db = null;
+                    const attach = (db) => {
+                        state.db = db;
+                        db.onclose = () => {
+                            if (state.db === db) state.db = null;
                         };
-                        state.db.onversionchange = () => {
-                            if (state.db) { state.db.close(); state.db = null; }
-                            uiUtils.showCustomAlert("アプリの新しいバージョンが利用可能です。データを保護するため、ページをリロードしてください。")
-                                .then(() => window.location.reload());
+                        db.onversionchange = () => {
+                            // Release the connection for the other tab. A new request
+                            // can reopen the compatible schema without a page reload.
+                            db.close();
+                            if (state.db === db) state.db = null;
                         };
-                        state.db.onerror = (event) => {
+                        db.onerror = (event) => {
                             console.error(`IndexedDBの予期せぬエラー: ${event.target.error}`);
                         };
                         this._initPromise = null;
-                        resolve(state.db);
+                        resolve(db);
                     };
-
-                    request.onupgradeneeded = (event) => {
-                        const db = event.target.result;
-                        if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
-                            db.createObjectStore(SETTINGS_STORE, { keyPath: 'key' });
-                        }
-                        let chatStore;
-                        if (!db.objectStoreNames.contains(CHATS_STORE)) {
-                            chatStore = db.createObjectStore(CHATS_STORE, { keyPath: 'id', autoIncrement: true });
-                        } else {
-                            chatStore = event.target.transaction.objectStore(CHATS_STORE);
-                        }
-                        if (chatStore && !chatStore.indexNames.contains(CHAT_UPDATEDAT_INDEX)) {
-                            chatStore.createIndex(CHAT_UPDATEDAT_INDEX, 'updatedAt', { unique: false });
-                        }
-                        if (chatStore && !chatStore.indexNames.contains(CHAT_CREATEDAT_INDEX)) {
-                            chatStore.createIndex(CHAT_CREATEDAT_INDEX, 'createdAt', { unique: false });
+                    const isCompatible = (db) => {
+                        if (!db.objectStoreNames.contains(SETTINGS_STORE) ||
+                            !db.objectStoreNames.contains(CHATS_STORE)) return false;
+                        try {
+                            const transaction = db.transaction([CHATS_STORE], 'readonly');
+                            const indexes = transaction.objectStore(CHATS_STORE).indexNames;
+                            return indexes.contains(CHAT_UPDATEDAT_INDEX) &&
+                                   indexes.contains(CHAT_CREATEDAT_INDEX);
+                        } catch (error) {
+                            return false;
                         }
                     };
+                    const openExisting = () => {
+                        // Versionless open accepts DBs made by newer or older code.
+                        // Never downgrade, reset, or bump an already-newer DB.
+                        let request;
+                        try { request = indexedDB.open(DB_NAME); }
+                        catch (error) { fail(error); return; }
+                        request.onerror = () => fail(request.error);
+                        request.onsuccess = (event) => {
+                            const db = event.target.result;
+                            if (isCompatible(db)) {
+                                attach(db);
+                            } else if (db.version < DB_VERSION) {
+                                db.close();
+                                upgradeOldSchema();
+                            } else {
+                                const version = db.version;
+                                db.close();
+                                fail(`DB version ${version} does not have the required stores/indexes. Data was preserved; no version change was attempted.`);
+                            }
+                        };
+                    };
+                    const upgradeOldSchema = () => {
+                        // Keep the existing v8 migration for genuinely older DBs;
+                        // do not modify DB_VERSION or migrate newer schemas.
+                        let request;
+                        try { request = indexedDB.open(DB_NAME, DB_VERSION); }
+                        catch (error) { fail(error); return; }
+                        request.onblocked = () => {
+                            if (typeof window.initializationBlocked === 'function') {
+                                window.initializationBlocked();
+                            }
+                        };
+                        request.onerror = () => {
+                            if (request.error && request.error.name === 'VersionError') {
+                                // Another tab may have upgraded between probe and open.
+                                openExisting();
+                            } else {
+                                fail(request.error);
+                            }
+                        };
+                        request.onupgradeneeded = (event) => {
+                            const db = event.target.result;
+                            if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
+                                db.createObjectStore(SETTINGS_STORE, { keyPath: 'key' });
+                            }
+                            let chatStore;
+                            if (!db.objectStoreNames.contains(CHATS_STORE)) {
+                                chatStore = db.createObjectStore(CHATS_STORE, { keyPath: 'id', autoIncrement: true });
+                            } else {
+                                chatStore = event.target.transaction.objectStore(CHATS_STORE);
+                            }
+                            if (!chatStore.indexNames.contains(CHAT_UPDATEDAT_INDEX)) {
+                                chatStore.createIndex(CHAT_UPDATEDAT_INDEX, 'updatedAt', { unique: false });
+                            }
+                            if (!chatStore.indexNames.contains(CHAT_CREATEDAT_INDEX)) {
+                                chatStore.createIndex(CHAT_CREATEDAT_INDEX, 'createdAt', { unique: false });
+                            }
+                        };
+                        request.onsuccess = (event) => {
+                            const db = event.target.result;
+                            if (isCompatible(db)) attach(db);
+                            else {
+                                db.close();
+                                fail('The required schema is unavailable. Data was preserved.');
+                            }
+                        };
+                    };
+                    openExisting();
                 });
                 return this._initPromise;
             },
@@ -13246,6 +13315,9 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
                         window.initializationSuccess();
                     }
                 } catch (error) {
+                    if (typeof window.initializationFailure === 'function') {
+                        window.initializationFailure();
+                    }
                     const userChoice = await uiUtils.showInitializationFailureDialog(`アプリの初期化に失敗しました: ${error.message}`);
                     if (userChoice === 'export') {
                         await this.safeExportAllSessions();
