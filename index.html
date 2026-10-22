@@ -2727,6 +2727,37 @@ body.turf-mode {
             margin-bottom: 0;
             cursor: pointer;
         }
+        .gemini-tier-switch-container { padding: 8px 15px; }
+        .gemini-tier-switch-row { display: flex; align-items: center; gap: 12px; min-height: 40px; cursor: pointer; }
+        .gemini-tier-switch-row span { flex: 1 1 auto; }
+        .gemini-tier-switch-row input[type="checkbox"] {
+            position: relative;
+            flex: 0 0 auto;
+            width: 42px;
+            height: 25px;
+            margin-left: auto;
+            border: 0;
+            border-radius: 999px;
+            background-color: var(--border-secondary);
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            transition: background-color .18s ease;
+        }
+        .gemini-tier-switch-row input[type="checkbox"]::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+            transition: transform .18s ease;
+        }
+        .gemini-tier-switch-row input[type="checkbox"]:checked { background-color: var(--bg-button); }
+        .gemini-tier-switch-row input[type="checkbox"]:checked::after { transform: translateX(17px); }
 
         .param-grid {
     display: grid;
@@ -5626,6 +5657,12 @@ font-size: 1.142em !important;
                         <details id="settings-group-gemini-other-params" style="margin-top: 15px;">
                             <summary style="cursor: pointer; font-weight: normal; font-size: 14px; color: var(--text-link); margin-bottom: 10px; list-style: revert;">
                                 その他パラメータ (Gemini)</summary>
+                            <div id="gemini-argon-flex-row" class="gemini-tier-switch-container" hidden>
+                                <label class="checkbox-label gemini-tier-switch-row" for="gemini-argon-flex-toggle">
+                                    <span>Gemini 4 Argon — Flex</span>
+                                    <input type="checkbox" id="gemini-argon-flex-toggle" aria-label="Gemini 4 Argon Flex 推論">
+                                </label>
+                            </div>
                             <div class="param-grid" style="padding-left: 15px;">
                                 <div class="param-slider-container">
                                     <label for="gemini-max-tokens">Max Tokens:</label>
@@ -8005,6 +8042,8 @@ const DEFAULT_CRYSCROLLER_SCROLL_WIDTH = 35;
             geminiSettingsGroup: document.getElementById('gemini-settings-group'),
             geminiApiKeyInput: document.getElementById('gemini-api-key'),
             geminiModelNameSelect: document.getElementById('gemini-model-name'),
+            geminiArgonFlexRow: document.getElementById('gemini-argon-flex-row'),
+            geminiArgonFlexToggle: document.getElementById('gemini-argon-flex-toggle'),
             geminiUserDefinedModelsGroup: document.getElementById('gemini-user-defined-models-group'),
             geminiAdditionalModelsTextarea: document.getElementById('gemini-additional-models'),
             deepSeekSettingsGroup: document.getElementById('deepseek-settings-group'),
@@ -8451,6 +8490,7 @@ elevationHoverOption: document.getElementById('elevation-hover-option'),
             settings: {
                 apiKey: '',
                 modelName: DEFAULT_MODEL,
+                geminiArgonFlex: false,
                 additionalModels: '',
                 commonSystemPrompt: '',
                 enableCommonSystemPromptDefault: false,
@@ -11202,6 +11242,8 @@ document.body.classList.remove('dark-mode', 'light-mode-forced', 'pastel-pink-mo
 
                 elements.geminiApiKeyInput.value = state.settings.apiKey || '';
                 elements.geminiModelNameSelect.value = state.settings.modelName || DEFAULT_MODEL;
+                elements.geminiArgonFlexToggle.checked = state.settings.geminiArgonFlex === true;
+                elements.geminiArgonFlexRow.hidden = elements.geminiModelNameSelect.value !== 'gemini-4-argon';
                 elements.geminiAdditionalModelsTextarea.value = state.settings.additionalModels || '';
 elements.deepSeekApiKeyInput.value = state.settings.deepSeekApiKey || '';
 elements.deepSeekApiEndpointInput.value = state.settings.deepSeekApiEndpoint || '';
@@ -13307,6 +13349,9 @@ _setupParamSlider(paramId, defaultValue, storageKey) {
 
                 elements.saveSettingsBtns.forEach(button => {
                     button.addEventListener('click', () => this.saveSettings(true));
+                });
+                elements.geminiModelNameSelect.addEventListener('change', () => {
+                    elements.geminiArgonFlexRow.hidden = elements.geminiModelNameSelect.value !== 'gemini-4-argon';
                 });
                 elements.updateAppBtn.addEventListener('click', () => this.updateApp());
                 elements.clearDataBtn.addEventListener('click', () => this.confirmClearAllData());
@@ -16045,7 +16090,7 @@ helpIcons.forEach(icon => {
                 try {
                     let apiResponseObject;
                     if (selectedApiProvider === 'gemini') {
-                        apiResponseObject = await apiUtils.callGeminiApi(apiKeyToUse, modelNameToUse, apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall, usePseudoForThisCall, contextGeminiEnableGrounding);
+                        apiResponseObject = await apiUtils.callGeminiApi(apiKeyToUse, modelNameToUse, apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall, usePseudoForThisCall, contextGeminiEnableGrounding, modelNameToUse === 'gemini-4-argon' && state.settings.geminiArgonFlex === true ? 'flex' : undefined);
                     } else if (selectedApiProvider === 'deepseek' || selectedApiProvider === 'llmaggregator') {
                         apiResponseObject = await apiUtils.callDeepSeekApi(apiKeyToUse, modelNameToUse, apiMessages, commonGenerationConfig, systemInstructionForProvider, useStreamingForThisCall, selectedApiProvider);
                     } else if (selectedApiProvider === 'claude') {
@@ -17124,6 +17169,7 @@ uiUtils.renderChatMessages(shouldMaintainScroll);
                 newSettings.enableCommonSystemPromptDefault = elements.enableCommonSystemPromptDefaultCheckbox.checked;
 
                 newSettings.modelName = elements.geminiModelNameSelect.value;
+                newSettings.geminiArgonFlex = elements.geminiArgonFlexToggle.checked;
                 newSettings.additionalModels = elements.geminiAdditionalModelsTextarea.value.trim();
                 newSettings.geminiSystemPrompt = elements.geminiSystemPromptDefaultTextarea.value.trim();
                 newSettings.geminiEnableSystemPromptDefault = elements.geminiEnableSystemPromptDefaultCheckbox.checked;
@@ -19427,7 +19473,7 @@ initCryscrollerScroll() {
             }
         };
         const apiUtils = {
-            async callGeminiApi(apiKey, model, messagesForApi, generationConfig, systemInstruction, useStreaming, usePseudo, enableGrounding) {
+            async callGeminiApi(apiKey, model, messagesForApi, generationConfig, systemInstruction, useStreaming, usePseudo, enableGrounding, serviceTier) {
                 if (!apiKey) {
                     throw new Error("APIキーが設定されていません。");
                 }
@@ -19454,8 +19500,21 @@ initCryscrollerScroll() {
                     if (Object.keys(finalGenerationConfig.thinkingConfig).length === 0) delete finalGenerationConfig.thinkingConfig;
                 }
 
+                if (model === 'gemini-4-argon') {
+                    delete finalGenerationConfig.temperature;
+                    delete finalGenerationConfig.topP;
+                    delete finalGenerationConfig.topK;
+                    delete finalGenerationConfig.presencePenalty;
+                    delete finalGenerationConfig.frequencyPenalty;
+                    if (finalGenerationConfig.thinkingConfig) {
+                        delete finalGenerationConfig.thinkingConfig.thinkingBudget;
+                        if (Object.keys(finalGenerationConfig.thinkingConfig).length === 0) delete finalGenerationConfig.thinkingConfig;
+                    }
+                }
+
                 const requestBody = {
                     contents: messagesForApi,
+                    ...(model === 'gemini-4-argon' && serviceTier === 'flex' ? { service_tier: 'flex' } : {}),
                     ...(Object.keys(finalGenerationConfig).length > 0 && { generationConfig: finalGenerationConfig }),
                     ...(systemInstruction && systemInstruction.parts && systemInstruction.parts.length > 0 && systemInstruction.parts[0].text && { systemInstruction }),
                     safetySettings: [
@@ -19477,7 +19536,10 @@ initCryscrollerScroll() {
                 try {
                     const response = await fetch(endpoint, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...(requestBody.service_tier === 'flex' ? { 'X-Server-Timeout': '900' } : {})
+                        },
                         body: JSON.stringify(requestBody),
                         signal
                     });
